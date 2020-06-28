@@ -1,5 +1,6 @@
 import React from "react";
 import { MediaContext } from "../../App.js";
+import { FieldHeader } from "./FieldHeader.jsx";
 import { FilmListItem } from "./FilmListItem";
 import "./filmsList.css";
 import { SearchForm } from "./SearchForm.jsx";
@@ -7,7 +8,6 @@ import { SearchForm } from "./SearchForm.jsx";
 export function FilmsList() {
   document.title = "MediaSheet - Films";
   const context = React.useContext(MediaContext);
-  // console.log("context", context);
 
   const [sortBy, setSortBy] = React.useState("sortTitle");
   const [sortReverse, setSortReverse] = React.useState(false);
@@ -42,13 +42,7 @@ export function FilmsList() {
     }
   };
 
-  const handleSearch = (value) => {
-    setSearchField(value);
-  };
-
-  if (!sortedFilms) return null;
-
-  let films = (() => {
+  const filterFilms = (sortedFilms, searchField) => {
     if (searchField.toLowerCase().startsWith("g:")) {
       return sortedFilms.filter(
         (film) =>
@@ -71,33 +65,60 @@ export function FilmsList() {
           ) !== -1
       );
     }
-  })();
+  };
 
-  if (!films) return null;
+  if (!sortedFilms) return null;
+
+  const films = (() => {
+    if (searchField.length > 2) {
+      return filterFilms(sortedFilms, searchField);
+    } else {
+      return sortedFilms;
+    }
+  })();
 
   return (
     <>
-      <SearchForm onChange={handleSearch} />
+      <SearchForm onChange={setSearchField} />
       <div className="fieldHeaders">
-        <span className="filmTitle" onClick={() => handleSort("sortTitle")}>
-          Title
-        </span>
-        <span className="filmYear" onClick={() => handleSort("year")}>
-          Year
-        </span>
-        <span className="filmDirector" onClick={() => handleSort("director")}>
-          Director
-        </span>
-        <span className="filmGenre">Genre</span>
-        <span className="filmYear" onClick={() => handleSort("franchise")}>
-          Franchise
-        </span>
+        <FieldHeader
+          field="sortTitle"
+          label="Title"
+          onclick={handleSort}
+          sort={{ sortBy, sortReverse }}
+        />
+        <FieldHeader
+          field="year"
+          label="Year"
+          onclick={handleSort}
+          sort={{ sortBy, sortReverse }}
+        />
+        <FieldHeader
+          field="director"
+          label="Director"
+          onclick={handleSort}
+          sort={{ sortBy, sortReverse }}
+        />
+        <FieldHeader
+          field="genre"
+          label="Genre"
+          onclick={handleSort}
+          sort={{ sortBy, sortReverse }}
+        />
+        <FieldHeader
+          field="franchise"
+          label="Franchise"
+          onclick={handleSort}
+          sort={{ sortBy, sortReverse }}
+        />
       </div>
-      {films
-        .filter((e) => e.id > 0 && e.id < 100)
-        .map((film) => (
-          <FilmListItem key={film.id} film={film} />
-        ))}
+      <div>
+        {films
+          // .filter((e) => e.id > 0 && e.id < 200)
+          .map((film) => (
+            <FilmListItem key={film.id} film={film} />
+          ))}
+      </div>
     </>
   );
 }

@@ -3,12 +3,12 @@ import { useParams } from "react-router-dom";
 import { MediaContext } from "../../App";
 
 export function FilmDetails() {
-  //   const film = props.film;
   const films = useContext(MediaContext).films;
   const { filmId } = useParams();
-  console.log(Number(filmId), films);
+
   const film = films.find((e) => e.id === Number(filmId));
   document.title = `MediaSheet - Film - ${film.title}`;
+
   return (
     <>
       <div>

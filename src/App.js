@@ -1,6 +1,5 @@
 import React from "react";
 import { BrowserRouter as Router, Link, Route } from "react-router-dom";
-import "./App.css";
 import { films, filmsSorted } from "./classes/Film";
 import { FilmDetails } from "./components/FilmDetails";
 import { FilmsList } from "./components/FilmsList";
@@ -15,7 +14,6 @@ const menu = [
 ];
 
 function App() {
-  // const match = useRouteMatch();
   return (
     <>
       <Router>
@@ -34,7 +32,6 @@ function App() {
           <Route path="/films/:filmId">
             <FilmDetails />
           </Route>
-          {/* <Route path={`$match.path}/:filmId/`}></Route> */}
         </MediaContext.Provider>
       </Router>
     </>

@@ -29,7 +29,7 @@ const filmsSortedTitleAsc = [...films].sort((a, b) => {
   return a.sortTitle.localeCompare(b.sortTitle);
 });
 const filmsSortedTitleDesc = [...filmsSortedTitleAsc].reverse();
-const filmsSortedYearAsc = [...films].sort((a, b) => a.year < b.year);
+const filmsSortedYearAsc = [...films].sort((a, b) => a.year - b.year);
 const filmsSortedYearDesc = [...filmsSortedYearAsc].reverse();
 const filmsSortedDirectorAsc = [...films].sort((a, b) => {
   a = a.director[0].split(" ").pop();
