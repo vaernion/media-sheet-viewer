@@ -1,0 +1,54 @@
+.fieldHeaders {
+  display: flex;
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
+.fieldHeaders span {
+  width: 15%;
+  font-weight: bold;
+  border-radius: 1em;
+  border: 0.1em solid #ccc;
+  text-align: center;
+}
+.fieldHeaders span:hover {
+  background-color: lightskyblue;
+}
+.fieldHeaders .filmGenre:hover {
+  background-color: inherit;
+}
+.fieldHeaders .filmTitle {
+  width: 25%;
+}
+.fieldHeaders .filmYear {
+  width: 5%;
+}
+.fieldHeaders .filmDirector {
+  width: 15%;
+}
+.fieldHeaders .filmGenre {
+  width: 30%;
+}
+.fieldHeaders .filmFranchise {
+  width: 10%;
+}
+.filmListItem {
+  display: flex;
+}
+.filmListItem span {
+  width: 15%;
+}
+.filmListItem .filmTitle {
+  width: 25%;
+}
+.filmListItem .filmYear {
+  width: 5%;
+}
+.filmListItem .filmDirector {
+  width: 15%;
+}
+.filmListItem .filmGenre {
+  width: 30%;
+}
+.filmListItem .filmFranchise {
+  width: 10%;
+}
