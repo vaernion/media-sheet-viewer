@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter as Router, Link, Route } from "react-router-dom";
+import { BrowserRouter as Router, Link, Route, Switch } from "react-router-dom";
 import "./app.css";
 import { films, filmsSorted } from "./classes/Film";
 import { FilmDetails } from "./components/FilmDetails";
@@ -25,18 +25,20 @@ function App() {
           </Link>
         ))}
         <MediaContext.Provider value={mediaContext}>
-          <Route path="/" exact>
-            <FilmsList />
-          </Route>
-          <Route path="/films" exact>
-            <FilmsList />
-          </Route>
-          <Route path="/films/:filmId">
-            <FilmDetails />
-          </Route>
-          <Route path="*">
-            <NotFound />
-          </Route>
+          <Switch>
+            <Route path="/" exact>
+              <FilmsList />
+            </Route>
+            <Route path="/films" exact>
+              <FilmsList />
+            </Route>
+            <Route path="/films/:filmId">
+              <FilmDetails />
+            </Route>
+            <Route path="*">
+              <NotFound />
+            </Route>
+          </Switch>
         </MediaContext.Provider>
       </Router>
     </>
