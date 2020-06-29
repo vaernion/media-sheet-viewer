@@ -1,5 +1,6 @@
 import React from "react";
 import { BrowserRouter as Router, Link, Route } from "react-router-dom";
+import "./app.css";
 import { films, filmsSorted } from "./classes/Film";
 import { FilmDetails } from "./components/FilmDetails";
 import { FilmsList } from "./components/FilmsList";
@@ -18,7 +19,7 @@ function App() {
     <>
       <Router>
         {menu.map((e) => (
-          <Link key={e.name} to={e.path}>
+          <Link className="menuLink" key={e.name} to={e.path}>
             {e.name}
           </Link>
         ))}
