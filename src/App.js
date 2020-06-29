@@ -18,7 +18,7 @@ const menu = [
 function App() {
   return (
     <>
-      <Router>
+      <Router basename="/media-sheet-viewer">
         {menu.map((e) => (
           <Link className="menuLink" key={e.name} to={e.path}>
             {e.name}
