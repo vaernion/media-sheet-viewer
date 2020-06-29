@@ -24,4 +24,4 @@ yarn-error.log*
 
 
 # to ensure csv util is used
-# /data/*.json
+/src/data/*.json

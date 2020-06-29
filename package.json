@@ -13,10 +13,11 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "npm run prestart && react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "csvfilms": "py ./utils/csv_to_json.py -i ./src/data/films.csv -o ./src/data/films.json"
+    "csvfilms": "py ./utils/csv_to_json.py -i ./src/data/films.csv -o ./src/data/films.json",
+    "prestart": "npm run csvfilms"
   },
   "eslintConfig": {
     "extends": "react-app"
