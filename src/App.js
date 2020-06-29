@@ -4,6 +4,7 @@ import "./app.css";
 import { films, filmsSorted } from "./classes/Film";
 import { FilmDetails } from "./components/FilmDetails";
 import { FilmsList } from "./components/FilmsList";
+import { NotFound } from "./NotFound";
 
 const mediaContext = { films, filmsSorted };
 export const MediaContext = React.createContext();
@@ -32,6 +33,9 @@ function App() {
           </Route>
           <Route path="/films/:filmId">
             <FilmDetails />
+          </Route>
+          <Route path="*">
+            <NotFound />
           </Route>
         </MediaContext.Provider>
       </Router>
