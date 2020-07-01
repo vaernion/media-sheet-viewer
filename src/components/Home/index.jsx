@@ -4,6 +4,7 @@ import { MediaContext } from "../Store";
 
 export default function Home() {
   const context = React.useContext(MediaContext);
+  document.title = "MediaSheetViewer";
   return (
     <>
       <h1>Media Sheet Viewer</h1>

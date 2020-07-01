@@ -15,12 +15,16 @@ export function FilmListItem(props) {
         <span className="filmYear">{film.year}</span>
         <span className="filmDirector">
           {film.director.map((name) => (
-            <span key={name}>{name}</span>
+            <span key={name} className="filmDirectorName">
+              {name}
+            </span>
           ))}
         </span>
         <span className="filmGenre">
           {film.genre.map((name) => (
-            <span key={name}>{name}</span>
+            <span key={name} className="filmGenreName">
+              {name}
+            </span>
           ))}
         </span>
         <span className="filmFranchise">{film.franchise}</span>

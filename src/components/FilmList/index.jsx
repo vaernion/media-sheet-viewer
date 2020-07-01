@@ -13,7 +13,7 @@ export default function FilmList() {
   const [searchField, setSearchField] = React.useState("");
   const [sortedFilms, setSortedFilms] = React.useState(null);
 
-  document.title = `${context.films.length} Films - MediaSheet`;
+  document.title = `${context.films.length} Films - MediaSheetViewer`;
 
   React.useEffect(() => {
     setSortedFilms(
