@@ -1,4 +1,4 @@
-import React from "react";
+import * as React from "react";
 
 export function FieldHeader(props) {
   let active = props.sort.sortBy === props.field ? "*" : null;

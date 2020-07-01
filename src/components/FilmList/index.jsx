@@ -1,18 +1,19 @@
-import React from "react";
-import { MediaContext } from "../../App.js";
-import { FieldHeader } from "./FieldHeader.jsx";
+import * as React from "react";
+import { MediaContext } from "../Store";
+import { FieldHeader } from "./FieldHeader";
 import { FilmListItem } from "./FilmListItem";
 import "./filmsList.css";
-import { SearchForm } from "./SearchForm.jsx";
+import { SearchForm } from "./SearchForm";
 
-export function FilmsList() {
-  document.title = "MediaSheet - Films";
+export default function FilmList() {
   const context = React.useContext(MediaContext);
 
   const [sortBy, setSortBy] = React.useState("sortTitle");
   const [sortReverse, setSortReverse] = React.useState(false);
   const [searchField, setSearchField] = React.useState("");
   const [sortedFilms, setSortedFilms] = React.useState(null);
+
+  document.title = `${context.films.length} Films - MediaSheet`;
 
   React.useEffect(() => {
     setSortedFilms(
@@ -80,6 +81,10 @@ export function FilmsList() {
   return (
     <>
       <SearchForm onChange={setSearchField} />
+      {"  "}
+      count: {context.store.count}
+      <button onClick={() => context.dispatch({ type: "increment" })}>+</button>
+      <button onClick={() => context.dispatch({ type: "decrement" })}>-</button>
       <div className="fieldHeaders">
         <FieldHeader
           field="sortTitle"

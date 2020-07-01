@@ -1,7 +1,7 @@
-import React from "react";
+import * as React from "react";
 import { useLocation } from "react-router-dom";
 
-export function NotFound() {
+export default function NotFound() {
   const location = useLocation();
   return (
     <>

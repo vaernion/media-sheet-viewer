@@ -48,15 +48,6 @@ const filmsSortedFranchiseDesc = [...films].sort((a, b) => {
   return b.franchise.localeCompare(a.franchise);
 });
 
-// console.log(
-//   filmsSortedYearAsc[0],
-//   filmsSortedYearDesc[0],
-//   filmsSortedDirectorAsc[0],
-//   filmsSortedDirectorDesc[0],
-//   filmsSortedFranchiseAsc[0],
-//   filmsSortedFranchiseDesc[0]
-// );
-
 export const filmsSorted = {
   titleAsc: filmsSortedTitleAsc,
   titleDesc: filmsSortedTitleDesc,

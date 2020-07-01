@@ -1,0 +1,19 @@
+.spinner {
+  animation: 1.5s linear infinite spinner;
+  border: solid 0.5em #eee;
+  border-bottom-color: orangered;
+  border-radius: 50%;
+  height: 5em;
+  width: 5em;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+}
+@keyframes spinner {
+  0% {
+    transform: translate3d(-50%, -50%, 0) rotate(0deg);
+  }
+  100% {
+    transform: translate3d(-50%, -50%, 0) rotate(360deg);
+  }
+}

@@ -1,13 +1,12 @@
-import React, { useContext } from "react";
+import * as React from "react";
 import { useParams } from "react-router-dom";
-import { MediaContext } from "../../App";
+import { MediaContext } from "../Store";
 
-export function FilmDetails() {
-  const films = useContext(MediaContext).films;
+export default function FilmDetails() {
+  const films = React.useContext(MediaContext).films;
   const { filmId } = useParams();
-
   const film = films.find((e) => e.id === Number(filmId));
-  document.title = `MediaSheet - Film - ${film.title}`;
+  document.title = `${film.title} (${film.year}) - Film - MediaSheetViewer`;
 
   return (
     <>

@@ -1,4 +1,4 @@
-import React from "react";
+import * as React from "react";
 import "./searchForm.css";
 
 export function SearchForm(props) {
@@ -15,7 +15,7 @@ export function SearchForm(props) {
     <>
       <input
         type="text"
-        placeholder="search star wars | g:drama | hitchcock | y:2010"
+        placeholder="examples: star wars | g:drama | hitchcock | y:2010"
         onChange={handleChange}
       />
     </>
