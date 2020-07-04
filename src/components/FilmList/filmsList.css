@@ -1,53 +1,93 @@
-.fieldHeaders {
-  display: flex;
-  margin-top: 1em;
-  margin-bottom: 1em;
+.filmHeaderContainer {
+  position: fixed;
+  width: 80vw;
+  padding-top: 1em;
+  background-color: white;
+  text-align: center;
+  z-index: 1;
 }
-.fieldHeaders span {
+/* .searchWrapper {
+} */
+.fieldHeadersContainer {
+  display: flex;
+  flex-flow: row;
+  justify-content: center;
+  padding: 1em 0 1em 0;
+}
+.filmBodyContainer {
+  display: flex;
+  flex-flow: column;
+  padding-top: 7em;
+  width: 80vw;
+}
+.fieldHeader {
+  width: 100%;
+}
+.fieldHeaderName {
+  padding: 0 1.5em 0 1.5em;
   font-weight: bold;
   border-radius: 0.7em;
   border: 0.1em solid #ccc;
-  text-align: center;
 }
-.fieldHeaders span:hover {
+.fieldHeaderName:hover {
   background-color: lightskyblue;
 }
-.fieldHeaders .film-genre:hover {
+.film-genre .fieldHeaderName:hover {
   background-color: inherit;
 }
-.fieldHeaders .active {
+.fieldHeader .active {
   background-color: deepskyblue;
-}
-.fieldHeaders .film-sortTitle {
-  width: 20%;
-}
-.fieldHeaders .film-year {
-  width: 5%;
-}
-.fieldHeaders .film-director {
-  width: 15%;
-}
-.fieldHeaders .film-genre {
-  width: 25%;
-}
-.fieldHeaders .film-franchise {
-  width: 10%;
 }
 .filmListItem {
   display: flex;
+  justify-content: center;
 }
+.filmListItem a,
+.filmListItem a:visited {
+  color: rgb(41, 91, 218);
+  text-decoration: none;
+}
+.filmListItem a:hover,
+.filmGenreName:hover {
+  color: rgb(146, 0, 19);
+}
+.filmGenreName {
+  color: rgb(39, 92, 22);
+}
+.filmListItem span {
+  text-align: center;
+}
+.filmListItem:nth-of-type(odd) {
+  background-color: lightgrey;
+}
+.filmListItem .filmDirector .filmDirectorName + .filmDirectorName {
+  margin-left: 1.5em;
+}
+.filmListItem .filmGenre .filmGenreName + .filmGenreName {
+  margin-left: 1em;
+}
+.fieldHeadersContainer .film-sortTitle,
 .filmListItem .filmTitle {
-  width: 20%;
-}
-.filmListItem .filmYear {
-  width: 5%;
-}
-.filmListItem .filmDirector {
-  width: 15%;
-}
-.filmListItem .filmGenre {
   width: 25%;
+  /* background-color: red; */
 }
-.filmListItem .filmFranchise {
+.fieldHeadersContainer .film-year,
+.filmListItem .filmYear {
   width: 10%;
+  /* background-color: orange; */
+}
+.fieldHeadersContainer .film-director,
+.filmListItem .filmDirector {
+  width: 20%;
+  /* background-color: yellow; */
+}
+.fieldHeadersContainer .film-genre,
+.filmListItem .filmGenre {
+  width: 30%;
+  /* background-color: green; */
+}
+.fieldHeadersContainer .film-franchise,
+.filmListItem .filmFranchise {
+  width: 15%;
+  /* background-color: blue; */
 }

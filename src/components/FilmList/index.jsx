@@ -80,48 +80,51 @@ export default function FilmList() {
 
   return (
     <>
-      <SearchForm onChange={setSearchField} />
-      {"  "}
-      count: {context.store.count}
-      <button onClick={() => context.dispatch({ type: "increment" })}>+</button>
-      <button onClick={() => context.dispatch({ type: "decrement" })}>-</button>
-      <div className="fieldHeaders">
-        <FieldHeader
-          field="sortTitle"
-          label="Title"
-          onclick={handleSort}
-          sort={{ sortBy, sortReverse }}
-        />
-        <FieldHeader
-          field="year"
-          label="Year"
-          onclick={handleSort}
-          sort={{ sortBy, sortReverse }}
-        />
-        <FieldHeader
-          field="director"
-          label="Director"
-          onclick={handleSort}
-          sort={{ sortBy, sortReverse }}
-        />
-        <FieldHeader
-          field="genre"
-          label="Genre"
-          onclick={handleSort}
-          sort={{ sortBy, sortReverse }}
-        />
-        <FieldHeader
-          field="franchise"
-          label="Franchise"
-          onclick={handleSort}
-          sort={{ sortBy, sortReverse }}
-        />
+      <div className="filmHeaderContainer">
+        <div className="searchWrapper">
+          <SearchForm value={searchField} setValue={setSearchField} />
+        </div>
+        <div className="fieldHeadersContainer">
+          <FieldHeader
+            field="sortTitle"
+            label="Title"
+            onclick={handleSort}
+            sort={{ sortBy, sortReverse }}
+          />
+          <FieldHeader
+            field="year"
+            label="Year"
+            onclick={handleSort}
+            sort={{ sortBy, sortReverse }}
+          />
+          <FieldHeader
+            field="director"
+            label="Director"
+            onclick={handleSort}
+            sort={{ sortBy, sortReverse }}
+          />
+          <FieldHeader
+            field="genre"
+            label="Genre"
+            sort={{ sortBy, sortReverse }}
+          />
+          <FieldHeader
+            field="franchise"
+            label="Franchise"
+            onclick={handleSort}
+            sort={{ sortBy, sortReverse }}
+          />
+        </div>
       </div>
-      <div>
+      <div className="filmBodyContainer">
         {films
-          // .filter((e) => e.id > 0 && e.id < 200)
+          // .filter((e) => e.id > 800 && e.id < 1000)
           .map((film) => (
-            <FilmListItem key={film.id} film={film} />
+            <FilmListItem
+              key={film.id}
+              film={film}
+              setSearchField={setSearchField}
+            />
           ))}
       </div>
     </>

@@ -1,5 +1,7 @@
 html {
   box-sizing: border-box;
+  /* prevent scroll bar from affect page width */
+  width: 100vw;
 }
 *,
 *:before,

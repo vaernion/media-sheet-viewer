@@ -4,12 +4,14 @@ import "./filmsList.css";
 
 export function FilmListItem(props) {
   const film = props.film;
+
   return (
     <>
       <div className="filmListItem">
         <span className="filmTitle">
-          <Link to={`films/${film.id}`}>
-            {film.id}--{film.title}
+          <Link to={`/films/${film.id}`}>
+            {/* {film.id}-- */}
+            {film.title}
           </Link>
         </span>
         <span className="filmYear">{film.year}</span>
@@ -22,7 +24,11 @@ export function FilmListItem(props) {
         </span>
         <span className="filmGenre">
           {film.genre.map((name) => (
-            <span key={name} className="filmGenreName">
+            <span
+              key={name}
+              className="filmGenreName"
+              onClick={() => props.setSearchField("g:" + name)}
+            >
               {name}
             </span>
           ))}

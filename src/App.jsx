@@ -1,5 +1,10 @@
 import * as React from "react";
-import { BrowserRouter as Router, Link, Route, Switch } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  NavLink,
+  Route,
+  Switch,
+} from "react-router-dom";
 import "./app.css";
 import { ErrorBoundary } from "./components/ErrorBoundary";
 import { Spinner } from "./components/Spinner";
@@ -16,7 +21,7 @@ const FilmDetails = React.lazy(() => import("./components/FilmDetails"));
 const NotFound = React.lazy(() => import("./components/NotFound"));
 
 const menu = [
-  { path: "/", name: "Home" },
+  { path: "/", exact: true, name: "Home" },
   { path: "/films", name: "Films" },
   { path: "/tv", name: "TV" },
   { path: "/Wnnwkeqnkrnkqw124214", name: "void" },
@@ -24,11 +29,11 @@ const menu = [
 ];
 
 const routes = [
-  { path: "/", exact: true, child: <Home /> },
-  { path: "/films", exact: true, child: <FilmList /> },
-  { path: "/films/:filmId", exact: false, child: <FilmDetails /> },
-  { path: "/spintest", exact: false, child: <Spinner /> },
-  { path: "*", exact: false, child: <NotFound /> },
+  { path: "/", exact: true, component: <Home /> },
+  { path: "/films", exact: true, component: <FilmList /> },
+  { path: "/films/:filmId", component: <FilmDetails /> },
+  { path: "/spintest", component: <Spinner /> },
+  { path: "*", component: <NotFound /> },
 ];
 
 function App() {
@@ -36,22 +41,38 @@ function App() {
     <>
       <ErrorBoundary>
         <Router basename="/media-sheet-viewer">
-          {menu.map((e) => (
-            <Link className="menuLink" key={e.name} to={e.path}>
-              {e.name}
-            </Link>
-          ))}
-          <React.Suspense fallback={<Spinner />}>
-            <Store>
-              <Switch>
-                {routes.map((route, i) => (
-                  <Route key={route.path} path={route.path} exact={route.exact}>
-                    {route.child}
-                  </Route>
-                ))}
-              </Switch>
-            </Store>
-          </React.Suspense>
+          <div className="headerContainer">
+            <div className="menuItems">
+              {menu.map((e) => (
+                <NavLink
+                  className="menuLink"
+                  activeClassName="menuLinkActive"
+                  key={e.name}
+                  to={e.path}
+                  exact={e.exact}
+                >
+                  {e.name}
+                </NavLink>
+              ))}
+            </div>
+          </div>
+          <div className="bodyContainer">
+            <React.Suspense fallback={<Spinner />}>
+              <Store>
+                <Switch>
+                  {routes.map((route) => (
+                    <Route
+                      key={route.path}
+                      path={route.path}
+                      exact={route.exact}
+                    >
+                      {route.component}
+                    </Route>
+                  ))}
+                </Switch>
+              </Store>
+            </React.Suspense>
+          </div>
         </Router>
       </ErrorBoundary>
     </>
