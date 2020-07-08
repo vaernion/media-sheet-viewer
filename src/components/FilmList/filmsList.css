@@ -48,7 +48,8 @@
   text-decoration: none;
 }
 .filmListItem a:hover,
-.filmGenreName:hover {
+.filmGenreName:hover,
+.filmYear:hover {
   color: rgb(146, 0, 19);
 }
 .filmGenreName {

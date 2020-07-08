@@ -1,9 +1,9 @@
 import * as React from "react";
+import { SearchForm } from "../SearchForm";
 import { MediaContext } from "../Store";
 import { FieldHeader } from "./FieldHeader";
 import { FilmListItem } from "./FilmListItem";
 import "./filmsList.css";
-import { SearchForm } from "./SearchForm";
 
 export default function FilmList() {
   const context = React.useContext(MediaContext);
@@ -15,19 +15,20 @@ export default function FilmList() {
 
   document.title = `${context.films.length} Films - MediaSheetViewer`;
 
+  // keep current sorted array in state for efficiency
   React.useEffect(() => {
     setSortedFilms(
       (() => {
-        const sort = context.filmsSorted;
+        const obj = context.filmsSorted;
         switch (sortBy) {
           case "sortTitle":
-            return sortReverse ? sort.titleDesc : sort.titleAsc;
+            return sortReverse ? obj.titleDesc : obj.titleAsc;
           case "year":
-            return sortReverse ? sort.yearDesc : sort.yearAsc;
+            return sortReverse ? obj.yearDesc : obj.yearAsc;
           case "director":
-            return sortReverse ? sort.directorDesc : sort.directorAsc;
+            return sortReverse ? obj.directorDesc : obj.directorAsc;
           case "franchise":
-            return sortReverse ? sort.franchiseDesc : sort.franchiseAsc;
+            return sortReverse ? obj.franchiseDesc : obj.franchiseAsc;
           default:
             return context.films;
         }
@@ -36,8 +37,9 @@ export default function FilmList() {
   }, [sortBy, sortReverse, context.films, context.filmsSorted]);
 
   const handleSort = (field) => {
-    if (field === sortBy) setSortReverse(!sortReverse);
-    else {
+    if (field === sortBy) {
+      setSortReverse(!sortReverse);
+    } else {
       setSortReverse(false);
       setSortBy(field);
     }
@@ -68,21 +70,28 @@ export default function FilmList() {
     }
   };
 
-  if (!sortedFilms) return null;
-
-  const films = (() => {
-    if (searchField.length > 2) {
+  // slight optimization
+  const decideIfWeSortFilms = (sortedFilms, searchField) => {
+    if (searchField.length >= 2) {
+      // if (true) {
       return filterFilms(sortedFilms, searchField);
     } else {
       return sortedFilms;
     }
-  })();
+  };
+
+  if (!sortedFilms) return null;
+  const films = decideIfWeSortFilms(sortedFilms, searchField);
 
   return (
     <>
       <div className="filmHeaderContainer">
         <div className="searchWrapper">
-          <SearchForm value={searchField} setValue={setSearchField} />
+          <SearchForm
+            value={searchField}
+            setValue={setSearchField}
+            placeholder="examples: star wars | g:drama | hitchcock | y:2010"
+          />
         </div>
         <div className="fieldHeadersContainer">
           <FieldHeader

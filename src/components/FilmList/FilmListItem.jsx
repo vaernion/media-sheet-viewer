@@ -14,12 +14,21 @@ export function FilmListItem(props) {
             {film.title}
           </Link>
         </span>
-        <span className="filmYear">{film.year}</span>
+        <span
+          className="filmYear"
+          onClick={() => props.setSearchField("y:" + film.year)}
+        >
+          {film.year}
+        </span>
         <span className="filmDirector">
           {film.director.map((name) => (
-            <span key={name} className="filmDirectorName">
+            <Link
+              key={name}
+              className="filmDirectorName"
+              to={`/directors/${name}`}
+            >
               {name}
-            </span>
+            </Link>
           ))}
         </span>
         <span className="filmGenre">

@@ -1,4 +1,4 @@
-import filmsRaw from "../data/films.json";
+// @ts-check
 
 export class Film {
   static _count = 0;
@@ -18,43 +18,69 @@ export class Film {
     this.year = film["Year"];
     this.franchise = film["Series/Universe"];
   }
+
+  static generateFilmsArray(filmsJson) {
+    let array = [];
+
+    for (let i = 0; i < filmsJson.length; i++) {
+      array.push(new this(filmsJson[i]));
+    }
+
+    return array;
+  }
+
+  static generateSortedFilmsObj(films) {
+    const obj = {};
+    const sorts = ["title", "year", "director", "franchise"];
+
+    for (let sort of sorts) {
+      for (let bool of [true, false]) {
+        obj[`${sort}${bool ? "Desc" : "Asc"}`] = this.sortFilms(
+          [...films],
+          sort,
+          bool
+        );
+      }
+    }
+
+    return obj;
+  }
+
+  static sortFilms(films, sortBy, isDescending) {
+    let algorithm = null;
+
+    if (sortBy === "title") {
+      algorithm = (a, b) => a.sortTitle.localeCompare(b.sortTitle);
+    } else if (sortBy === "year") {
+      algorithm = (a, b) => a.year - b.year;
+    } else if (sortBy === "director") {
+      algorithm = (a, b) => {
+        a = a.director[0].split(" ").pop();
+        b = b.director[0].split(" ").pop();
+        return a.localeCompare(b);
+      };
+    } else if (sortBy === "franchise") {
+      if (!isDescending) {
+        algorithm = (a, b) => {
+          if (a.franchise === "") return 1;
+          if (b.franchise === "") return -1;
+          return a.franchise.localeCompare(b.franchise);
+        };
+      } else {
+        algorithm = (a, b) => {
+          if (a.franchise === "") return 1;
+          if (b.franchise === "") return -1;
+          return b.franchise.localeCompare(a.franchise);
+        };
+      }
+    }
+
+    let array = [...films].sort(algorithm);
+
+    if (isDescending && ["title", "year", "director"].includes(sortBy)) {
+      array = array.reverse();
+    }
+
+    return array;
+  }
 }
-
-export const films = [];
-for (let i = 0; i < filmsRaw.length; i++) {
-  films.push(new Film(filmsRaw[i]));
-}
-
-const filmsSortedTitleAsc = [...films].sort((a, b) => {
-  return a.sortTitle.localeCompare(b.sortTitle);
-});
-const filmsSortedTitleDesc = [...filmsSortedTitleAsc].reverse();
-const filmsSortedYearAsc = [...films].sort((a, b) => a.year - b.year);
-const filmsSortedYearDesc = [...filmsSortedYearAsc].reverse();
-const filmsSortedDirectorAsc = [...films].sort((a, b) => {
-  a = a.director[0].split(" ").pop();
-  b = b.director[0].split(" ").pop();
-  return a.localeCompare(b);
-});
-const filmsSortedDirectorDesc = [...filmsSortedDirectorAsc].reverse();
-const filmsSortedFranchiseAsc = [...films].sort((a, b) => {
-  if (a.franchise === "") return 1;
-  if (b.franchise === "") return -1;
-  return a.franchise.localeCompare(b.franchise);
-});
-const filmsSortedFranchiseDesc = [...films].sort((a, b) => {
-  if (a.franchise === "") return 1;
-  if (b.franchise === "") return -1;
-  return b.franchise.localeCompare(a.franchise);
-});
-
-export const filmsSorted = {
-  titleAsc: filmsSortedTitleAsc,
-  titleDesc: filmsSortedTitleDesc,
-  yearAsc: filmsSortedYearAsc,
-  yearDesc: filmsSortedYearDesc,
-  directorAsc: filmsSortedDirectorAsc,
-  directorDesc: filmsSortedDirectorDesc,
-  franchiseAsc: filmsSortedFranchiseAsc,
-  franchiseDesc: filmsSortedFranchiseDesc,
-};

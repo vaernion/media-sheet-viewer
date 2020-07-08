@@ -1,5 +1,12 @@
 import * as React from "react";
-import { films, filmsSorted } from "../../classes/Film";
+import { Film } from "../../classes/Film";
+import filmsJson from "../../data/films.json";
+
+const films = Film.generateFilmsArray(filmsJson);
+const filmsSorted = Film.generateSortedFilmsObj(films);
+console.info(
+  `films.length: ${films.length} filmsSorted: ${Object.keys(filmsSorted)}`
+);
 
 export const MediaContext = React.createContext();
 

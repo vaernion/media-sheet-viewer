@@ -7,18 +7,26 @@ import {
 } from "react-router-dom";
 import "./app.css";
 import { ErrorBoundary } from "./components/ErrorBoundary";
+import NotFound from "./components/NotFound";
 import { Spinner } from "./components/Spinner";
 import Store from "./components/Store";
-
-// import FilmDetails from "./components/FilmDetails";
-// import FilmList from "./components/FilmList";
-// import Home from "./components/Home";
-// import NotFound from "./components/NotFound";
 
 const Home = React.lazy(() => import("./components/Home"));
 const FilmList = React.lazy(() => import("./components/FilmList"));
 const FilmDetails = React.lazy(() => import("./components/FilmDetails"));
-const NotFound = React.lazy(() => import("./components/NotFound"));
+const DirectorDetails = React.lazy(() =>
+  import("./components/DirectorDetails")
+);
+
+/**
+ * Turns URL path into router basename by removing everything after the last slash
+ * https://medium.com/@martinnovk_22870/how-to-route-react-app-in-a-subdirectory-31410b9ffa39
+ * @param {string} path URL path, probably window.location.pathname
+ * @returns {string} final basename
+ */
+const getBasename = (path) => {
+  path.substr(0, path.lastIndexOf("/"));
+};
 
 const menu = [
   { path: "/", exact: true, name: "Home" },
@@ -32,15 +40,16 @@ const routes = [
   { path: "/", exact: true, component: <Home /> },
   { path: "/films", exact: true, component: <FilmList /> },
   { path: "/films/:filmId", component: <FilmDetails /> },
+  { path: "/directors/:directorName", component: <DirectorDetails /> },
   { path: "/spintest", component: <Spinner /> },
   { path: "*", component: <NotFound /> },
 ];
 
-function App() {
+export default function App() {
   return (
     <>
       <ErrorBoundary>
-        <Router basename="/media-sheet-viewer">
+        <Router basename={getBasename(window.location.pathname)}>
           <div className="headerContainer">
             <div className="menuItems">
               {menu.map((e) => (
@@ -78,5 +87,3 @@ function App() {
     </>
   );
 }
-
-export default App;
