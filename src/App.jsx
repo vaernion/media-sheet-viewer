@@ -18,16 +18,6 @@ const DirectorDetails = React.lazy(() =>
   import("./components/DirectorDetails")
 );
 
-/**
- * Turns URL path into router basename by removing everything after the last slash
- * https://medium.com/@martinnovk_22870/how-to-route-react-app-in-a-subdirectory-31410b9ffa39
- * @param {string} path URL path, probably window.location.pathname
- * @returns {string} final basename
- */
-const getBasename = (path) => {
-  path.substr(0, path.lastIndexOf("/"));
-};
-
 const menu = [
   { path: "/", exact: true, name: "Home" },
   { path: "/films", name: "Films" },
@@ -49,7 +39,7 @@ export default function App() {
   return (
     <>
       <ErrorBoundary>
-        <Router basename={getBasename(window.location.pathname)}>
+        <Router basename={"media-sheet-viewer"}>
           <div className="headerContainer">
             <div className="menuItems">
               {menu.map((e) => (
