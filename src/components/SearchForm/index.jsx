@@ -1,23 +1,21 @@
 import * as React from "react";
+import { useDebounceEffect } from "../../hooks/useDebounceEffect";
 import "./searchForm.css";
 
-export function SearchForm(props) {
-  const { value, setValue, placeholder } = { ...props };
-  const [state, setState] = React.useState("");
+export function SearchForm({ value, setValue, placeholder }) {
+  const [state, setState] = React.useState(value);
 
   React.useEffect(() => {
     setState(value);
   }, [value]);
 
-  React.useEffect(() => {
-    if (state.length >= 2 || state.length === 0) {
+  useDebounceEffect(
+    () => {
       setValue(state);
-    }
-  }, [state, setValue]);
-
-  const handleChange = (e) => {
-    setState(e.currentTarget.value);
-  };
+    },
+    500,
+    [state]
+  );
 
   const handleClear = () => {
     setState("");
@@ -29,7 +27,7 @@ export function SearchForm(props) {
         type="text"
         placeholder={placeholder}
         value={state}
-        onChange={handleChange}
+        onChange={(e) => setState(e.currentTarget.value)}
       />
       <button onClick={handleClear}>Clear</button>
     </>
