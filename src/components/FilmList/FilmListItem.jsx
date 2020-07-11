@@ -9,10 +9,7 @@ export function FilmListItem(props) {
     <>
       <div className="filmListItem">
         <span className="filmTitle">
-          <Link to={`/films/${film.id}`}>
-            {/* {film.id}-- */}
-            {film.title}
-          </Link>
+          <Link to={`/films/${film.id}`}>{film.title}</Link>
         </span>
         <span
           className="filmYear"

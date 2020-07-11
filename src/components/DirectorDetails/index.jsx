@@ -5,7 +5,7 @@ export default function DirectorDetails() {
   // const context = React.useContext(MediaContext);
   const { directorName } = useParams();
 
-  document.title = `${directorName} - Directors - MediaSheetViewer`;
+  document.title = `${directorName} - Director - MediaSheetViewer`;
 
   return (
     <>

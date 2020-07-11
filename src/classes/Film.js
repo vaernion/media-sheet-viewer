@@ -2,6 +2,7 @@
 
 export class Film {
   static _count = 0;
+
   constructor(film) {
     this.id = Film._count += 1;
     this.title = film["Original title (romanized)"];
@@ -20,16 +21,16 @@ export class Film {
   }
 
   static generateFilmsArray(filmsJson) {
-    let array = [];
+    const array = [];
 
     for (let i = 0; i < filmsJson.length; i++) {
       array.push(new this(filmsJson[i]));
     }
-
     return array;
   }
 
   static generateSortedFilmsObj(films) {
+    console.time("genFilmsObj");
     const obj = {};
     const sorts = ["title", "year", "director", "franchise"];
 
@@ -42,24 +43,30 @@ export class Film {
         );
       }
     }
-
+    console.timeEnd("genFilmsObj");
     return obj;
   }
 
   static sortFilms(films, sortBy, isDescending) {
+    console.time(`${sortBy}${isDescending}`);
     let algorithm = null;
 
+    // title A-Z
     if (sortBy === "title") {
       algorithm = (a, b) => a.sortTitle.localeCompare(b.sortTitle);
+      // year 1900-2000
     } else if (sortBy === "year") {
       algorithm = (a, b) => a.year - b.year;
+      // director A-Z by last name of first director
     } else if (sortBy === "director") {
       algorithm = (a, b) => {
-        a = a.director[0].split(" ").pop();
-        b = b.director[0].split(" ").pop();
+        a = a.director[0].split(/\s+/).pop();
+        b = b.director[0].split(/\s+/).pop();
         return a.localeCompare(b);
       };
+      // franchise, entries without franchise always last
     } else if (sortBy === "franchise") {
+      // franchise
       if (!isDescending) {
         algorithm = (a, b) => {
           if (a.franchise === "") return 1;
@@ -75,12 +82,17 @@ export class Film {
       }
     }
 
+    if (!algorithm) return films;
+
+    // sort ascending (and descending if franchise)
     let array = [...films].sort(algorithm);
 
+    // for all except franchise we can just reverse to get descending
     if (isDescending && ["title", "year", "director"].includes(sortBy)) {
       array = array.reverse();
     }
 
+    console.timeEnd(`${sortBy}${isDescending}`);
     return array;
   }
 }

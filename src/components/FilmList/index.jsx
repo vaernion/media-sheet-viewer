@@ -9,38 +9,45 @@ export default function FilmList() {
   const context = React.useContext(MediaContext);
 
   const [sortBy, setSortBy] = React.useState("sortTitle");
-  const [sortReverse, setSortReverse] = React.useState(false);
+  const [isSortReverse, setIsSortReverse] = React.useState(false);
   const [searchField, setSearchField] = React.useState("");
-  const [sortedFilms, setSortedFilms] = React.useState(null);
+  const [filmsSortedLocal, setFilmsSortedLocal] = React.useState(null);
+  const [filmsFiltered, setFilmsFiltered] = React.useState(null);
 
   document.title = `${context.films.length} Films - MediaSheetViewer`;
 
-  // keep current sorted array in state for efficiency
+  // keep current sorted array in state
   React.useEffect(() => {
-    setSortedFilms(
+    setFilmsSortedLocal(
       (() => {
-        const obj = context.filmsSorted;
+        const sorted = context.filmsSorted;
         switch (sortBy) {
           case "sortTitle":
-            return sortReverse ? obj.titleDesc : obj.titleAsc;
+            return isSortReverse ? sorted.titleDesc : sorted.titleAsc;
           case "year":
-            return sortReverse ? obj.yearDesc : obj.yearAsc;
+            return isSortReverse ? sorted.yearDesc : sorted.yearAsc;
           case "director":
-            return sortReverse ? obj.directorDesc : obj.directorAsc;
+            return isSortReverse ? sorted.directorDesc : sorted.directorAsc;
           case "franchise":
-            return sortReverse ? obj.franchiseDesc : obj.franchiseAsc;
+            return isSortReverse ? sorted.franchiseDesc : sorted.franchiseAsc;
           default:
             return context.films;
         }
       })()
     );
-  }, [sortBy, sortReverse, context.films, context.filmsSorted]);
+  }, [sortBy, isSortReverse, context.films, context.filmsSorted]);
+
+  // keep current filtered films in state
+  React.useEffect(() => {
+    if (!filmsSortedLocal) return;
+    setFilmsFiltered(filterFilms(filmsSortedLocal, searchField));
+  }, [filmsSortedLocal, searchField]);
 
   const handleSort = (field) => {
     if (field === sortBy) {
-      setSortReverse(!sortReverse);
+      setIsSortReverse(!isSortReverse);
     } else {
-      setSortReverse(false);
+      setIsSortReverse(false);
       setSortBy(field);
     }
   };
@@ -70,18 +77,7 @@ export default function FilmList() {
     }
   };
 
-  // slight optimization
-  const decideIfWeSortFilms = (sortedFilms, searchField) => {
-    if (searchField.length >= 2) {
-      // if (true) {
-      return filterFilms(sortedFilms, searchField);
-    } else {
-      return sortedFilms;
-    }
-  };
-
-  if (!sortedFilms) return null;
-  const films = decideIfWeSortFilms(sortedFilms, searchField);
+  if (!filmsFiltered) return null;
 
   return (
     <>
@@ -98,35 +94,35 @@ export default function FilmList() {
             field="sortTitle"
             label="Title"
             onclick={handleSort}
-            sort={{ sortBy, sortReverse }}
+            sort={{ sortBy, isSortReverse }}
           />
           <FieldHeader
             field="year"
             label="Year"
             onclick={handleSort}
-            sort={{ sortBy, sortReverse }}
+            sort={{ sortBy, isSortReverse }}
           />
           <FieldHeader
             field="director"
             label="Director"
             onclick={handleSort}
-            sort={{ sortBy, sortReverse }}
+            sort={{ sortBy, isSortReverse }}
           />
           <FieldHeader
             field="genre"
             label="Genre"
-            sort={{ sortBy, sortReverse }}
+            sort={{ sortBy, isSortReverse }}
           />
           <FieldHeader
             field="franchise"
             label="Franchise"
             onclick={handleSort}
-            sort={{ sortBy, sortReverse }}
+            sort={{ sortBy, isSortReverse }}
           />
         </div>
       </div>
       <div className="filmBodyContainer">
-        {films
+        {filmsFiltered
           // .filter((e) => e.id > 800 && e.id < 1000)
           .map((film) => (
             <FilmListItem
