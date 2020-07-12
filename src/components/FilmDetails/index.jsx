@@ -28,7 +28,7 @@ export default function FilmDetails() {
 
   const poster =
     result && result.poster_path
-      ? `http://image.tmdb.org/t/p/w500/${result.poster_path}`
+      ? `https://image.tmdb.org/t/p/w500/${result.poster_path}`
       : null;
 
   document.title = `${film.title} (${film.year}) - Film - MediaSheetViewer`;

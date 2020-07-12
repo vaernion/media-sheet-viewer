@@ -20,7 +20,6 @@ export default function TvDetails() {
   if (!tv) return `tv not found with id ${tvId}`;
   if (!movieDb || !movieDb.response || movieDb.isLoading) return <Spinner />;
   if (movieDb.error) return `Error: ${movieDb.error.message}`;
-  // if (movieDb.response.results.length === 0) return `${tv.title} not found`;
 
   const result = movieDb.response.results[0]
     ? movieDb.response.results[0]
@@ -29,7 +28,7 @@ export default function TvDetails() {
 
   const poster =
     result && result.poster_path
-      ? `http://image.tmdb.org/t/p/w500/${result.poster_path}`
+      ? `https://image.tmdb.org/t/p/w500/${result.poster_path}`
       : null;
 
   document.title = `${tv.title} (${tv.seasons[0].yearStart}-${
