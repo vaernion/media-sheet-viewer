@@ -1,0 +1,2 @@
+.film{display:flex;flex-flow:row;margin-top:2em;width:50vw}.left,.right{margin:1em;display:flex;flex-flow:column}.film-poster{display:flex;flex-direction:column;justify-content:center;width:400px}.film-poster-image{object-fit:contain;max-width:100%;min-width:100%}.film-summary{margin-top:2em}.film a,.film a:visited{color:#295bda;text-decoration:none}.film a:hover{color:#920013}
+/*# sourceMappingURL=5.ce6319ad.chunk.css.map */
