@@ -1,5 +1,6 @@
 import * as React from "react";
 import { Link } from "react-router-dom";
+import { normalize } from "../../utils/utilities";
 import { SearchForm } from "../SearchForm";
 import { MediaContext } from "../Store";
 import "./DirectorList.css";
@@ -13,19 +14,18 @@ export default function DirectorList() {
   );
 
   React.useEffect(() => {
-    const normalize = (str) =>
-      str.normalize("NFKD").replace(/[^\w\s.-_/]/g, "");
-
     setDirectorsFiltered(
-      context.directors.filter((e) => {
-        const name = normalize(e).toLowerCase();
-        const search = normalize(searchField).toLowerCase();
-        return name.includes(search);
+      context.directors.filter((director) => {
+        const name = normalize(director);
+        const searchStr = normalize(searchField);
+        return name.includes(searchStr);
       })
     );
   }, [searchField, context.directors]);
 
-  document.title = `Directors - MediaSheetViewer`;
+  document.title = `${context.directors.length} Directors - MediaSheetViewer`;
+
+  if (!directorsFiltered) return null;
 
   return (
     <>

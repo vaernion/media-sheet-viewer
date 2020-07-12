@@ -18,15 +18,18 @@ export default function FilmDetails() {
   );
 
   if (!film) return `Film not found with id ${filmId}`;
+  if (!movieDb || !movieDb.response || movieDb.isLoading) return <Spinner />;
   if (movieDb.error) return `Error: ${movieDb.error.message}`;
-  if (!movieDb || !movieDb.response) return <Spinner />;
-  if (movieDb.response.results.length === 0) return `${film.title} not found`;
 
-  const result = movieDb.response.results[0];
-  console.log(result);
+  const result = movieDb.response.results[0]
+    ? movieDb.response.results[0]
+    : null;
+  // console.log(result);
 
-  const posterPath = result.poster_path;
-  const poster = `http://image.tmdb.org/t/p/w500/${posterPath}`;
+  const poster =
+    result && result.poster_path
+      ? `http://image.tmdb.org/t/p/w500/${result.poster_path}`
+      : null;
 
   document.title = `${film.title} (${film.year}) - Film - MediaSheetViewer`;
 
@@ -34,11 +37,15 @@ export default function FilmDetails() {
     <>
       <div className="film">
         <div className="left">
-          <div className="film-title">
-            {film.title} (<span className="film-year">{film.year}</span>)
+          <div className="film-header">
+            <h3 className="film-title">{film.title}</h3>
+            {film.translatedTitle ? (
+              <div className="film-translation">{film.translatedTitle}</div>
+            ) : null}
+            <span className="film-year">({film.year})</span>
           </div>
-          <div className="film-franchise"></div>
           <div className="film-director">
+            Director:{" "}
             {film.director.map((name, i) => (
               <span key={name}>
                 <span>{i > 0 ? " & " : null}</span>
@@ -56,11 +63,16 @@ export default function FilmDetails() {
               </span>
             ))}
           </div>
-          <div className="film-summary">{result.overview}</div>
+          <div className="film-franchise">{film.franchise}</div>
+          {result ? (
+            <div className="film-summary">{result.overview}</div>
+          ) : null}
         </div>
         <div className="right">
           <div className="film-poster">
-            <img className="film-poster-image" src={poster} alt="" />
+            {poster ? (
+              <img className="film-poster-image" src={poster} alt="poster" />
+            ) : null}
           </div>
         </div>
       </div>

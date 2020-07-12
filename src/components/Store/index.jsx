@@ -1,5 +1,5 @@
 import * as React from "react";
-import { directors, films, filmsSorted } from "./values";
+import { directors, films, filmsSorted, tv, tvSorted } from "./values";
 
 export const MediaContext = React.createContext();
 const initialState = { count: 0 };
@@ -23,7 +23,7 @@ export default function Store(props) {
   return (
     <>
       <MediaContext.Provider
-        value={{ store, dispatch, films, filmsSorted, directors }}
+        value={{ store, dispatch, films, filmsSorted, directors, tv, tvSorted }}
       >
         {props.children}
       </MediaContext.Provider>

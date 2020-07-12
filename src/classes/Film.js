@@ -2,6 +2,7 @@
 
 export class Film {
   static _count = 0;
+  static _sorts = ["title", "year", "director", "franchise"];
 
   constructor(film) {
     this.id = Film._count += 1;
@@ -27,9 +28,8 @@ export class Film {
   static generateSortedFilmsObj(films) {
     console.time("genFilmsObj");
     const obj = {};
-    const sorts = ["title", "year", "director", "franchise"];
 
-    for (let sort of sorts) {
+    for (let sort of this._sorts) {
       for (let bool of [true, false]) {
         obj[`${sort}${bool ? "Desc" : "Asc"}`] = this.sortFilms(
           [...films],
@@ -43,7 +43,7 @@ export class Film {
   }
 
   static sortFilms(films, sortBy, isDescending) {
-    console.time(`${sortBy}${isDescending}`);
+    // console.time(`${sortBy}${isDescending}`);
     let algorithm = null;
 
     // title A-Z
@@ -88,7 +88,7 @@ export class Film {
       array = array.reverse();
     }
 
-    console.timeEnd(`${sortBy}${isDescending}`);
+    // console.timeEnd(`${sortBy}${isDescending}`);
     return array;
   }
 }

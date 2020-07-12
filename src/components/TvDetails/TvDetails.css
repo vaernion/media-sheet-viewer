@@ -1,41 +1,44 @@
-.director {
+.tv {
   display: flex;
   flex-flow: row;
   margin-top: 2em;
   width: 50vw;
 }
-.director .left,
-.director .right {
+.tv .left,
+.tv .right {
   margin: 1em;
   display: flex;
   flex-flow: column;
 }
-
-.director .director-name {
+.tv .tv-title {
   display: flex;
+  flex-flow: row;
   align-items: center;
   justify-content: center;
 }
-.director .director-films {
-  display: flex;
-  flex-flow: column;
+.tv .tv-year {
+  margin-left: 0.5em;
 }
-.director a,
-.director a:visited {
+.tv .tv-summary {
+  margin-top: 2em;
+}
+
+.tv a,
+.tv a:visited {
   color: rgb(41, 91, 218);
   text-decoration: none;
 }
-.director a:hover {
+.tv a:hover {
   color: rgb(146, 0, 19);
 }
 
-.director-thumbnail {
+.tv-poster {
   display: flex;
   flex-direction: column;
   justify-content: center;
   width: 400px;
 }
-.director-thumbnail-image {
+.tv-poster-image {
   object-fit: contain;
   max-width: 100%;
   min-width: 100%;

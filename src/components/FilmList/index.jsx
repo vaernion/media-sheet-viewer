@@ -1,4 +1,5 @@
 import * as React from "react";
+import { normalize } from "../../utils/utilities";
 import { FieldHeader } from "../FieldHeader";
 import { SearchForm } from "../SearchForm";
 import { MediaContext } from "../Store";
@@ -16,7 +17,7 @@ export default function FilmList() {
 
   document.title = `${context.films.length} Films - MediaSheetViewer`;
 
-  // keep current sorted array in state
+  // keep current sorted films in state
   React.useEffect(() => {
     setFilmsSortedLocal(
       (() => {
@@ -37,7 +38,7 @@ export default function FilmList() {
     );
   }, [sortBy, isSortReverse, context.films, context.filmsSorted]);
 
-  // keep current filtered films in state
+  // filter films post-sort and store in state
   React.useEffect(() => {
     if (!filmsSortedLocal) return;
     setFilmsFiltered(filterFilms(filmsSortedLocal, searchField));
@@ -53,25 +54,25 @@ export default function FilmList() {
   };
 
   const filterFilms = (sortedFilms, searchField) => {
-    if (searchField.toLowerCase().startsWith("g:")) {
+    const searchStr = normalize(searchField);
+
+    if (searchStr.startsWith("g:")) {
       return sortedFilms.filter(
         (film) =>
           film.genre.findIndex((genre) =>
-            genre
-              .toLowerCase()
-              .includes(searchField.toLowerCase().replace("g:", ""))
+            normalize(genre).includes(searchStr.replace("g:", ""))
           ) !== -1
       );
-    } else if (searchField.toLowerCase().startsWith("y:")) {
+    } else if (searchStr.startsWith("y:")) {
       return sortedFilms.filter(
-        (film) => film.year.toString() === searchField.replace("y:", "")
+        (film) => film.year.toString() === searchStr.replace("y:", "")
       );
     } else {
       return sortedFilms.filter(
         (film) =>
-          film.title.toLowerCase().includes(searchField.toLowerCase()) ||
+          normalize(film.title).includes(searchStr) ||
           film.director.findIndex((director) =>
-            director.toLowerCase().includes(searchField.toLowerCase())
+            normalize(director).includes(searchStr)
           ) !== -1
       );
     }

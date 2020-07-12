@@ -15,10 +15,11 @@ export function useFetch(path, options = null) {
         setResponse(json);
         setIsLoading(false);
       } catch (err) {
-        console.log("err", err);
+        console.error("useFetch error:", err);
         setError(err);
       }
     };
+
     fetchData();
   }, [path, options]);
 
