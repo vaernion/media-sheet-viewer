@@ -21,12 +21,7 @@ export class Film {
   }
 
   static generateFilmsArray(filmsJson) {
-    const array = [];
-
-    for (let i = 0; i < filmsJson.length; i++) {
-      array.push(new this(filmsJson[i]));
-    }
-    return array;
+    return filmsJson.map((film) => new this(film));
   }
 
   static generateSortedFilmsObj(films) {
@@ -66,13 +61,14 @@ export class Film {
       };
       // franchise, entries without franchise always last
     } else if (sortBy === "franchise") {
-      // franchise
+      // franchise A-Z
       if (!isDescending) {
         algorithm = (a, b) => {
           if (a.franchise === "") return 1;
           if (b.franchise === "") return -1;
           return a.franchise.localeCompare(b.franchise);
         };
+        // franchise Z-A
       } else {
         algorithm = (a, b) => {
           if (a.franchise === "") return 1;

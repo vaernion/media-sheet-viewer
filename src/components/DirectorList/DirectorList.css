@@ -1,0 +1,34 @@
+.directors {
+  display: flex;
+  justify-content: center;
+  /* width: 80vw; */
+}
+.directors-head {
+  position: fixed;
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  width: 100%;
+  padding: 1em 0 1em 0;
+  background-color: white;
+  z-index: 5;
+}
+.directors-body {
+  display: flex;
+  padding-top: 5em;
+}
+.directors ul {
+  columns: 5;
+}
+.directors li {
+  margin-left: 1em;
+}
+
+.directors a,
+.directors a:visited {
+  color: rgb(41, 91, 218);
+  text-decoration: none;
+}
+.directors a:hover {
+  color: rgb(146, 0, 19);
+}

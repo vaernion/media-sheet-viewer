@@ -23,13 +23,15 @@ export function SearchForm({ value, setValue, placeholder }) {
 
   return (
     <>
-      <input
-        type="text"
-        placeholder={placeholder}
-        value={state}
-        onChange={(e) => setState(e.currentTarget.value)}
-      />
-      <button onClick={handleClear}>Clear</button>
+      <div>
+        <input
+          type="text"
+          placeholder={placeholder}
+          value={state}
+          onChange={(e) => setState(e.currentTarget.value)}
+        />
+        <button onClick={handleClear}>Clear</button>
+      </div>
     </>
   );
 }

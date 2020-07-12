@@ -6,7 +6,7 @@ button {
   border: 1px solid #ccc;
 }
 input {
-  width: 50%;
+  width: 30vw;
 }
 input:focus,
 button:focus {

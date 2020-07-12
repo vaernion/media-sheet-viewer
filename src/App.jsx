@@ -13,6 +13,7 @@ import Store from "./components/Store";
 
 const Home = React.lazy(() => import("./components/Home"));
 const FilmList = React.lazy(() => import("./components/FilmList"));
+const DirectorList = React.lazy(() => import("./components/DirectorList"));
 const FilmDetails = React.lazy(() => import("./components/FilmDetails"));
 const DirectorDetails = React.lazy(() =>
   import("./components/DirectorDetails")
@@ -21,8 +22,8 @@ const DirectorDetails = React.lazy(() =>
 const menu = [
   { path: "/", exact: true, name: "Home" },
   { path: "/films", name: "Films" },
+  { path: "/directors", name: "Directors" },
   { path: "/tv", name: "TV" },
-  { path: "/Wnnwkeqnkrnkqw124214", name: "void" },
   { path: "/spintest", name: "spinner" },
 ];
 
@@ -30,6 +31,7 @@ const routes = [
   { path: "/", exact: true, component: <Home /> },
   { path: "/films", exact: true, component: <FilmList /> },
   { path: "/films/:filmId", component: <FilmDetails /> },
+  { path: "/directors", exact: true, component: <DirectorList /> },
   { path: "/directors/:directorName", component: <DirectorDetails /> },
   { path: "/spintest", component: <Spinner /> },
   { path: "*", component: <NotFound /> },

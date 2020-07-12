@@ -1,0 +1,18 @@
+.director {
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  margin-top: 2em;
+}
+.director-films {
+  display: flex;
+  flex-flow: column;
+}
+.director a,
+.director a:visited {
+  color: rgb(41, 91, 218);
+  text-decoration: none;
+}
+.director a:hover {
+  color: rgb(146, 0, 19);
+}

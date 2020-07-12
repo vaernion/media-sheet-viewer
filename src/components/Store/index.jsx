@@ -1,15 +1,7 @@
 import * as React from "react";
-import { Film } from "../../classes/Film";
-import filmsJson from "../../data/films.json";
-
-const films = Film.generateFilmsArray(filmsJson);
-const filmsSorted = Film.generateSortedFilmsObj(films);
-console.info(
-  `films.length: ${films.length} filmsSorted: ${Object.keys(filmsSorted)}`
-);
+import { directors, films, filmsSorted } from "./values";
 
 export const MediaContext = React.createContext();
-
 const initialState = { count: 0 };
 
 const storeReducer = (state, action) => {
@@ -26,12 +18,13 @@ const storeReducer = (state, action) => {
 };
 
 export default function Store(props) {
-  //   const mediaContext = { films, filmsSorted };
   const [store, dispatch] = React.useReducer(storeReducer, initialState);
 
   return (
     <>
-      <MediaContext.Provider value={{ store, dispatch, films, filmsSorted }}>
+      <MediaContext.Provider
+        value={{ store, dispatch, films, filmsSorted, directors }}
+      >
         {props.children}
       </MediaContext.Provider>
     </>

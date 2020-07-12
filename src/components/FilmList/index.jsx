@@ -1,8 +1,8 @@
 import * as React from "react";
+import { FieldHeader } from "../FieldHeader";
 import { SearchForm } from "../SearchForm";
 import { MediaContext } from "../Store";
-import { FieldHeader } from "./FieldHeader";
-import { FilmListItem } from "./FilmListItem";
+import { FilmListItems } from "./FilmListItems";
 import "./filmsList.css";
 
 export default function FilmList() {
@@ -81,56 +81,61 @@ export default function FilmList() {
 
   return (
     <>
-      <div className="filmHeaderContainer">
-        <div className="searchWrapper">
+      <div className="films">
+        <div className="films-head">
           <SearchForm
             value={searchField}
             setValue={setSearchField}
             placeholder="examples: star wars | g:drama | hitchcock | y:2010"
           />
-        </div>
-        <div className="fieldHeadersContainer">
-          <FieldHeader
-            field="sortTitle"
-            label="Title"
-            onclick={handleSort}
-            sort={{ sortBy, isSortReverse }}
-          />
-          <FieldHeader
-            field="year"
-            label="Year"
-            onclick={handleSort}
-            sort={{ sortBy, isSortReverse }}
-          />
-          <FieldHeader
-            field="director"
-            label="Director"
-            onclick={handleSort}
-            sort={{ sortBy, isSortReverse }}
-          />
-          <FieldHeader
-            field="genre"
-            label="Genre"
-            sort={{ sortBy, isSortReverse }}
-          />
-          <FieldHeader
-            field="franchise"
-            label="Franchise"
-            onclick={handleSort}
-            sort={{ sortBy, isSortReverse }}
-          />
-        </div>
-      </div>
-      <div className="filmBodyContainer">
-        {filmsFiltered
-          // .filter((e) => e.id > 800 && e.id < 1000)
-          .map((film) => (
-            <FilmListItem
-              key={film.id}
-              film={film}
-              setSearchField={setSearchField}
+          <div className="headers">
+            <FieldHeader
+              field="sortTitle"
+              label="Title"
+              width="20%"
+              sort={{ sortBy, isSortReverse }}
+              onclick={handleSort}
             />
-          ))}
+            <FieldHeader
+              field="year"
+              label="Year"
+              width="10%"
+              sort={{ sortBy, isSortReverse }}
+              onclick={handleSort}
+            />
+            <FieldHeader
+              field="director"
+              label="Director"
+              width="25%"
+              sort={{ sortBy, isSortReverse }}
+              onclick={handleSort}
+            />
+            <FieldHeader
+              field="genre"
+              label="Genre"
+              width="30%"
+              sort={{ sortBy, isSortReverse }}
+            />
+            <FieldHeader
+              field="franchise"
+              label="Franchise"
+              width="15%"
+              sort={{ sortBy, isSortReverse }}
+              onclick={handleSort}
+            />
+          </div>
+        </div>
+        <div className="films-body">
+          {filmsFiltered
+            // .filter((e) => e.id > 500 && e.id < 600)
+            .map((film) => (
+              <FilmListItems
+                key={film.id}
+                film={film}
+                setSearchField={setSearchField}
+              />
+            ))}
+        </div>
       </div>
     </>
   );

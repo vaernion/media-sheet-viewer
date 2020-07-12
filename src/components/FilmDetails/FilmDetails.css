@@ -1,0 +1,38 @@
+.film {
+  display: flex;
+  flex-flow: row;
+  margin-top: 2em;
+  width: 50vw;
+}
+.left,
+.right {
+  margin: 1em;
+  display: flex;
+  flex-flow: column;
+}
+/* .left {
+}
+.right {
+} */
+.film-poster {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 400px;
+}
+.film-poster-image {
+  object-fit: contain;
+  max-width: 100%;
+  min-width: 100%;
+}
+.film-summary {
+  margin-top: 2em;
+}
+.film a,
+.film a:visited {
+  color: rgb(41, 91, 218);
+  text-decoration: none;
+}
+.film a:hover {
+  color: rgb(146, 0, 19);
+}

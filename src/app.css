@@ -1,8 +1,6 @@
 #root {
   display: flex;
   justify-content: center;
-  width: 80%;
-  margin: auto;
 }
 .headerContainer {
   position: fixed;
@@ -12,10 +10,10 @@
   height: 3em;
   padding-top: 0.5em;
   background-color: white;
-  z-index: 2;
+  z-index: 10;
 }
 .menuItems {
-  border: 1px solid;
+  /* border: 1px solid; */
   display: flex;
   align-items: center;
 }
@@ -27,7 +25,8 @@
   flex-grow: 1;
 }
 .menuLinkActive {
-  color: red;
+  color: darkslateblue;
+  text-decoration: underline black;
 }
 .menuLink:hover {
   color: midnightblue;
