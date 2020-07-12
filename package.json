@@ -22,6 +22,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "prestart": "npm run csv-all",
+    "pretest": "npm run csv-all",
     "csv-all": "npm run csv-films && npm run csv-tv",
     "csv-films": "python \"./utils/csv_to_json.py\" -s \";\" -i \"./src/data/films.csv\" -o \"./src/data/films.json\"",
     "csv-tv": "python \"./utils/csv_to_json.py\" -s \";\" -i \"./src/data/tv.csv\" -o \"./src/data/tv.json\""
