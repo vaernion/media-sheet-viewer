@@ -1,0 +1,69 @@
+.films,
+.tvs,
+.directors {
+  display: flex;
+  justify-content: center;
+  width: 80vw;
+}
+.films-head,
+.tvs-head,
+.directors-head {
+  position: fixed;
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  width: 100%;
+  padding: 1em 0 1em 0;
+  background-color: white;
+  z-index: 5;
+}
+.films .headers,
+.tvs .headers {
+  display: flex;
+  flex-flow: row;
+  justify-content: center;
+  padding: 1em 0 0 0;
+  width: 80vw;
+  flex: 1;
+}
+.films-body,
+.tvs-body {
+  display: flex;
+  flex-flow: column;
+  padding-top: 7em;
+  flex: 1;
+}
+.tvs .list-items,
+.films .list-items {
+  display: flex;
+  justify-content: center;
+}
+.films .list-items span,
+.tvs .list-items span {
+  text-align: center;
+}
+
+.list-items a,
+.list-items a:visited,
+.directors a,
+.directors a:visited {
+  color: darkblue;
+  text-decoration: none;
+}
+.list-items a:hover,
+.list-items .film-genre .genre-name:hover,
+.list-items .film-year:hover,
+.list-items .tv-genre .genre-name:hover,
+.list-items .tv-year:hover,
+.directors a:hover {
+  color: rgb(146, 0, 19);
+}
+.list-items .tv-year,
+.list-items .tv-genre .genre-name,
+.list-items .film-year,
+.list-items .film-genre .genre-name {
+  color: darkgreen;
+}
+.list-items:nth-of-type(odd) {
+  background-color: lightgrey;
+}

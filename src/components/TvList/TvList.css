@@ -1,59 +1,6 @@
-.tvs {
-  display: flex;
-  justify-content: center;
-  width: 80vw;
-}
-.tvs-head {
-  position: fixed;
-  display: flex;
-  flex-flow: column;
-  align-items: center;
-  width: 100%;
-  padding-top: 1em;
-  background-color: white;
-  z-index: 5;
-}
-.headers {
-  display: flex;
-  flex-flow: row;
-  justify-content: center;
-  padding: 1em 0 1em 0;
-  width: 80vw;
-  flex: 1;
-}
-.tvs-body {
-  display: flex;
-  flex-flow: column;
-  padding-top: 7em;
-  flex: 1;
-}
-.list-items {
-  display: flex;
-  justify-content: center;
-}
-.list-items a,
-.list-items a:visited {
-  color: rgb(41, 91, 218);
-  text-decoration: none;
-}
-.list-items a:hover,
-.list-items .tv-genre .genre-name:hover,
-.list-items .tv-year:hover {
-  color: rgb(146, 0, 19);
-}
-.tv-genre .genre-name {
-  color: rgb(39, 92, 22);
-}
-.list-items span {
-  text-align: center;
-}
-.list-items:nth-of-type(odd) {
-  background-color: lightgrey;
-}
 .list-items .tv-title {
   width: 30%;
 }
-
 .list-items .tv-creator {
   width: 35%;
 }

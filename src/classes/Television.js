@@ -1,11 +1,11 @@
 // @ts-check
 
-export class Tv {
+export class Television {
   static _count = 0;
   static _sorts = ["title", "yearStart", "yearEnd", "creator"];
 
   constructor(tvSeries) {
-    this.id = Tv._count += 1;
+    this.id = Television._count += 1;
     this.title = tvSeries.title;
     this.sortTitle = tvSeries.sortTitle;
     this.creator = tvSeries.creator;
@@ -16,11 +16,16 @@ export class Tv {
     );
   }
 
-  static generateFinalArray(tvNames, tvSeasons) {
-    const arr = [];
+  static generateTvFromJson(tvJson) {
+    const tvSeasons = tvJson.map((rawSeason) => this.parseRawSeason(rawSeason));
+    const tvNames = [...new Set(tvSeasons.map((tvSeason) => tvSeason.title))];
+
+    const tv = [];
 
     for (let name of tvNames) {
-      let filteredSeasons = tvSeasons.filter((e) => e.title === name);
+      let filteredSeasons = tvSeasons.filter(
+        (tvSeason) => tvSeason.title === name
+      );
 
       let tvSeries = {
         title: name,
@@ -34,9 +39,32 @@ export class Tv {
         tvSeries.seasons.push(this.parseSeason(s));
       }
 
-      arr.push(new this(tvSeries));
+      tv.push(new this(tvSeries));
     }
-    return arr;
+
+    return tv;
+  }
+
+  static parseRawSeason(tv) {
+    let rawSeason = {};
+
+    rawSeason.title = tv["Original title"];
+    rawSeason.sortTitle = tv["Sort"];
+    rawSeason.creator = [];
+    for (let creator of tv["Creator(s)"].split(/[&,/]+|\band\b/)) {
+      rawSeason.creator.push(creator.trim());
+    }
+    rawSeason.genre = [];
+    for (let genre of tv["Genres"].split(/[,/|]+/)) {
+      rawSeason.genre.push(genre.trim());
+    }
+    rawSeason.season = Number(tv["S"]);
+    rawSeason.yearStart = Number(tv["Start"]);
+    rawSeason.yearEnd = Number(tv["End"]);
+    rawSeason.episodes = Number(tv["E"]);
+    rawSeason.episodeMinutes = parseInt(tv["Mins"]);
+
+    return rawSeason;
   }
 
   static parseSeason(s) {
@@ -50,21 +78,20 @@ export class Tv {
     };
   }
 
-  static generateSortedTvObj(tv) {
-    console.time("genTvSortedObj");
-    const obj = {};
+  static generateSortedTv(tv) {
+    const sortedTv = {};
 
     for (let sort of this._sorts) {
       for (let bool of [true, false]) {
-        obj[`${sort}${bool ? "Desc" : "Asc"}`] = this.sortTv(
+        sortedTv[`${sort}${bool ? "Desc" : "Asc"}`] = this.sortTv(
           [...tv],
           sort,
           bool
         );
       }
     }
-    console.timeEnd("genTvSortedObj");
-    return obj;
+
+    return sortedTv;
   }
 
   static sortTv(tv, sortBy, isDescending) {

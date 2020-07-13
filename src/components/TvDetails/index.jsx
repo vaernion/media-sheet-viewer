@@ -1,6 +1,7 @@
 import * as React from "react";
 import { Link, useParams } from "react-router-dom";
 import { useFetch } from "../../hooks/useFetch";
+import "../../styles/details.css";
 import { Spinner } from "../Spinner";
 import { MediaContext } from "../Store";
 import "./TvDetails.css";
@@ -39,8 +40,8 @@ export default function TvDetails() {
   return (
     <>
       <div className="tv">
-        <div className="left">
-          <div className="tv-title">
+        <div className="details-left">
+          <div className="tv-header">
             <h3>{tv.title}</h3>
             <span className="tv-year">
               ({tv.seasons[0].yearStart}-
@@ -77,7 +78,7 @@ export default function TvDetails() {
           </div>
           {result ? <div className="tv-summary">{result.overview}</div> : null}
         </div>
-        <div className="right">
+        <div className="details-right">
           <div className="tv-poster">
             {poster ? (
               <img className="tv-poster-image" src={poster} alt="poster" />

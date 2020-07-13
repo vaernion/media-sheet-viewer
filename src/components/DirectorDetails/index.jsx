@@ -1,6 +1,7 @@
 import * as React from "react";
 import { Link, useParams } from "react-router-dom";
 import { useFetch } from "../../hooks/useFetch";
+import "../../styles/details.css";
 import { Spinner } from "../Spinner";
 import { MediaContext } from "../Store";
 import "./DirectorDetails.css";
@@ -30,8 +31,8 @@ export default function DirectorDetails() {
   return (
     <>
       <div className="director">
-        <div className="left">
-          <div className="director-name">
+        <div className="details-left">
+          <div className="director-header">
             <h3>{directorName}</h3>
           </div>
           <div className="director-films">
@@ -45,7 +46,7 @@ export default function DirectorDetails() {
             ))}
           </div>
         </div>
-        <div className="right">
+        <div className="details-right">
           <div className="director-thumbnail">
             {thumbnail ? (
               <img

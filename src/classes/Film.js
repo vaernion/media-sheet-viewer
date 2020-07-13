@@ -21,25 +21,24 @@ export class Film {
     this.franchise = film["Series/Universe"];
   }
 
-  static generateFilmsArray(filmsJson) {
+  static generateFilmsFromJson(filmsJson) {
     return filmsJson.map((film) => new this(film));
   }
 
-  static generateSortedFilmsObj(films) {
-    console.time("genFilmsObj");
-    const obj = {};
+  static generateSortedFilms(films) {
+    const sortedFilms = {};
 
     for (let sort of this._sorts) {
       for (let bool of [true, false]) {
-        obj[`${sort}${bool ? "Desc" : "Asc"}`] = this.sortFilms(
+        sortedFilms[`${sort}${bool ? "Desc" : "Asc"}`] = this.sortFilms(
           [...films],
           sort,
           bool
         );
       }
     }
-    console.timeEnd("genFilmsObj");
-    return obj;
+
+    return sortedFilms;
   }
 
   static sortFilms(films, sortBy, isDescending) {

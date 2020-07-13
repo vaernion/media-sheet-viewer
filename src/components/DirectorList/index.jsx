@@ -1,5 +1,6 @@
 import * as React from "react";
 import { Link } from "react-router-dom";
+import "../../styles/lists.css";
 import { normalize } from "../../utils/utilities";
 import { SearchForm } from "../SearchForm";
 import { MediaContext } from "../Store";

@@ -1,4 +1,5 @@
 import * as React from "react";
+import "../../styles/lists.css";
 import { normalize } from "../../utils/utilities";
 import { FieldHeader } from "../FieldHeader";
 import { SearchForm } from "../SearchForm";
@@ -73,7 +74,8 @@ export default function FilmList() {
           normalize(film.title).includes(searchStr) ||
           film.director.findIndex((director) =>
             normalize(director).includes(searchStr)
-          ) !== -1
+          ) !== -1 ||
+          normalize(film.franchise).includes(searchStr)
       );
     }
   };

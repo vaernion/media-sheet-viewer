@@ -1,4 +1,5 @@
 import * as React from "react";
+import "../../styles/lists.css";
 import { normalize } from "../../utils/utilities";
 import { FieldHeader } from "../FieldHeader";
 import { SearchForm } from "../SearchForm";

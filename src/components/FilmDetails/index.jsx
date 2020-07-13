@@ -1,6 +1,7 @@
 import * as React from "react";
 import { Link, useParams } from "react-router-dom";
 import { useFetch } from "../../hooks/useFetch";
+import "../../styles/details.css";
 import { Spinner } from "../Spinner";
 import { MediaContext } from "../Store";
 import "./FilmDetails.css";
@@ -36,7 +37,7 @@ export default function FilmDetails() {
   return (
     <>
       <div className="film">
-        <div className="left">
+        <div className="details-left">
           <div className="film-header">
             <h3 className="film-title">{film.title}</h3>
             {film.translatedTitle ? (
@@ -68,7 +69,7 @@ export default function FilmDetails() {
             <div className="film-summary">{result.overview}</div>
           ) : null}
         </div>
-        <div className="right">
+        <div className="details-right">
           <div className="film-poster">
             {poster ? (
               <img className="film-poster-image" src={poster} alt="poster" />
