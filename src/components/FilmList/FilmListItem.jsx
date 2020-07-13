@@ -2,7 +2,9 @@ import * as React from "react";
 import { Link } from "react-router-dom";
 import "./filmsList.css";
 
-export function FilmListItems(props) {
+export const FilmListItem = React.memo(FilmListItemRaw);
+
+function FilmListItemRaw(props) {
   const film = props.film;
 
   return (

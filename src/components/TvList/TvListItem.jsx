@@ -2,7 +2,9 @@ import * as React from "react";
 import { Link } from "react-router-dom";
 import "./TvList.css";
 
-export function TvListItems(props) {
+export const TvListItem = React.memo(TvListItemRaw);
+
+function TvListItemRaw(props) {
   const tv = props.tv;
 
   return (

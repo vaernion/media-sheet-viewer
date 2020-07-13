@@ -3,7 +3,7 @@ import { normalize } from "../../utils/utilities";
 import { FieldHeader } from "../FieldHeader";
 import { SearchForm } from "../SearchForm";
 import { MediaContext } from "../Store";
-import { FilmListItems } from "./FilmListItems";
+import { FilmListItem } from "./FilmListItem";
 import "./filmsList.css";
 
 export default function FilmList() {
@@ -130,7 +130,7 @@ export default function FilmList() {
           {filmsFiltered
             // .filter((e) => e.id > 500 && e.id < 600)
             .map((film) => (
-              <FilmListItems
+              <FilmListItem
                 key={film.id}
                 film={film}
                 setSearchField={setSearchField}

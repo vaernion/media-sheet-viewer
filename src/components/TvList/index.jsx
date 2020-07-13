@@ -4,7 +4,7 @@ import { FieldHeader } from "../FieldHeader";
 import { SearchForm } from "../SearchForm";
 import { MediaContext } from "../Store";
 import "./TvList.css";
-import { TvListItems } from "./TvListItems";
+import { TvListItem } from "./TvListItem";
 
 export default function TvList() {
   const context = React.useContext(MediaContext);
@@ -144,7 +144,7 @@ export default function TvList() {
         </div>
         <div className="tvs-body">
           {tvFiltered.map((tv) => (
-            <TvListItems key={tv.id} tv={tv} setSearchField={setSearchField} />
+            <TvListItem key={tv.id} tv={tv} setSearchField={setSearchField} />
           ))}
         </div>
       </div>
