@@ -17,14 +17,20 @@ export default function DirectorDetails() {
     `https://en.wikipedia.org/api/rest_v1/page/summary/${directorName}`
   );
 
-  if (wpSummary.error) return `Error: ${wpSummary.error.message}`;
   if (!wpSummary || !wpSummary.response || wpSummary.isLoading)
     return <Spinner />;
+  if (wpSummary.error) return `Error: ${wpSummary.error.message}`;
 
-  // console.log(wpImg.response);
-  const thumbnail = wpSummary.response.thumbnail
-    ? wpSummary.response.thumbnail.source
+  const wpData =
+    wpSummary.response.type === "disambiguation" ? {} : wpSummary.response;
+  const poster = wpData.originalimage
+    ? wpData.originalimage.source
+    : wpData.thumbnail
+    ? wpData.thumbnail.source
     : null;
+
+  console.log(wpData);
+  if (wpData.thumbnail && !wpData.originalimage) console.log("only thumbnail");
 
   document.title = `${directorName} - Director - MediaSheetViewer`;
 
@@ -45,14 +51,17 @@ export default function DirectorDetails() {
               </span>
             ))}
           </div>
+          {wpData ? (
+            <div className="director-summary">{wpData.extract}</div>
+          ) : null}
         </div>
         <div className="details-right">
-          <div className="director-thumbnail">
-            {thumbnail ? (
+          <div className="director-poster">
+            {poster ? (
               <img
-                className="director-thumbnail-image"
-                src={thumbnail}
-                alt="thumbnail"
+                className="director-poster-image"
+                src={poster}
+                alt="poster"
               />
             ) : null}
           </div>

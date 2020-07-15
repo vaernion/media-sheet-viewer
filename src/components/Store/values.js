@@ -1,6 +1,8 @@
 import { Film } from "../../classes/Film";
+import { Game } from "../../classes/Game";
 import { Television } from "../../classes/Television";
 import filmsJson from "../../data/films.json";
+import gamesJson from "../../data/games.json";
 import tvJson from "../../data/tv.json";
 
 // films
@@ -35,4 +37,24 @@ const tvSorted = Television.generateSortedTv(tv);
 console.timeEnd("generate tv");
 console.info(`tv.length: ${tv.length} tvSorted: ${Object.keys(tvSorted)}`);
 
-export { films, filmsSorted, directors, tv, tvSorted };
+// games
+console.time("generate games");
+const games = Game.generateGamesFromJson(gamesJson).filter(
+  (x, i, a) =>
+    a.findIndex((e) => e.title === x.title && e.year === x.year) === i
+);
+const gamesSorted = Game.generateSortedGames(games);
+console.timeEnd("generate games");
+console.info(
+  `games.length: ${games.length} gamesSorted: ${Object.keys(gamesSorted)}`
+);
+
+export const values = {
+  films,
+  filmsSorted,
+  directors,
+  tv,
+  tvSorted,
+  games,
+  gamesSorted,
+};

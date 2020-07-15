@@ -1,13 +1,15 @@
 .films,
 .tvs,
-.directors {
+.directors,
+.games {
   display: flex;
   justify-content: center;
   width: 80vw;
 }
 .films-head,
 .tvs-head,
-.directors-head {
+.directors-head,
+.games-head {
   position: fixed;
   display: flex;
   flex-flow: column;
@@ -18,7 +20,8 @@
   z-index: 5;
 }
 .films .headers,
-.tvs .headers {
+.tvs .headers,
+.games .headers {
   display: flex;
   flex-flow: row;
   justify-content: center;
@@ -27,41 +30,35 @@
   flex: 1;
 }
 .films-body,
-.tvs-body {
+.tvs-body,
+.games-body {
   display: flex;
   flex-flow: column;
   padding-top: 7em;
   flex: 1;
 }
 .tvs .list-items,
-.films .list-items {
+.films .list-items,
+.games .list-items {
   display: flex;
   justify-content: center;
 }
 .films .list-items span,
-.tvs .list-items span {
-  text-align: center;
+.tvs .list-items span,
+.games .list-items span {
+  text-align: left;
 }
 
 .list-items a,
-.list-items a:visited,
-.directors a,
-.directors a:visited {
+.list-items a:visited {
   color: darkblue;
   text-decoration: none;
 }
 .list-items a:hover,
-.list-items .film-genre .genre-name:hover,
-.list-items .film-year:hover,
-.list-items .tv-genre .genre-name:hover,
-.list-items .tv-year:hover,
-.directors a:hover {
+.list-items .on-click:hover {
   color: rgb(146, 0, 19);
 }
-.list-items .tv-year,
-.list-items .tv-genre .genre-name,
-.list-items .film-year,
-.list-items .film-genre .genre-name {
+.list-items .on-click {
   color: darkgreen;
 }
 .list-items:nth-of-type(odd) {

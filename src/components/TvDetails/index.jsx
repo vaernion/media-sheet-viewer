@@ -6,37 +6,36 @@ import { Spinner } from "../Spinner";
 import { MediaContext } from "../Store";
 import "./TvDetails.css";
 
-const tmdbKey = "15d2ea6d0dc1d476efbca3eba2b9bbfb";
-
 export default function TvDetails() {
   const context = React.useContext(MediaContext);
   const { tvId } = useParams();
   const tv = context.tv.find((e) => e.id === Number(tvId));
   const tvTitle = tv ? tv.title : null;
 
-  const movieDb = useFetch(
-    `https://api.themoviedb.org/3/search/movie?api_key=${tmdbKey}&query=${tvTitle}`
+  const wpSummary = useFetch(
+    `https://en.wikipedia.org/api/rest_v1/page/summary/${tvTitle}`
   );
 
-  if (!tv) return `tv not found with id ${tvId}`;
-  if (!movieDb || !movieDb.response || movieDb.isLoading) return <Spinner />;
-  if (movieDb.error) return `Error: ${movieDb.error.message}`;
+  if (!tv) return `TV series not found with id ${tvId}`;
+  if (!wpSummary || !wpSummary.response || wpSummary.isLoading)
+    return <Spinner />;
+  if (wpSummary.error) return `Error: ${wpSummary.error.message}`;
 
-  const result = movieDb.response.results[0]
-    ? movieDb.response.results[0]
+  const wpData =
+    wpSummary.response.type === "disambiguation" ? {} : wpSummary.response;
+  const poster = wpData.originalimage
+    ? wpData.originalimage.source
+    : wpData.thumbnail
+    ? wpData.thumbnail.source
     : null;
-  // console.log(result);
 
-  const poster =
-    result && result.poster_path
-      ? `https://image.tmdb.org/t/p/w500/${result.poster_path}`
-      : null;
+  console.log(wpData);
+  if (wpData.thumbnail && !wpData.originalimage) console.log("only thumbnail");
 
   document.title = `${tv.title} (${tv.seasons[0].yearStart}-${
     tv.seasons[tv.seasons.length - 1].yearEnd
   }) - TV - MediaSheetViewer`;
 
-  console.log(tv);
   return (
     <>
       <div className="tv">
@@ -76,7 +75,7 @@ export default function TvDetails() {
           <div className="tv-hours">
             {Number((tv.minutesTotal / 60).toFixed(2))} hours
           </div>
-          {result ? <div className="tv-summary">{result.overview}</div> : null}
+          {wpData ? <div className="tv-summary">{wpData.extract}</div> : null}
         </div>
         <div className="details-right">
           <div className="tv-poster">

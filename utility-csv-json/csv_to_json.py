@@ -9,11 +9,17 @@ def arguments():
         formatter_class=argparse.ArgumentDefaultsHelpFormatter,
     )
     parser.add_argument(
-        "-i", "--input", help="File to read CSV from", type=str, required=True,
+        "-i",
+        "--input",
+        metavar="PATH",
+        help="File to read CSV from",
+        type=str,
+        required=True,
     )
     parser.add_argument(
         "-o",
         "--output",
+        metavar="PATH",
         help="File to write JSON to (will overwrite existing)",
         required=True,
         type=str,
@@ -27,10 +33,17 @@ def arguments():
         help="Comma separated headers, will use first line in file if not supplied",
         type=str,
     )
+    parser.add_argument(
+        "--skip",
+        metavar="LINES",
+        help="Start reading after a number of lines",
+        type=int,
+        default=0,
+    )
     return parser.parse_args()
 
 
-def readFile(path):
+def readFile(path, skip):
     try:
         with open(path, "r", encoding="utf-8") as f:
             string = f.read()
@@ -38,7 +51,7 @@ def readFile(path):
         print(f"IOError: {e}")
         sys.exit(1)
     else:
-        return string
+        return string.split("\n", skip)[-1] if skip else string
 
 
 def csvParser(csv, args):
@@ -81,10 +94,10 @@ def writeJson(data, outPath):
 
 def main():
     args = arguments()
-    print("separator:", args.separator)
+    print(f"separator: {args.separator} skip: {args.skip}")
     print(f"input: {args.input}\noutput: {args.output}")
 
-    csv = readFile(args.input)
+    csv = readFile(args.input, args.skip)
     data = csvParser(csv, args)
     writeJson(data, args.output)
 

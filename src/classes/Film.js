@@ -1,5 +1,7 @@
 // @ts-check
 
+import { splitRegex } from "../utils/regex";
+
 export class Film {
   static _count = 0;
   static _sorts = ["title", "year", "director", "franchise"];
@@ -10,11 +12,11 @@ export class Film {
     this.translatedTitle = film["This release's translation/title"];
     this.sortTitle = film["Sort"];
     this.director = [];
-    for (let director of film["Director(s)"].split(/[,/]+/)) {
+    for (let director of film["Director(s)"].split(splitRegex)) {
       this.director.push(director.trim());
     }
     this.genre = [];
-    for (let genre of film["Genres"].split(/[,/|]+/)) {
+    for (let genre of film["Genres"].split(splitRegex)) {
       this.genre.push(genre.trim());
     }
     this.year = film["Year"];
@@ -42,7 +44,6 @@ export class Film {
   }
 
   static sortFilms(films, sortBy, isDescending) {
-    // console.time(`${sortBy}${isDescending}`);
     let algorithm = null;
 
     // title A-Z
@@ -87,7 +88,6 @@ export class Film {
       array = array.reverse();
     }
 
-    // console.timeEnd(`${sortBy}${isDescending}`);
     return array;
   }
 }

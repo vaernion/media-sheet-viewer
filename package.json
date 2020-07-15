@@ -23,9 +23,10 @@
     "eject": "react-scripts eject",
     "prestart": "npm run csv-all",
     "pretest": "npm run csv-all",
-    "csv-all": "npm run csv-films && npm run csv-tv",
-    "csv-films": "python \"./utils/csv_to_json.py\" -s \";\" -i \"./src/data/films.csv\" -o \"./src/data/films.json\"",
-    "csv-tv": "python \"./utils/csv_to_json.py\" -s \";\" -i \"./src/data/tv.csv\" -o \"./src/data/tv.json\""
+    "csv-all": "npm run csv-films && npm run csv-tv && npm run csv-games",
+    "csv-films": "python \"./utility-csv-json/csv_to_json.py\" -s \";\" -i \"./src/data/films.csv\" -o \"./src/data/films.json\" --skip 1",
+    "csv-tv": "python \"./utility-csv-json/csv_to_json.py\" -s \";\" -i \"./src/data/tv.csv\" -o \"./src/data/tv.json\" --skip 1",
+    "csv-games": "python \"./utility-csv-json/csv_to_json.py\" -s \";\" -i \"./src/data/games.csv\" -o \"./src/data/games.json\" --skip 1"
   },
   "eslintConfig": {
     "extends": "react-app"

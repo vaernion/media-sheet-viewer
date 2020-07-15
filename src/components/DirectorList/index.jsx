@@ -39,13 +39,15 @@ export default function DirectorList() {
           />
         </div>
         <div className="directors-body">
-          <ul>
-            {directorsFiltered.map((name) => (
-              <li key={name}>
-                <Link to={`/directors/${name}`}>{name}</Link>
-              </li>
-            ))}
-          </ul>
+          <div className="list-items">
+            <ul>
+              {directorsFiltered.map((name) => (
+                <li key={name}>
+                  <Link to={`/directors/${name}`}>{name}</Link>
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
       </div>
     </>

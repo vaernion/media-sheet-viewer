@@ -2,6 +2,9 @@
   display: flex;
   padding-top: 5em;
 }
+.directors .list-items {
+  background-color: inherit;
+}
 .directors ul {
   columns: 5;
 }

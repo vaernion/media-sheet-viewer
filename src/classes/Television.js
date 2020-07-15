@@ -1,5 +1,7 @@
 // @ts-check
 
+import { splitRegex } from "../utils/regex";
+
 export class Television {
   static _count = 0;
   static _sorts = ["title", "yearStart", "yearEnd", "creator"];
@@ -51,11 +53,11 @@ export class Television {
     rawSeason.title = tv["Original title"];
     rawSeason.sortTitle = tv["Sort"];
     rawSeason.creator = [];
-    for (let creator of tv["Creator(s)"].split(/[&,/]+|\band\b/)) {
+    for (let creator of tv["Creator(s)"].split(splitRegex)) {
       rawSeason.creator.push(creator.trim());
     }
     rawSeason.genre = [];
-    for (let genre of tv["Genres"].split(/[,/|]+/)) {
+    for (let genre of tv["Genres"].split(splitRegex)) {
       rawSeason.genre.push(genre.trim());
     }
     rawSeason.season = Number(tv["S"]);
@@ -119,10 +121,10 @@ export class Television {
 
     if (!algorithm) return tv;
 
-    // sort ascending (and descending if franchise)
+    // sort ascending
     let array = [...tv].sort(algorithm);
 
-    // for all except franchise we can just reverse to get descending
+    // reverse to get descending
     if (isDescending && this._sorts.includes(sortBy)) {
       array = array.reverse();
     }

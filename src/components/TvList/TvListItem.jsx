@@ -13,7 +13,7 @@ function TvListItemRaw(props) {
         <span className="tv-title">
           <Link to={`/tv/${tv.id}`}>{tv.title}</Link> (
           <span
-            className="tv-year"
+            className="tv-year on-click"
             onClick={() =>
               props.setSearchField("ys:" + tv.seasons[0].yearStart)
             }
@@ -22,7 +22,7 @@ function TvListItemRaw(props) {
           </span>
           -
           <span
-            className="tv-year"
+            className="tv-year on-click"
             onClick={() =>
               props.setSearchField(
                 "ye:" + tv.seasons[tv.seasons.length - 1].yearEnd
@@ -47,7 +47,7 @@ function TvListItemRaw(props) {
               <span>{i > 0 ? " / " : null}</span>
               <span
                 key={name}
-                className="genre-name"
+                className="genre-name on-click"
                 onClick={() => props.setSearchField("g:" + name)}
               >
                 {name}

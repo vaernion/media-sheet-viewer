@@ -13,7 +13,7 @@ function FilmListItemRaw(props) {
         <span className="film-title">
           <Link to={`/films/${film.id}`}>{film.title}</Link> (
           <span
-            className="film-year"
+            className="film-year on-click"
             onClick={() => props.setSearchField("y:" + film.year)}
           >
             {film.year}
@@ -34,7 +34,7 @@ function FilmListItemRaw(props) {
               <span>{i > 0 ? " / " : null}</span>
               <span
                 key={name}
-                className="genre-name"
+                className="genre-name on-click"
                 onClick={() => props.setSearchField("g:" + name)}
               >
                 {name}
@@ -42,7 +42,12 @@ function FilmListItemRaw(props) {
             </span>
           ))}
         </span>
-        <span className="film-franchise">{film.franchise}</span>
+        <span
+          className="film-franchise on-click"
+          onClick={() => props.setSearchField(film.franchise)}
+        >
+          {film.franchise}
+        </span>
       </div>
     </>
   );

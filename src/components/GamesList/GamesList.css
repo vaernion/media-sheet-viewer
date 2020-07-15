@@ -1,0 +1,22 @@
+.list-items .game-title {
+  width: 30%;
+  /* background-color: red; */
+}
+/* .list-items .game-year {
+  background-color: orange;
+} */
+.list-items .game-developer {
+  width: 25%;
+  /* background-color: yellow; */
+}
+.list-items .game-genre {
+  width: 30%;
+  /* background-color: green; */
+}
+.list-items .game-completed {
+  width: 10%;
+  /* background-color: blue; */
+}
+.list-items .game-system {
+  width: 5%;
+}

@@ -1,5 +1,7 @@
 import * as React from "react";
-import { directors, films, filmsSorted, tv, tvSorted } from "./values";
+import { values } from "./values";
+
+console.info(`store.values: ${Object.keys(values)}`);
 
 export const MediaContext = React.createContext();
 const initialState = { count: 0 };
@@ -22,9 +24,7 @@ export default function Store(props) {
 
   return (
     <>
-      <MediaContext.Provider
-        value={{ store, dispatch, films, filmsSorted, directors, tv, tvSorted }}
-      >
+      <MediaContext.Provider value={{ store, dispatch, ...values }}>
         {props.children}
       </MediaContext.Provider>
     </>
