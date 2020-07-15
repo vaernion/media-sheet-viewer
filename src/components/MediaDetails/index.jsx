@@ -1,7 +1,12 @@
 import * as React from "react";
 import { Link, useLocation, useParams } from "react-router-dom";
 import { useFetch } from "../../hooks/useFetch";
-import { formatYear, getCreations, isMedia } from "../../utils/utilities";
+import {
+  capitalizeFirstLetter,
+  formatYear,
+  getCreations,
+  isMedia,
+} from "../../utils/utilities";
 import { Spinner } from "../Spinner";
 import { MediaContext } from "../Store";
 import "./MediaDetails.css";
@@ -38,13 +43,14 @@ export default function MediaDetails() {
 
   document.title = `${mediaTitle} ${
     isMedia(media) ? titleYear : ""
-  } - ${mediaType} - MediaSheetViewer`;
+  } - ${capitalizeFirstLetter(mediaType)} - MediaSheetViewer`;
 
   // ***** wikipedia api, only used for media-poster and media-summary
   const wpSummary = useFetch(
     `https://en.wikipedia.org/api/rest_v1/page/summary/${mediaTitle}`
   );
 
+  // return must be after hooks
   if (!media) {
     return `${mediaType} not found with ${
       mediaType === "creators" ? "name" : "id"
@@ -58,14 +64,14 @@ export default function MediaDetails() {
   }
 
   const wpData =
-    wpSummary.response.type === "disambiguation" ? {} : wpSummary.response;
+    wpSummary.response && wpSummary.response.type !== "disambiguation"
+      ? wpSummary.response
+      : {};
   const poster = wpData.originalimage
     ? wpData.originalimage.source
     : wpData.thumbnail
     ? wpData.thumbnail.source
     : null;
-
-  if (wpData.thumbnail && !wpData.originalimage) console.log("only thumbnail");
   // ***** wikipedia api end
 
   // creations
@@ -83,7 +89,7 @@ export default function MediaDetails() {
             {titleYear ? <span className="media-year">{titleYear}</span> : null}
           </div>
 
-          {["films", "tv", "games"].includes(mediaType) ? (
+          {isMedia(mediaType) ? (
             <div className="media-creators">
               {media[creators].map((name, i) => (
                 <span key={name}>
@@ -96,7 +102,7 @@ export default function MediaDetails() {
             </div>
           ) : null}
 
-          {["films", "tv", "games"].includes(mediaType) ? (
+          {isMedia(mediaType) ? (
             <div className="media-genre">
               {media.genre.map((name, i) => (
                 <span key={name}>

@@ -21,11 +21,17 @@ export const formatYear = (media) => {
     : `(${media.year})`;
 };
 
-export const isMedia = (mediaType) => mediaType.type !== "creator";
+export const isMedia = (mediaType) => {
+  return mediaType !== "creators" && mediaType.type !== "creator";
+};
 
 export const getCreations = (name, context) => {
   let cFilms = context.films.filter((e) => e.director.includes(name));
   let cTv = context.tv.filter((e) => e.creator.includes(name));
   let cGames = context.games.filter((e) => e.developer.includes(name));
   return [...cFilms, ...cTv, ...cGames];
+};
+
+export const capitalizeFirstLetter = (string) => {
+  return string.charAt(0).toUpperCase() + string.slice(1);
 };
