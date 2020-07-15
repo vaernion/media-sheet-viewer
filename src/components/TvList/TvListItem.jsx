@@ -37,7 +37,7 @@ function TvListItemRaw(props) {
           {tv.creator.map((name, i) => (
             <span key={name}>
               <span>{i > 0 ? " & " : null}</span>
-              <Link to={`/directors/${name}`}>{name}</Link>
+              <Link to={`/creators/${name}`}>{name}</Link>
             </span>
           ))}
         </span>

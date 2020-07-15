@@ -8,6 +8,7 @@ export class Television {
 
   constructor(tvSeries) {
     this.id = Television._count += 1;
+    this.type = "tv";
     this.title = tvSeries.title;
     this.sortTitle = tvSeries.sortTitle;
     this.creator = tvSeries.creator;

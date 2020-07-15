@@ -43,7 +43,7 @@ export default function DirectorList() {
             <ul>
               {directorsFiltered.map((name) => (
                 <li key={name}>
-                  <Link to={`/directors/${name}`}>{name}</Link>
+                  <Link to={`/creators/${name}`}>{name}</Link>
                 </li>
               ))}
             </ul>

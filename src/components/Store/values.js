@@ -1,9 +1,11 @@
+import { Creator } from "../../classes/Creator";
 import { Film } from "../../classes/Film";
 import { Game } from "../../classes/Game";
 import { Television } from "../../classes/Television";
 import filmsJson from "../../data/films.json";
 import gamesJson from "../../data/games.json";
 import tvJson from "../../data/tv.json";
+import { sortLastName } from "../../utils/utilities";
 
 // films
 console.time("generate film");
@@ -21,11 +23,7 @@ console.info(
 console.time("generate directors");
 const directorsMatrix = films.map((e) => e.director);
 const directors = [...new Set([].concat.apply([], directorsMatrix))].sort(
-  (a, b) => {
-    a = a.split(/\s+/).pop();
-    b = b.split(/\s+/).pop();
-    return a.localeCompare(b);
-  }
+  sortLastName
 );
 console.timeEnd("generate directors");
 console.info(`directors.length: ${directors.length}`);
@@ -49,6 +47,40 @@ console.info(
   `games.length: ${games.length} gamesSorted: ${Object.keys(gamesSorted)}`
 );
 
+console.time("matrix fiesta");
+const tvCreatorsMatrix = tv.map((e) => e.creator);
+const tvCreators = [...new Set([].concat.apply([], tvCreatorsMatrix))];
+const filmAndTvCreators = [...new Set([...directors, ...tvCreators])].sort(
+  sortLastName
+);
+
+const gameDevelopersMatrix = games.map((e) => e.developer);
+const gameDevelopers = [
+  ...new Set([].concat.apply([], gameDevelopersMatrix)),
+].sort();
+// .map((e) => {
+//   return { name: e, type: "Studio" };
+// });
+// console.log(gameDevelopers[1]);
+
+const creators = [...new Set([...filmAndTvCreators, ...gameDevelopers])].map(
+  (name) => new Creator(name)
+);
+console.timeEnd("matrix fiesta");
+
+console.log(
+  "directors",
+  directors.length,
+  "tvCreators",
+  tvCreators.length,
+  "filmAndTv",
+  filmAndTvCreators.length,
+  "gameDevs",
+  gameDevelopers.length,
+  "all",
+  creators.length
+);
+
 export const values = {
   films,
   filmsSorted,
@@ -57,4 +89,5 @@ export const values = {
   tvSorted,
   games,
   gamesSorted,
+  creators,
 };

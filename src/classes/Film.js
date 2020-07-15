@@ -8,6 +8,7 @@ export class Film {
 
   constructor(film) {
     this.id = Film._count += 1;
+    this.type = "film";
     this.title = film["Original title (romanized)"];
     this.translatedTitle = film["This release's translation/title"];
     this.sortTitle = film["Sort"];

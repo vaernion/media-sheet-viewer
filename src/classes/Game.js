@@ -8,6 +8,7 @@ export class Game {
 
   constructor(game) {
     this.id = Game._count += 1;
+    this.type = "game";
     this.title = game["Title"];
     this.sortTitle = game["Sort"];
     this.developer = [];

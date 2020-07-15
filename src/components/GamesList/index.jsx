@@ -77,6 +77,7 @@ export default function GamesList() {
           game.developer.findIndex((developer) =>
             normalize(developer).includes(searchStr)
           ) !== -1 ||
+          normalize(game.completed).includes(searchStr) ||
           normalize(game.system).includes(searchStr)
       );
     }
