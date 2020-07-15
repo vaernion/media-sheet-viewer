@@ -68,7 +68,7 @@ const creators = [...new Set([...filmAndTvCreators, ...gameDevelopers])].map(
 );
 console.timeEnd("matrix fiesta");
 
-console.log(
+console.info(
   "directors",
   directors.length,
   "tvCreators",
@@ -81,7 +81,7 @@ console.log(
   creators.length
 );
 
-export const values = {
+export const mediaSheet = {
   films,
   filmsSorted,
   directors,
@@ -91,3 +91,5 @@ export const values = {
   gamesSorted,
   creators,
 };
+
+console.info(`mediaSheet: ${Object.keys(mediaSheet)}`);

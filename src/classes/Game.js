@@ -4,7 +4,7 @@ import { splitRegex } from "../utils/regex";
 
 export class Game {
   static _count = 0;
-  static _sorts = ["title", "year", "developer", "completed", "system"];
+  static _sorts = ["sortTitle", "year", "developer", "completed", "system"];
 
   constructor(game) {
     this.id = Game._count += 1;
@@ -48,7 +48,11 @@ export class Game {
     let algorithm = null;
 
     // title/completed/system A-Z
-    if (sortBy === "title" || sortBy === "completed" || sortBy === "system") {
+    if (
+      sortBy === "sortTitle" ||
+      sortBy === "completed" ||
+      sortBy === "system"
+    ) {
       algorithm = (a, b) => a[sortBy].localeCompare(b[sortBy]);
       // year 1900-2000
     } else if (sortBy === "year") {

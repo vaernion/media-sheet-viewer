@@ -1,89 +1,38 @@
 import * as React from "react";
 import "../../styles/lists.css";
-import { normalize } from "../../utils/utilities";
+import { filterGames } from "../../utils/filters.js";
 import { FieldHeader } from "../FieldHeader";
 import { SearchForm } from "../SearchForm";
-import { MediaContext } from "../Store";
+import { DispatchContext, StateContext } from "../Store";
+import { mediaSheet } from "../Store/mediaSheet";
 import "./GamesList.css";
 import { GamesListItem } from "./GamesListItem";
 
 export default function GamesList() {
-  const context = React.useContext(MediaContext);
+  const dispatch = React.useContext(DispatchContext);
+  const state = React.useContext(StateContext);
+  const [searchField, setSearchField] = React.useState(state.filterGames);
 
-  const [sortBy, setSortBy] = React.useState("sortTitle");
-  const [isSortReverse, setIsSortReverse] = React.useState(false);
-  const [searchField, setSearchField] = React.useState("");
-  const [gamesSortedLocal, setGamesSortedLocal] = React.useState(null);
-  const [gamesFiltered, setGamesFiltered] = React.useState(null);
+  document.title = `${mediaSheet.games.length} Games - MediaSheetViewer`;
 
-  document.title = `${context.games.length} Games - MediaSheetViewer`;
-
-  // keep current sorted games in state
+  // persist filter
   React.useEffect(() => {
-    setGamesSortedLocal(
-      (() => {
-        const sorted = context.gamesSorted;
-        switch (sortBy) {
-          case "sortTitle":
-            return isSortReverse ? sorted.titleDesc : sorted.titleAsc;
-          case "year":
-            return isSortReverse ? sorted.yearDesc : sorted.yearAsc;
-          case "developer":
-            return isSortReverse ? sorted.developerDesc : sorted.developerAsc;
-          case "completed":
-            return isSortReverse ? sorted.completedDesc : sorted.completedAsc;
-          case "system":
-            return isSortReverse ? sorted.systemDesc : sorted.systemAsc;
-          default:
-            return context.games;
-        }
-      })()
-    );
-  }, [sortBy, isSortReverse, context.games, context.gamesSorted]);
-
-  // filter games post-sort and store in state
-  React.useEffect(() => {
-    if (!gamesSortedLocal) return;
-    setGamesFiltered(filterGames(gamesSortedLocal, searchField));
-  }, [gamesSortedLocal, searchField]);
+    dispatch({ type: "FILTER_GAMES", payload: searchField });
+  }, [searchField, dispatch]);
 
   const handleSort = (field) => {
-    if (field === sortBy) {
-      setIsSortReverse(!isSortReverse);
+    if (field === state.sortGames) {
+      dispatch({ type: "SORT_REVERSE_GAMES" });
     } else {
-      setIsSortReverse(false);
-      setSortBy(field);
+      dispatch({ type: "SORT_GAMES", payload: field });
     }
   };
 
-  const filterGames = (sortedGames, searchField) => {
-    const searchStr = normalize(searchField);
-
-    if (searchStr.startsWith("g:")) {
-      return sortedGames.filter(
-        (game) =>
-          game.genre.findIndex((genre) =>
-            normalize(genre).includes(searchStr.replace("g:", ""))
-          ) !== -1
-      );
-    } else if (searchStr.startsWith("y:")) {
-      return sortedGames.filter(
-        (game) => game.year.toString() === searchStr.replace("y:", "")
-      );
-    } else {
-      return sortedGames.filter(
-        (game) =>
-          normalize(game.title).includes(searchStr) ||
-          game.developer.findIndex((developer) =>
-            normalize(developer).includes(searchStr)
-          ) !== -1 ||
-          normalize(game.completed).includes(searchStr) ||
-          normalize(game.system).includes(searchStr)
-      );
-    }
-  };
-
-  if (!gamesFiltered) return null;
+  const gamesSortedLocal =
+    mediaSheet.gamesSorted[
+      state.sortGames + (state.sortReverseGames ? "Desc" : "Asc")
+    ];
+  const gamesFiltered = filterGames(gamesSortedLocal, searchField);
 
   return (
     <>
@@ -99,41 +48,59 @@ export default function GamesList() {
               field="sortTitle"
               label="Title"
               width="20%"
-              sort={{ sortBy, isSortReverse }}
+              sort={{
+                sortBy: state.sortGames,
+                isSortReverse: state.sortReverseGames,
+              }}
               onclick={handleSort}
             />
             <FieldHeader
               field="year"
               label="Year"
               width="10%"
-              sort={{ sortBy, isSortReverse }}
+              sort={{
+                sortBy: state.sortGames,
+                isSortReverse: state.sortReverseGames,
+              }}
               onclick={handleSort}
             />
             <FieldHeader
               field="developer"
               label="Developer"
               width="25%"
-              sort={{ sortBy, isSortReverse }}
+              sort={{
+                sortBy: state.sortGames,
+                isSortReverse: state.sortReverseGames,
+              }}
               onclick={handleSort}
             />
             <FieldHeader
               field="genre"
               label="Genre"
               width="30%"
-              sort={{ sortBy, isSortReverse }}
+              sort={{
+                sortBy: state.sortGames,
+                isSortReverse: state.sortReverseGames,
+              }}
             />
             <FieldHeader
               field="completed"
               label="Completed"
               width="10%"
-              sort={{ sortBy, isSortReverse }}
+              sort={{
+                sortBy: state.sortGames,
+                isSortReverse: state.sortReverseGames,
+              }}
               onclick={handleSort}
             />
             <FieldHeader
               field="system"
               label="System"
               width="10%"
-              sort={{ sortBy, isSortReverse }}
+              sort={{
+                sortBy: state.sortGames,
+                isSortReverse: state.sortReverseGames,
+              }}
               onclick={handleSort}
             />
           </div>

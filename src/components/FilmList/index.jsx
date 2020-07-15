@@ -1,86 +1,38 @@
 import * as React from "react";
 import "../../styles/lists.css";
-import { normalize } from "../../utils/utilities";
+import { filterFilms } from "../../utils/filters";
 import { FieldHeader } from "../FieldHeader";
 import { SearchForm } from "../SearchForm";
-import { MediaContext } from "../Store";
+import { DispatchContext, StateContext } from "../Store";
+import { mediaSheet } from "../Store/mediaSheet";
 import { FilmListItem } from "./FilmListItem";
 import "./filmsList.css";
 
 export default function FilmList() {
-  const context = React.useContext(MediaContext);
+  const dispatch = React.useContext(DispatchContext);
+  const state = React.useContext(StateContext);
+  const [searchField, setSearchField] = React.useState(state.filterFilms);
 
-  const [sortBy, setSortBy] = React.useState("sortTitle");
-  const [isSortReverse, setIsSortReverse] = React.useState(false);
-  const [searchField, setSearchField] = React.useState("");
-  const [filmsSortedLocal, setFilmsSortedLocal] = React.useState(null);
-  const [filmsFiltered, setFilmsFiltered] = React.useState(null);
+  document.title = `${mediaSheet.films.length} Films - MediaSheetViewer`;
 
-  document.title = `${context.films.length} Films - MediaSheetViewer`;
-
-  // keep current sorted films in state
+  // persist filter
   React.useEffect(() => {
-    setFilmsSortedLocal(
-      (() => {
-        const sorted = context.filmsSorted;
-        switch (sortBy) {
-          case "sortTitle":
-            return isSortReverse ? sorted.titleDesc : sorted.titleAsc;
-          case "year":
-            return isSortReverse ? sorted.yearDesc : sorted.yearAsc;
-          case "director":
-            return isSortReverse ? sorted.directorDesc : sorted.directorAsc;
-          case "franchise":
-            return isSortReverse ? sorted.franchiseDesc : sorted.franchiseAsc;
-          default:
-            return context.films;
-        }
-      })()
-    );
-  }, [sortBy, isSortReverse, context.films, context.filmsSorted]);
-
-  // filter films post-sort and store in state
-  React.useEffect(() => {
-    if (!filmsSortedLocal) return;
-    setFilmsFiltered(filterFilms(filmsSortedLocal, searchField));
-  }, [filmsSortedLocal, searchField]);
+    dispatch({ type: "FILTER_FILMS", payload: searchField });
+  }, [searchField, dispatch]);
 
   const handleSort = (field) => {
-    if (field === sortBy) {
-      setIsSortReverse(!isSortReverse);
+    if (field === state.sortFilms) {
+      dispatch({ type: "SORT_REVERSE_FILMS" });
     } else {
-      setIsSortReverse(false);
-      setSortBy(field);
+      dispatch({ type: "SORT_FILMS", payload: field });
     }
   };
 
-  const filterFilms = (sortedFilms, searchField) => {
-    const searchStr = normalize(searchField);
-
-    if (searchStr.startsWith("g:")) {
-      return sortedFilms.filter(
-        (film) =>
-          film.genre.findIndex((genre) =>
-            normalize(genre).includes(searchStr.replace("g:", ""))
-          ) !== -1
-      );
-    } else if (searchStr.startsWith("y:")) {
-      return sortedFilms.filter(
-        (film) => film.year.toString() === searchStr.replace("y:", "")
-      );
-    } else {
-      return sortedFilms.filter(
-        (film) =>
-          normalize(film.title).includes(searchStr) ||
-          film.director.findIndex((director) =>
-            normalize(director).includes(searchStr)
-          ) !== -1 ||
-          normalize(film.franchise).includes(searchStr)
-      );
-    }
-  };
-
-  if (!filmsFiltered) return null;
+  const filmsSortedLocal =
+    mediaSheet.filmsSorted[
+      state.sortFilms + (state.sortReverseFilms ? "Desc" : "Asc")
+    ];
+  const filmsFiltered = filterFilms(filmsSortedLocal, searchField);
 
   return (
     <>
@@ -96,34 +48,49 @@ export default function FilmList() {
               field="sortTitle"
               label="Title"
               width="20%"
-              sort={{ sortBy, isSortReverse }}
+              sort={{
+                sortBy: state.sortFilms,
+                isSortReverse: state.sortReverseFilms,
+              }}
               onclick={handleSort}
             />
             <FieldHeader
               field="year"
               label="Year"
               width="10%"
-              sort={{ sortBy, isSortReverse }}
+              sort={{
+                sortBy: state.sortFilms,
+                isSortReverse: state.sortReverseFilms,
+              }}
               onclick={handleSort}
             />
             <FieldHeader
               field="director"
               label="Director"
               width="25%"
-              sort={{ sortBy, isSortReverse }}
+              sort={{
+                sortBy: state.sortFilms,
+                isSortReverse: state.sortReverseFilms,
+              }}
               onclick={handleSort}
             />
             <FieldHeader
               field="genre"
               label="Genre"
               width="30%"
-              sort={{ sortBy, isSortReverse }}
+              sort={{
+                sortBy: state.sortFilms,
+                isSortReverse: state.sortReverseFilms,
+              }}
             />
             <FieldHeader
               field="franchise"
               label="Franchise"
               width="15%"
-              sort={{ sortBy, isSortReverse }}
+              sort={{
+                sortBy: state.sortFilms,
+                isSortReverse: state.sortReverseFilms,
+              }}
               onclick={handleSort}
             />
           </div>

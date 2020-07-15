@@ -4,7 +4,7 @@ import { splitRegex } from "../utils/regex";
 
 export class Film {
   static _count = 0;
-  static _sorts = ["title", "year", "director", "franchise"];
+  static _sorts = ["sortTitle", "year", "director", "franchise"];
 
   constructor(film) {
     this.id = Film._count += 1;
@@ -48,7 +48,7 @@ export class Film {
     let algorithm = null;
 
     // title A-Z
-    if (sortBy === "title") {
+    if (sortBy === "sortTitle") {
       algorithm = (a, b) => a.sortTitle.localeCompare(b.sortTitle);
       // year 1900-2000
     } else if (sortBy === "year") {
@@ -85,7 +85,7 @@ export class Film {
     let array = [...films].sort(algorithm);
 
     // for all except franchise we can just reverse to get descending
-    if (isDescending && ["title", "year", "director"].includes(sortBy)) {
+    if (isDescending && ["sortTitle", "year", "director"].includes(sortBy)) {
       array = array.reverse();
     }
 

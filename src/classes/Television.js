@@ -4,7 +4,7 @@ import { splitRegex } from "../utils/regex";
 
 export class Television {
   static _count = 0;
-  static _sorts = ["title", "yearStart", "yearEnd", "creator"];
+  static _sorts = ["sortTitle", "yearStart", "yearEnd", "creator"];
 
   constructor(tvSeries) {
     this.id = Television._count += 1;
@@ -101,7 +101,7 @@ export class Television {
     let algorithm = null;
 
     // title A-Z
-    if (sortBy === "title") {
+    if (sortBy === "sortTitle") {
       algorithm = (a, b) => a.sortTitle.localeCompare(b.sortTitle);
       // year 1900-2000 start first season
     } else if (sortBy === "yearStart") {

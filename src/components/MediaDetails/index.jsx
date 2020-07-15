@@ -8,35 +8,27 @@ import {
   isMedia,
 } from "../../utils/utilities";
 import { Spinner } from "../Spinner";
-import { MediaContext } from "../Store";
+import { mediaSheet } from "../Store/mediaSheet";
 import "./MediaDetails.css";
 
+const creators = {
+  films: "director",
+  tv: "creator",
+  games: "developer",
+};
+
 export default function MediaDetails() {
-  const context = React.useContext(MediaContext);
   const mediaType = useLocation().pathname.split("/")[1];
   const { id } = useParams();
 
   // creators route uses names instead of ids, so only allow names from the db
   const media =
     mediaType === "creators"
-      ? context.creators.find((e) => e.name === id)
-      : context[mediaType].find((e) => e.id === Number(id));
+      ? mediaSheet.creators.find((e) => e.name === id)
+      : mediaSheet[mediaType].find((e) => e.id === Number(id));
 
   // creator class uses name instead of title for now
   const mediaTitle = media ? (media.title ? media.title : media.name) : null;
-
-  const creators = (() => {
-    switch (mediaType) {
-      case "films":
-        return "director";
-      case "tv":
-        return "creator";
-      case "games":
-        return "developer";
-      default:
-        return;
-    }
-  })();
 
   // title formatting
   const titleYear = formatYear(media);
@@ -75,7 +67,7 @@ export default function MediaDetails() {
   // ***** wikipedia api end
 
   // creations
-  const created = getCreations(media.name, context);
+  const created = getCreations(media.name, mediaSheet);
 
   return (
     <>
@@ -91,7 +83,7 @@ export default function MediaDetails() {
 
           {isMedia(mediaType) ? (
             <div className="media-creators">
-              {media[creators].map((name, i) => (
+              {media[creators[mediaType]].map((name, i) => (
                 <span key={name}>
                   <span>{i > 0 ? " & " : null}</span>
                   <span>
