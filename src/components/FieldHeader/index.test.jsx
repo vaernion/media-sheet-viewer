@@ -2,10 +2,7 @@ import { fireEvent, render, screen } from "@testing-library/react";
 import React from "react";
 import { FieldHeader } from ".";
 
-let mockSort = { sortBy: "sortTitle", isSortReverse: false };
-const mockHandleSort = () => {
-  mockSort = { ...mockSort, isSortReverse: !mockSort.isSortReverse };
-};
+const mockSort = { sortBy: "sortTitle", isSortReverse: false };
 const mockLabel = "Title";
 
 test("renders with props", () => {
@@ -15,29 +12,28 @@ test("renders with props", () => {
       label={mockLabel}
       width="20%"
       sort={mockSort}
-      onclick={mockHandleSort}
     />
   );
 
-  expect(screen.getByText(mockLabel, { exact: false }));
+  expect(screen.getByText(mockLabel, { exact: false })).toHaveTextContent(
+    mockLabel
+  );
+  expect(screen.getByText(mockLabel, { exact: false })).toHaveTextContent("↓");
 });
 
-test("arrow changes", () => {
+test("onclick triggers", () => {
+  const onclick = jest.fn();
+
   render(
     <FieldHeader
       field="sortTitle"
       label={mockLabel}
       width="20%"
       sort={mockSort}
-      onclick={mockHandleSort}
+      onclick={onclick}
     />
   );
 
   fireEvent.click(screen.getByText(mockLabel, { exact: false }));
-
-  expect(screen.getByText(mockLabel, { exact: false })).toHaveTextContent("↓");
-
-  //   fireEvent.click(screen.getByText(mockLabel, { exact: false }));
-
-  //   expect(screen.getByText(mockLabel, { exact: false })).toHaveTextContent("↑");
+  expect(onclick).toHaveBeenCalledTimes(1);
 });

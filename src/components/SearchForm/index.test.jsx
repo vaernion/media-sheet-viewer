@@ -1,11 +1,12 @@
-import { render } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import React from "react";
-import ReactDOM from "react-dom";
 import { SearchForm } from ".";
 
 const searchField = "star";
 const setSearchField = jest.fn();
 const placeholder = "some placeholder text";
+
+const buttonText = "Clear";
 
 const element = (
   <SearchForm
@@ -15,16 +16,18 @@ const element = (
   />
 );
 
-test("should render search form", () => {
-  ReactDOM.render(element, document.createElement("div"));
+test("renders search form", () => {
+  render(element);
 });
 
 test("input renders with placeholder text", () => {
-  const { container } = render(element);
-  expect(container.querySelector("input").placeholder).toBe(placeholder);
+  render(element);
+
+  expect(screen.getByPlaceholderText(placeholder));
 });
 
-test("button renders with textcontent", () => {
-  const { container } = render(element);
-  expect(container.querySelector("button").textContent).toBe("Clear");
+test("button renders with textcontent and onclick", () => {
+  render(element);
+
+  expect(screen.getByText(buttonText)).toHaveTextContent(buttonText);
 });

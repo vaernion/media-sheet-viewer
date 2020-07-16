@@ -8,46 +8,38 @@ import tvJson from "../../data/tv.json";
 import { sortLastName } from "../../utils/utilities";
 
 // films
-console.time("generate film");
 const films = Film.generateFilmsFromJson(filmsJson).filter(
   (x, i, a) =>
     a.findIndex((e) => e.title === x.title && e.year === x.year) === i
 );
 const filmsSorted = Film.generateSortedFilms(films);
-console.timeEnd("generate film");
-console.info(
-  `films.length: ${films.length} filmsSorted: ${Object.keys(filmsSorted)}`
-);
+// console.info(
+//   `films.length: ${films.length} filmsSorted: ${Object.keys(filmsSorted)}`
+// );
 
 // film directors
-console.time("generate directors");
 const directorsMatrix = films.map((e) => e.director);
 const directors = [...new Set([].concat.apply([], directorsMatrix))].sort(
   sortLastName
 );
-console.timeEnd("generate directors");
-console.info(`directors.length: ${directors.length}`);
+// console.info(`directors.length: ${directors.length}`);
 
 // tv
-console.time("generate tv");
 const tv = Television.generateTvFromJson(tvJson);
 const tvSorted = Television.generateSortedTv(tv);
-console.timeEnd("generate tv");
-console.info(`tv.length: ${tv.length} tvSorted: ${Object.keys(tvSorted)}`);
+// console.info(`tv.length: ${tv.length} tvSorted: ${Object.keys(tvSorted)}`);
 
 // games
-console.time("generate games");
 const games = Game.generateGamesFromJson(gamesJson).filter(
   (x, i, a) =>
     a.findIndex((e) => e.title === x.title && e.year === x.year) === i
 );
 const gamesSorted = Game.generateSortedGames(games);
-console.timeEnd("generate games");
-console.info(
-  `games.length: ${games.length} gamesSorted: ${Object.keys(gamesSorted)}`
-);
+// console.info(
+//   `games.length: ${games.length} gamesSorted: ${Object.keys(gamesSorted)}`
+// );
 
-console.time("matrix fiesta");
+// console.time("matrix fiesta");
 const tvCreatorsMatrix = tv.map((e) => e.creator);
 const tvCreators = [...new Set([].concat.apply([], tvCreatorsMatrix))];
 const filmAndTvCreators = [...new Set([...directors, ...tvCreators])].sort(
@@ -66,20 +58,20 @@ const gameDevelopers = [
 const creators = [...new Set([...filmAndTvCreators, ...gameDevelopers])].map(
   (name) => new Creator(name)
 );
-console.timeEnd("matrix fiesta");
+// console.timeEnd("matrix fiesta");
 
-console.info(
-  "directors",
-  directors.length,
-  "tvCreators",
-  tvCreators.length,
-  "filmAndTv",
-  filmAndTvCreators.length,
-  "gameDevs",
-  gameDevelopers.length,
-  "all",
-  creators.length
-);
+// console.info(
+//   "directors",
+//   directors.length,
+//   "tvCreators",
+//   tvCreators.length,
+//   "filmAndTv",
+//   filmAndTvCreators.length,
+//   "gameDevs",
+//   gameDevelopers.length,
+//   "all",
+//   creators.length
+// );
 
 export const mediaSheet = {
   films,
@@ -92,4 +84,4 @@ export const mediaSheet = {
   creators,
 };
 
-console.info(`mediaSheet: ${Object.keys(mediaSheet)}`);
+// console.info(`mediaSheet: ${Object.keys(mediaSheet)}`);
