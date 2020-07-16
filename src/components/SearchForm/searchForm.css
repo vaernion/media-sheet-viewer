@@ -1,24 +1,30 @@
-input,
-button {
+.searchform input,
+.searchform button {
   padding: 0.5rem;
   font-size: 1rem;
   border-radius: 4px;
   border: 1px solid #ccc;
 }
-input {
+.searchform input {
   width: 30vw;
 }
-input:focus,
-button:focus {
+.searchform input:focus,
+.searchform button:focus {
   border-color: #007eff;
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075),
     0 0 0 3px rgba(0, 126, 255, 0.1);
   outline: none;
 }
-button:hover {
+.searchform .input-label {
+  padding: 0.5rem;
+  font-size: 1rem;
+  border-radius: 4px;
+  background-color: lightgrey;
+}
+.searchform button:hover {
   background-color: orange;
 }
 
-input.error {
+.searchform input.error {
   border-color: red;
 }

@@ -23,9 +23,13 @@ export function SearchForm({ value, setValue, placeholder }) {
 
   return (
     <>
-      <div>
+      <div className="searchform">
+        <label className="input-label" htmlFor="searchFormInput">
+          Filter:
+        </label>
         <input
           type="text"
+          id="searchFormInput"
           placeholder={placeholder}
           value={state}
           onChange={(e) => setState(e.currentTarget.value)}
