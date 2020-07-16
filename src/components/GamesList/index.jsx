@@ -1,12 +1,13 @@
 import * as React from "react";
+import { AutoSizer, List, WindowScroller } from "react-virtualized";
 import "../../styles/lists.css";
 import { filterGames } from "../../utils/filters.js";
 import { FieldHeader } from "../FieldHeader";
 import { SearchForm } from "../SearchForm";
 import { DispatchContext, StateContext } from "../Store";
 import { mediaSheet } from "../Store/mediaSheet";
+import { GameListItem } from "./GameListItem";
 import "./GamesList.css";
-import { GamesListItem } from "./GamesListItem";
 
 export default function GamesList() {
   const dispatch = React.useContext(DispatchContext);
@@ -33,6 +34,19 @@ export default function GamesList() {
       state.sortGames + (state.sortReverseGames ? "Desc" : "Asc")
     ];
   const gamesFiltered = filterGames(gamesSortedLocal, searchField);
+
+  const rowRenderer = ({ index, key, style }) => {
+    const game = gamesFiltered[index];
+    return (
+      <GameListItem
+        key={key}
+        index={index}
+        data={game}
+        setSearchField={setSearchField}
+        style={style}
+      />
+    );
+  };
 
   return (
     <>
@@ -106,13 +120,27 @@ export default function GamesList() {
           </div>
         </div>
         <div className="games-body">
-          {gamesFiltered.map((game) => (
-            <GamesListItem
-              key={game.id}
-              game={game}
-              setSearchField={setSearchField}
-            />
-          ))}
+          <WindowScroller>
+            {({ height, scrollTop, registerChild, onChildScroll }) => (
+              <AutoSizer disableHeight>
+                {({ width }) => (
+                  <div ref={registerChild}>
+                    <List
+                      autoHeight
+                      height={height}
+                      width={width}
+                      scrollTop={scrollTop}
+                      onScroll={onChildScroll}
+                      overscanRowCount={50}
+                      rowCount={gamesFiltered.length}
+                      rowHeight={22}
+                      rowRenderer={rowRenderer}
+                    />
+                  </div>
+                )}
+              </AutoSizer>
+            )}
+          </WindowScroller>
         </div>
       </div>
     </>

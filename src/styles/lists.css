@@ -5,6 +5,7 @@
   display: flex;
   justify-content: center;
   width: 80vw;
+  /* height: 100%; */
 }
 .films-head,
 .tvs-head,
@@ -32,10 +33,11 @@
 .films-body,
 .tvs-body,
 .games-body {
-  display: flex;
-  flex-flow: column;
-  padding-top: 7em;
+  /* display: flex; */
+  /* flex-flow: column; */
+  /* height: 100%; */
   flex: 1;
+  padding-top: 7em;
 }
 .tvs .list-items,
 .films .list-items,
@@ -47,6 +49,7 @@
 .tvs .list-items span,
 .games .list-items span {
   text-align: left;
+  /* overflow-y: hidden; */
 }
 
 .list-items a,
@@ -61,6 +64,7 @@
 .list-items .on-click {
   color: darkgreen;
 }
-.list-items:nth-of-type(odd) {
+.list-items.unvirtualized:nth-of-type(odd),
+.list-items.odd-index {
   background-color: lightgrey;
 }

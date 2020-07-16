@@ -9,7 +9,7 @@ export function FieldHeader(props) {
     <>
       <span className={"fheader-outer"} style={{ width: props.width }}>
         <span
-          tabindex={0}
+          tabIndex={0}
           className={
             "fheader" +
             (active ? " active" : "") +

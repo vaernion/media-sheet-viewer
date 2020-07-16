@@ -6,17 +6,16 @@ export const TvListItem = React.memo(TvListItemRaw);
 
 function TvListItemRaw(props) {
   const tv = props.tv;
+  const setSearchField = props.setSearchField;
 
   return (
     <>
-      <div className="list-items">
+      <div className="list-items unvirtualized">
         <span className="tv-title">
           <Link to={`/tv/${tv.id}`}>{tv.title}</Link> (
           <span
             className="tv-year on-click"
-            onClick={() =>
-              props.setSearchField("ys:" + tv.seasons[0].yearStart)
-            }
+            onClick={() => setSearchField("ys:" + tv.seasons[0].yearStart)}
           >
             {tv.seasons[0].yearStart}
           </span>
@@ -24,9 +23,7 @@ function TvListItemRaw(props) {
           <span
             className="tv-year on-click"
             onClick={() =>
-              props.setSearchField(
-                "ye:" + tv.seasons[tv.seasons.length - 1].yearEnd
-              )
+              setSearchField("ye:" + tv.seasons[tv.seasons.length - 1].yearEnd)
             }
           >
             {tv.seasons[tv.seasons.length - 1].yearEnd}
@@ -48,7 +45,7 @@ function TvListItemRaw(props) {
               <span
                 key={name}
                 className="genre-name on-click"
-                onClick={() => props.setSearchField("g:" + name)}
+                onClick={() => setSearchField("g:" + name)}
               >
                 {name}
               </span>

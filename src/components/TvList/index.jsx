@@ -94,7 +94,7 @@ export default function TvList() {
           </div>
         </div>
         <div className="tvs-body">
-          {tvFiltered.map((tv) => (
+          {tvFiltered.map((tv, i) => (
             <TvListItem key={tv.id} tv={tv} setSearchField={setSearchField} />
           ))}
         </div>

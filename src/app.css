@@ -1,6 +1,7 @@
 #root {
   display: flex;
   justify-content: center;
+  height: 100vh;
 }
 .headerContainer {
   position: fixed;
@@ -13,7 +14,6 @@
   z-index: 10;
 }
 .menuItems {
-  /* border: 1px solid; */
   display: flex;
   align-items: center;
 }
@@ -35,4 +35,5 @@
   display: flex;
   justify-content: center;
   padding-top: 3em;
+  /* height: 100%; */
 }

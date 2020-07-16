@@ -2,19 +2,23 @@ import * as React from "react";
 import { Link } from "react-router-dom";
 import "./GamesList.css";
 
-export const GamesListItem = React.memo(GamesListItemRaw);
+// export const GameListItem = React.memo(GameListItemRaw);
 
-function GamesListItemRaw(props) {
-  const game = props.game;
+export function GameListItem(props) {
+  const game = props.data;
+  const setSearchField = props.setSearchField;
 
   return (
     <>
-      <div className="list-items">
+      <div
+        className={`list-items ${props.index % 2 ? "" : "odd-index"}`}
+        style={props.style}
+      >
         <span className="game-title">
           <Link to={`/games/${game.id}`}>{game.title}</Link> (
           <span
             className="game-year on-click"
-            onClick={() => props.setSearchField("y:" + game.year)}
+            onClick={() => setSearchField("y:" + game.year)}
           >
             {game.year}
           </span>
@@ -35,7 +39,7 @@ function GamesListItemRaw(props) {
               <span
                 key={name}
                 className="genre-name on-click"
-                onClick={() => props.setSearchField("g:" + name)}
+                onClick={() => setSearchField("g:" + name)}
               >
                 {name}
               </span>
@@ -44,13 +48,13 @@ function GamesListItemRaw(props) {
         </span>
         <span
           className="game-completed on-click"
-          onClick={() => props.setSearchField(game.completed)}
+          onClick={() => setSearchField(game.completed)}
         >
           {game.completed}
         </span>
         <span
           className="game-system on-click"
-          onClick={() => props.setSearchField(game.system)}
+          onClick={() => setSearchField(game.system)}
         >
           {game.system}
         </span>

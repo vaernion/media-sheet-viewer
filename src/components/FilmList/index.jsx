@@ -1,4 +1,11 @@
 import * as React from "react";
+import {
+  AutoSizer,
+  CellMeasurer,
+  CellMeasurerCache,
+  List,
+  WindowScroller,
+} from "react-virtualized";
 import "../../styles/lists.css";
 import { filterFilms } from "../../utils/filters";
 import { FieldHeader } from "../FieldHeader";
@@ -7,6 +14,11 @@ import { DispatchContext, StateContext } from "../Store";
 import { mediaSheet } from "../Store/mediaSheet";
 import { FilmListItem } from "./FilmListItem";
 import "./filmsList.css";
+
+const cellCache = new CellMeasurerCache({
+  fixedWidth: true,
+  defaultHeight: 50,
+});
 
 export default function FilmList() {
   const dispatch = React.useContext(DispatchContext);
@@ -33,6 +45,26 @@ export default function FilmList() {
       state.sortFilms + (state.sortReverseFilms ? "Desc" : "Asc")
     ];
   const filmsFiltered = filterFilms(filmsSortedLocal, searchField);
+
+  const rowRenderer = ({ index, key, style, parent }) => {
+    const film = filmsFiltered[index];
+    return (
+      <CellMeasurer
+        key={film.id}
+        cache={cellCache}
+        parent={parent}
+        columnIndex={0}
+        rowIndex={index}
+      >
+        <FilmListItem
+          index={index}
+          data={film}
+          setSearchField={setSearchField}
+          style={style}
+        />
+      </CellMeasurer>
+    );
+  };
 
   return (
     <>
@@ -96,15 +128,28 @@ export default function FilmList() {
           </div>
         </div>
         <div className="films-body">
-          {filmsFiltered
-            // .filter((e) => e.id > 500 && e.id < 600)
-            .map((film) => (
-              <FilmListItem
-                key={film.id}
-                film={film}
-                setSearchField={setSearchField}
-              />
-            ))}
+          <WindowScroller>
+            {({ height, scrollTop, registerChild, onChildScroll }) => (
+              <AutoSizer disableHeight>
+                {({ width }) => (
+                  <div ref={registerChild}>
+                    <List
+                      autoHeight
+                      height={height}
+                      width={width}
+                      deferredMeasurementCache={cellCache}
+                      scrollTop={scrollTop}
+                      onScroll={onChildScroll}
+                      overscanRowCount={50}
+                      rowCount={filmsFiltered.length}
+                      rowHeight={cellCache.rowHeight}
+                      rowRenderer={rowRenderer}
+                    />
+                  </div>
+                )}
+              </AutoSizer>
+            )}
+          </WindowScroller>
         </div>
       </div>
     </>
