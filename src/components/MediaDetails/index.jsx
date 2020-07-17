@@ -92,6 +92,10 @@ export default function MediaDetails() {
 
           {isMedia(mediaType) ? (
             <div className="media-creators">
+              <span className="creator-prefix">
+                {mediaType === "films" ? "Director:" : ""}
+                {mediaType === "tv" ? "Creator:" : ""}
+              </span>
               {media[creators[mediaType]].map((name, i) => (
                 <span key={name}>
                   <span>{i > 0 ? " & " : null}</span>
@@ -141,6 +145,21 @@ export default function MediaDetails() {
           {media.franchise ? (
             <div className="media-franchise">{media.franchise}</div>
           ) : null}
+
+          {mediaType === "tv" ? (
+            <>
+              <div className="tv-length">{`${media.seasons.length} ${
+                media.seasons.length > 1 ? "seasons" : "season"
+              }, ${media.seasons.reduce(
+                (sum, season) => sum + season.episodes,
+                0
+              )} episodes`}</div>
+              <div className="tv-hours">
+                {Number((media.minutesTotal / 60).toFixed(2))} hours
+              </div>
+            </>
+          ) : null}
+
           {wpData ? (
             <div className="media-summary">{wpData.extract}</div>
           ) : null}

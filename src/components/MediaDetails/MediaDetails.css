@@ -31,6 +31,9 @@
   font-style: italic;
   margin-right: 0.5em;
 }
+.media-creators .creator-prefix {
+  margin-right: 0.5em;
+}
 .media .media-franchise {
   font-style: italic;
 }
@@ -45,6 +48,7 @@
   margin-top: 2em;
   padding-right: 4em;
 }
+
 .media-links {
   margin-top: 2em;
 }
