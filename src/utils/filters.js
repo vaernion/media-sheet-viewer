@@ -81,6 +81,10 @@ export const filterGames = (sortedGames, searchField) => {
     return sortedGames.filter(
       (game) => game.year.toString() === searchStr.replace("y:", "")
     );
+  } else if (searchStr.startsWith("c:")) {
+    return sortedGames.filter((game) =>
+      normalize(game.completed).includes(searchStr.replace("c:", ""))
+    );
   } else {
     return sortedGames.filter(
       (game) =>

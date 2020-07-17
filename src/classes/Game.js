@@ -20,7 +20,7 @@ export class Game {
       this.genre.push(genre.trim());
     }
     this.year = game["Year"];
-    this.completed = game["completed?"];
+    this.completed = game["completed?"] || "no";
     this.system = game["System"];
   }
 

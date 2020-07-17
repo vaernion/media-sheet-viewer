@@ -58,7 +58,7 @@ function GameListItemRaw(props) {
       </span>
       <span
         className="game-completed on-click"
-        onClick={() => onclick(game.completed)}
+        onClick={() => onclick("c:" + game.completed)}
       >
         {game.completed}
       </span>
