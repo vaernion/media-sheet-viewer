@@ -1,6 +1,9 @@
 import * as React from "react";
 import { Link, useLocation, useParams } from "react-router-dom";
 import { useFetch } from "../../hooks/useFetch";
+import imdbLogo from "../../images/imdb-logo.png";
+import steamLogo from "../../images/Steam_icon_logo.svg";
+import wpLogo from "../../images/Wikipedia's_W.svg";
 import {
   capitalizeFirstLetter,
   formatYear,
@@ -56,15 +59,21 @@ export default function MediaDetails() {
   }
 
   const wpData =
-    wpSummary.response && wpSummary.response.type !== "disambiguation"
+    wpSummary.response && wpSummary.response.type === "standard"
       ? wpSummary.response
-      : {};
-  const poster = wpData.originalimage
-    ? wpData.originalimage.source
-    : wpData.thumbnail
-    ? wpData.thumbnail.source
-    : null;
+      : null;
+  const poster =
+    !!wpData && wpData.originalimage ? wpData.originalimage.source : null;
   // ***** wikipedia api end
+
+  // all types so far can be found on imdb
+  const imdbUrl = `https://www.imdb.com/find?q=${mediaTitle}`;
+
+  // should use api and search for app from the huge json of all apps
+  const steamUrl =
+    mediaType === "games"
+      ? `https://store.steampowered.com/search/?term=${mediaTitle}`
+      : null;
 
   // creations
   const created = getCreations(media.name, mediaSheet);
@@ -135,6 +144,24 @@ export default function MediaDetails() {
           {wpData ? (
             <div className="media-summary">{wpData.extract}</div>
           ) : null}
+
+          <div className="media-links">
+            {wpData ? (
+              <a href={wpData.content_urls.desktop.page}>
+                <img src={wpLogo} alt="Wikipedia" />
+              </a>
+            ) : null}
+            {imdbUrl ? (
+              <a href={imdbUrl}>
+                <img src={imdbLogo} alt="IMDb" />
+              </a>
+            ) : null}
+            {steamUrl ? (
+              <a href={steamUrl}>
+                <img src={steamLogo} alt="Steam" />
+              </a>
+            ) : null}
+          </div>
         </div>
 
         <div className="details-right">

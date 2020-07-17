@@ -62,7 +62,6 @@ function FilmListItemRaw(props) {
       >
         {film.franchise}
       </span>
-      {/* </div> */}
     </>
   );
 }

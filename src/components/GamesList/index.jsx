@@ -1,5 +1,11 @@
 import * as React from "react";
-import { AutoSizer, List, WindowScroller } from "react-virtualized";
+import {
+  AutoSizer,
+  CellMeasurer,
+  CellMeasurerCache,
+  List,
+  WindowScroller,
+} from "react-virtualized";
 import "../../styles/lists.css";
 import { filterGames } from "../../utils/filters.js";
 import { FieldHeader } from "../FieldHeader";
@@ -8,6 +14,11 @@ import { DispatchContext, StateContext } from "../Store";
 import { mediaSheet } from "../Store/mediaSheet";
 import { GameListItem } from "./GameListItem";
 import "./GamesList.css";
+
+const cellCache = new CellMeasurerCache({
+  fixedWidth: true,
+  defaultHeight: 50,
+});
 
 export default function GamesList() {
   const dispatch = React.useContext(DispatchContext);
@@ -35,16 +46,24 @@ export default function GamesList() {
     ];
   const gamesFiltered = filterGames(gamesSortedLocal, searchField);
 
-  const rowRenderer = ({ index, key, style }) => {
-    const game = gamesFiltered[index];
+  const rowRenderer = ({ index, key, style, parent }) => {
+    const data = gamesFiltered[index];
     return (
-      <GameListItem
-        key={key}
-        index={index}
-        data={game}
-        setSearchField={setSearchField}
-        style={style}
-      />
+      <CellMeasurer
+        key={data.id}
+        cache={cellCache}
+        parent={parent}
+        columnIndex={0}
+        rowIndex={index}
+      >
+        <GameListItem
+          key={key}
+          index={index}
+          data={data}
+          setSearchField={setSearchField}
+          style={style}
+        />
+      </CellMeasurer>
     );
   };
 
@@ -129,11 +148,12 @@ export default function GamesList() {
                       autoHeight
                       height={height}
                       width={width}
+                      deferredMeasurementCache={cellCache}
                       scrollTop={scrollTop}
                       onScroll={onChildScroll}
                       overscanRowCount={50}
                       rowCount={gamesFiltered.length}
-                      rowHeight={22}
+                      rowHeight={cellCache.rowHeight}
                       rowRenderer={rowRenderer}
                     />
                   </div>

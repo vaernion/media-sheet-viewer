@@ -47,10 +47,10 @@ export default function FilmList() {
   const filmsFiltered = filterFilms(filmsSortedLocal, searchField);
 
   const rowRenderer = ({ index, key, style, parent }) => {
-    const film = filmsFiltered[index];
+    const data = filmsFiltered[index];
     return (
       <CellMeasurer
-        key={film.id}
+        key={data.id}
         cache={cellCache}
         parent={parent}
         columnIndex={0}
@@ -58,7 +58,7 @@ export default function FilmList() {
       >
         <FilmListItem
           index={index}
-          data={film}
+          data={data}
           setSearchField={setSearchField}
           style={style}
         />
