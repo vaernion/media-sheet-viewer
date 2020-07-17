@@ -95,6 +95,7 @@ export default function MediaDetails() {
               <span className="creator-prefix">
                 {mediaType === "films" ? "Director:" : ""}
                 {mediaType === "tv" ? "Creator:" : ""}
+                {mediaType === "games" ? "Developer:" : ""}
               </span>
               {media[creators[mediaType]].map((name, i) => (
                 <span key={name}>
