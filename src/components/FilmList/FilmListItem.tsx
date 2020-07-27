@@ -1,14 +1,22 @@
 import * as React from "react";
 import { Link } from "react-router-dom";
-import "./GamesList.css";
+import { Film } from "../../classes/Film";
+import "./filmsList.css";
 
-export const GameListItem = (props) => {
+type Props = {
+  data: Film;
+  setSearchField: (field: string) => void;
+  index: number;
+  style: React.CSSProperties;
+};
+
+export const FilmListItem = (props: Props) => {
   return (
     <div
       className={`list-items ${props.index % 2 ? "" : "odd-index"}`}
       style={props.style}
     >
-      <GameListItemMemo
+      <FilmListItemMemo
         data={props.data}
         setSearchField={props.setSearchField}
       />
@@ -16,34 +24,39 @@ export const GameListItem = (props) => {
   );
 };
 
-const GameListItemMemo = React.memo(GameListItemRaw);
+const FilmListItemMemo = React.memo(FilmListItemRaw);
 
-function GameListItemRaw(props) {
-  const game = props.data;
+type RawProps = {
+  data: Film;
+  setSearchField: (field: string) => void;
+};
+
+function FilmListItemRaw(props: RawProps) {
+  const film = props.data;
   const onclick = props.setSearchField;
 
   return (
     <>
-      <span className="game-title">
-        <Link to={`/games/${game.id}`}>{game.title}</Link> (
+      <span className="film-title">
+        <Link to={`/films/${film.id}`}>{film.name}</Link> (
         <span
-          className="game-year on-click"
-          onClick={() => onclick("y:" + game.year)}
+          className="film-year on-click"
+          onClick={() => onclick("y:" + film.year)}
         >
-          {game.year}
+          {film.year}
         </span>
         )
       </span>
-      <span className="game-developer">
-        {game.developer.map((name, i) => (
+      <span className="film-director">
+        {film.creator.map((name, i) => (
           <span key={name}>
             <span>{i > 0 ? " & " : null}</span>
             <Link to={`/creators/${name}`}>{name}</Link>
           </span>
         ))}
       </span>
-      <span className="game-genre">
-        {game.genre.map((name, i) => (
+      <span className="film-genre">
+        {film.genre.map((name, i) => (
           <span key={name}>
             <span>{i > 0 ? " / " : null}</span>
             <span
@@ -57,16 +70,10 @@ function GameListItemRaw(props) {
         ))}
       </span>
       <span
-        className="game-completed on-click"
-        onClick={() => onclick("c:" + game.completed)}
+        className="film-franchise on-click"
+        onClick={() => onclick(film.franchise)}
       >
-        {game.completed}
-      </span>
-      <span
-        className="game-system on-click"
-        onClick={() => onclick(game.system)}
-      >
-        {game.system}
+        {film.franchise}
       </span>
     </>
   );

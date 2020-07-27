@@ -5,7 +5,7 @@ import {
   Route,
   Switch,
 } from "react-router-dom";
-// import "react-virtualized/styles.css";
+import "react-virtualized/styles.css";
 import "./app.css";
 import { ErrorBoundary } from "./components/ErrorBoundary";
 import NotFound from "./components/NotFound";

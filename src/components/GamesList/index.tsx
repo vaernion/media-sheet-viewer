@@ -4,10 +4,11 @@ import {
   CellMeasurer,
   CellMeasurerCache,
   List,
+  ListRowRenderer,
   WindowScroller,
 } from "react-virtualized";
 import "../../styles/lists.css";
-import { filterGames } from "../../utils/filters.js";
+import { filterGames } from "../../utils/filters";
 import { FieldHeader } from "../FieldHeader";
 import { SearchForm } from "../SearchForm";
 import { DispatchContext, StateContext } from "../Store";
@@ -32,7 +33,7 @@ export default function GamesList() {
     dispatch({ type: "FILTER_GAMES", payload: searchField });
   }, [searchField, dispatch]);
 
-  const handleSort = (field) => {
+  const handleSort = (field: string) => {
     if (field === state.sortGames) {
       dispatch({ type: "SORT_REVERSE_GAMES" });
     } else {
@@ -46,7 +47,7 @@ export default function GamesList() {
     ];
   const gamesFiltered = filterGames(gamesSortedLocal, searchField);
 
-  const rowRenderer = ({ index, key, style, parent }) => {
+  const rowRenderer: ListRowRenderer = ({ index, style, parent }) => {
     const data = gamesFiltered[index];
     return (
       <CellMeasurer
@@ -57,7 +58,6 @@ export default function GamesList() {
         rowIndex={index}
       >
         <GameListItem
-          key={key}
           index={index}
           data={data}
           setSearchField={setSearchField}

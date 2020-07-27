@@ -14,31 +14,36 @@ import { Spinner } from "../Spinner";
 import { mediaSheet } from "../Store/mediaSheet";
 import "./MediaDetails.css";
 
-const creators = {
-  films: "director",
-  tv: "creator",
-  games: "developer",
-};
-
 export default function MediaDetails() {
   const mediaType = useLocation().pathname.split("/")[1];
   const { id } = useParams();
 
   // creators route uses names instead of ids, so only allow names from the db
-  const media =
-    mediaType === "creators"
-      ? mediaSheet.creators.find((e) => e.name === id)
-      : mediaSheet[mediaType].find((e) => e.id === Number(id));
+  // const media =
+  //   mediaType === "creators"
+  //     ? mediaSheet.creators.find((e) => e.name === id)
+  //     : mediaSheet[mediaType].find((e) => e.id === Number(id));
 
-  // creator class uses name instead of title for now
-  const mediaTitle = media ? (media.title ? media.title : media.name) : null;
+  const media = (() => {
+    if (mediaType === "creators") {
+      return mediaSheet.creators.find((e) => e.name === id);
+    } else if (mediaType === "films") {
+      return mediaSheet.films.find((e) => e.id === Number(id));
+    } else if (mediaType === "tv") {
+      return mediaSheet.tv.find((e) => e.id === Number(id));
+    } else if (mediaType === "games") {
+      return mediaSheet.games.find((e) => e.id === Number(id));
+    }
+  })();
 
-  // title formatting
-  const titleYear = formatYear(media);
+  const mediaTitle = media ? media.name : null;
+  const titleYear = media ? formatYear(media) : null;
 
-  document.title = `${mediaTitle} ${
-    isMedia(media) ? titleYear : ""
-  } - ${capitalizeFirstLetter(mediaType)} - MediaSheetViewer`;
+  document.title = media
+    ? `${mediaTitle} ${
+        isMedia(media.type) ? titleYear : ""
+      } - ${capitalizeFirstLetter(mediaType)} - MediaSheetViewer`
+    : `${mediaType.slice(0, -1)} not found - MediaSheetViewer`;
 
   // ***** wikipedia api, only used for media-poster and media-summary
   const wpSummary = useFetch(
@@ -47,15 +52,18 @@ export default function MediaDetails() {
 
   // return must be after hooks
   if (!media) {
-    return `${mediaType} not found with ${
-      mediaType === "creators" ? "name" : "id"
-    } ${id}`;
-  }
-  if (!wpSummary || !wpSummary.response || wpSummary.isLoading) {
-    return <Spinner />;
+    return (
+      <div>
+        `${mediaType.slice(0, -1)} not found with $
+        {mediaType === "creators" ? "name" : "id"} ${id}`;
+      </div>
+    );
   }
   if (wpSummary.error) {
-    return `Error: ${wpSummary.error.message}`;
+    return <div>`Error: ${wpSummary.error?.message}`;</div>;
+  }
+  if (wpSummary.isLoading || !wpSummary.response) {
+    return <Spinner />;
   }
 
   const wpData =
@@ -84,22 +92,22 @@ export default function MediaDetails() {
         <div className="details-left">
           <div className="media-header">
             <h3 className="media-title">{mediaTitle}</h3>
-            {media.translatedTitle ? (
+            {"translatedTitle" in media ? (
               <div className="media-translation">{media.translatedTitle}</div>
             ) : null}
             {titleYear ? <span className="media-year">{titleYear}</span> : null}
           </div>
 
-          {isMedia(mediaType) ? (
+          {isMedia(mediaType) && "creator" in media ? (
             <div className="media-creators">
               <span className="creator-prefix">
                 {mediaType === "films" ? "Director:" : ""}
                 {mediaType === "tv" ? "Creator:" : ""}
                 {mediaType === "games" ? "Developer:" : ""}
               </span>
-              {media[creators[mediaType]].map((name, i) => (
+              {media.creator.map((name, i) => (
                 <span key={name}>
-                  <span>{i > 0 ? " & " : null}</span>
+                  {i > 0 ? <span> & </span> : null}
                   <span>
                     <Link to={`/creators/${name}`}>{name}</Link>
                   </span>
@@ -108,7 +116,7 @@ export default function MediaDetails() {
             </div>
           ) : null}
 
-          {isMedia(mediaType) ? (
+          {isMedia(mediaType) && "genre" in media ? (
             <div className="media-genre">
               {media.genre.map((name, i) => (
                 <span key={name}>
@@ -130,7 +138,7 @@ export default function MediaDetails() {
                           work.id
                         }`}
                       >
-                        {work.title}
+                        {work.name}
                       </Link>
                     </span>
                     <span className="work-year">{formatYear(work)}</span>
@@ -140,14 +148,14 @@ export default function MediaDetails() {
             </div>
           ) : null}
 
-          {media.system ? (
+          {"system" in media ? (
             <div className="media-system">{media.system}</div>
           ) : null}
-          {media.franchise ? (
+          {"franchise" in media ? (
             <div className="media-franchise">{media.franchise}</div>
           ) : null}
 
-          {mediaType === "tv" ? (
+          {mediaType === "tv" && "seasons" in media ? (
             <>
               <div className="tv-length">{`${media.seasons.length} ${
                 media.seasons.length > 1 ? "seasons" : "season"

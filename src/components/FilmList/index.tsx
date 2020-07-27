@@ -4,6 +4,7 @@ import {
   CellMeasurer,
   CellMeasurerCache,
   List,
+  ListRowRenderer,
   WindowScroller,
 } from "react-virtualized";
 import "../../styles/lists.css";
@@ -32,7 +33,7 @@ export default function FilmList() {
     dispatch({ type: "FILTER_FILMS", payload: searchField });
   }, [searchField, dispatch]);
 
-  const handleSort = (field) => {
+  const handleSort = (field: string) => {
     if (field === state.sortFilms) {
       dispatch({ type: "SORT_REVERSE_FILMS" });
     } else {
@@ -46,7 +47,7 @@ export default function FilmList() {
     ];
   const filmsFiltered = filterFilms(filmsSortedLocal, searchField);
 
-  const rowRenderer = ({ index, key, style, parent }) => {
+  const rowRenderer: ListRowRenderer = ({ index, style, parent }) => {
     const data = filmsFiltered[index];
     return (
       <CellMeasurer

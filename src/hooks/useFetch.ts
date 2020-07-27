@@ -1,18 +1,16 @@
 import { useEffect, useState } from "react";
 
-export function useFetch(path, options = null) {
-  const [response, setResponse] = useState(null);
-  const [error, setError] = useState(null);
-  const [isLoading, setIsLoading] = useState(false);
+export function useFetch(path: string, options?: { [key: string]: unknown }) {
+  const [response, setResponse] = useState<any>(null);
+  const [error, setError] = useState<Error | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
-      setIsLoading(true);
       try {
         const res = await fetch(path, options);
-        const json = await res.json();
-        // console.log("json", json);
-        setResponse(json);
+        const body = await res.json();
+        setResponse(body);
         setIsLoading(false);
       } catch (err) {
         console.error("useFetch error:", err);

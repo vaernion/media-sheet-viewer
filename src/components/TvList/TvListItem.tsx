@@ -1,18 +1,24 @@
 import * as React from "react";
 import { Link } from "react-router-dom";
+import { Television } from "../../classes/Television";
 import "./TvList.css";
 
 export const TvListItem = React.memo(TvListItemRaw);
 
-function TvListItemRaw(props) {
-  const tv = props.tv;
+type Props = {
+  data: Television;
+  setSearchField: (field: string) => void;
+};
+
+function TvListItemRaw(props: Props) {
+  const tv = props.data;
   const setSearchField = props.setSearchField;
 
   return (
     <>
       <div className="list-items unvirtualized">
         <span className="tv-title">
-          <Link to={`/tv/${tv.id}`}>{tv.title}</Link> (
+          <Link to={`/tv/${tv.id}`}>{tv.name}</Link> (
           <span
             className="tv-year on-click"
             onClick={() => setSearchField("ys:" + tv.seasons[0].yearStart)}

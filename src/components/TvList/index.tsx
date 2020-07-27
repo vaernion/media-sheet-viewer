@@ -20,7 +20,7 @@ export default function TvList() {
     dispatch({ type: "FILTER_TV", payload: searchField });
   }, [searchField, dispatch]);
 
-  const handleSort = (field) => {
+  const handleSort = (field: string) => {
     if (field === state.sortTv) {
       dispatch({ type: "SORT_REVERSE_TV" });
     } else {
@@ -95,7 +95,7 @@ export default function TvList() {
         </div>
         <div className="tvs-body">
           {tvFiltered.map((tv, i) => (
-            <TvListItem key={tv.id} tv={tv} setSearchField={setSearchField} />
+            <TvListItem key={tv.id} data={tv} setSearchField={setSearchField} />
           ))}
         </div>
       </div>

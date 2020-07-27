@@ -1,9 +1,22 @@
 import * as React from "react";
 import "./FieldHeader.css";
 
-export function FieldHeader(props) {
+type Props = {
+  sort: { sortBy: string; isSortReverse: boolean };
+  field: string;
+  label: string;
+  width: string;
+  onclick?: (field: Props["field"]) => void;
+};
+
+export function FieldHeader(props: Props) {
   const active = props.sort.sortBy === props.field ? true : false;
   const arrow = active ? (props.sort.isSortReverse ? "↑" : "↓") : null;
+
+  const handleClick = () => {
+    if (!props.onclick) return;
+    props.onclick(props.field);
+  };
 
   return (
     <>
@@ -15,7 +28,7 @@ export function FieldHeader(props) {
             (active ? " active" : "") +
             (!props.onclick ? " no-click" : "")
           }
-          onClick={props.onclick ? () => props.onclick(props.field) : undefined}
+          onClick={handleClick}
         >
           {props.label} {arrow}
         </span>

@@ -2,7 +2,13 @@ import * as React from "react";
 import { useDebounceEffect } from "../../hooks/useDebounceEffect";
 import "./searchForm.css";
 
-export function SearchForm({ value, setValue, placeholder }) {
+type Props = {
+  value: string;
+  setValue: (string: string) => void;
+  placeholder: string;
+};
+
+export function SearchForm({ value, setValue, placeholder }: Props) {
   const [state, setState] = React.useState(value);
 
   React.useEffect(() => {

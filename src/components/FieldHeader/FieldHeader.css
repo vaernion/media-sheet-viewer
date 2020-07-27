@@ -19,6 +19,9 @@
 .fheader:hover {
   background-color: lightskyblue;
 }
+.fheader.no-click {
+  border: 0;
+}
 .fheader.no-click:hover {
   background-color: inherit;
 }

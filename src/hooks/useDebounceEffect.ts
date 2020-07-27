@@ -8,7 +8,11 @@ import { useCallback, useEffect } from "react";
  * @param {number} delay Milliseconds
  * @param {any[]} dependencies
  */
-export function useDebounceEffect(callback, delay, dependencies) {
+export function useDebounceEffect(
+  callback: () => void,
+  delay: number,
+  dependencies: any[]
+) {
   const memoized = useCallback(callback, dependencies);
 
   useEffect(() => {
