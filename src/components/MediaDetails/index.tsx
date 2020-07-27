@@ -54,13 +54,13 @@ export default function MediaDetails() {
   if (!media) {
     return (
       <div>
-        `${mediaType.slice(0, -1)} not found with $
-        {mediaType === "creators" ? "name" : "id"} ${id}`;
+        {mediaType.slice(0, -1)} not found with{" "}
+        {mediaType === "creators" ? "name" : "id"} {id};
       </div>
     );
   }
   if (wpSummary.error) {
-    return <div>`Error: ${wpSummary.error?.message}`;</div>;
+    return <div>Error: {wpSummary.error?.message}</div>;
   }
   if (wpSummary.isLoading || !wpSummary.response) {
     return <Spinner />;
@@ -175,19 +175,25 @@ export default function MediaDetails() {
 
           <div className="media-links">
             {wpData ? (
-              <a href={wpData.content_urls.desktop.page}>
-                <img src={wpLogo} alt="Wikipedia" />
-              </a>
+              <span>
+                <a href={wpData.content_urls.desktop.page}>
+                  <img src={wpLogo} alt="Wikipedia" />
+                </a>
+              </span>
             ) : null}
             {imdbUrl ? (
-              <a href={imdbUrl}>
-                <img src={imdbLogo} alt="IMDb" />
-              </a>
+              <span>
+                <a href={imdbUrl}>
+                  <img src={imdbLogo} alt="IMDb" />
+                </a>
+              </span>
             ) : null}
             {steamUrl ? (
-              <a href={steamUrl}>
-                <img src={steamLogo} alt="Steam" />
-              </a>
+              <span>
+                <a href={steamUrl}>
+                  <img src={steamLogo} alt="Steam" />
+                </a>
+              </span>
             ) : null}
           </div>
         </div>

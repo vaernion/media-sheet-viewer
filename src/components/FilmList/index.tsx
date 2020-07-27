@@ -80,7 +80,7 @@ export default function FilmList() {
             <FieldHeader
               field="sortTitle"
               label="Title"
-              width="20%"
+              width="15%"
               sort={{
                 sortBy: state.sortFilms,
                 isSortReverse: state.sortReverseFilms,
@@ -100,7 +100,7 @@ export default function FilmList() {
             <FieldHeader
               field="director"
               label="Director"
-              width="25%"
+              width="30%"
               sort={{
                 sortBy: state.sortFilms,
                 isSortReverse: state.sortReverseFilms,
@@ -110,7 +110,7 @@ export default function FilmList() {
             <FieldHeader
               field="genre"
               label="Genre"
-              width="30%"
+              width="25%"
               sort={{
                 sortBy: state.sortFilms,
                 isSortReverse: state.sortReverseFilms,
@@ -119,7 +119,7 @@ export default function FilmList() {
             <FieldHeader
               field="franchise"
               label="Franchise"
-              width="15%"
+              width="20%"
               sort={{
                 sortBy: state.sortFilms,
                 isSortReverse: state.sortReverseFilms,

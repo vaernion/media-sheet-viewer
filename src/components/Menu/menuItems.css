@@ -1,0 +1,23 @@
+.menu {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+}
+.menu-link {
+  font-size: 1.8em;
+  margin: 0 0.7em 0 0.7em;
+  text-decoration: none;
+}
+
+.menu-children {
+  display: flex;
+  flex-flow: column;
+  position: absolute;
+}
+.menu-child {
+  padding: 0.5em;
+}
+.menu-child .menu-link {
+  font-size: 1.3em;
+}

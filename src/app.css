@@ -10,30 +10,10 @@
   width: 100%;
   height: 3em;
   padding-top: 0.5em;
-  background-color: white;
   z-index: 10;
-}
-.menuItems {
-  display: flex;
-  align-items: center;
-}
-.menuLink {
-  color: royalblue;
-  font-size: 1.5em;
-  margin: 0 0.7em 0 0.7em;
-  text-decoration: none;
-  flex-grow: 1;
-}
-.menuLinkActive {
-  color: darkslateblue;
-  text-decoration: underline black;
-}
-.menuLink:hover {
-  color: midnightblue;
 }
 .bodyContainer {
   display: flex;
   justify-content: center;
   padding-top: 3em;
-  /* height: 100%; */
 }

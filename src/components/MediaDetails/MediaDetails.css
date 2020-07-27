@@ -50,23 +50,18 @@
 }
 
 .media-links {
+  display: flex;
   margin-top: 2em;
 }
-.media-links a {
+.media-links span {
   padding: 0.5em;
+  margin: 0.5em;
+  border-radius: 10px;
+  border: 1px solid black;
 }
 .media-links img {
   width: 2em;
   height: 2em;
-}
-
-.details-left a,
-.details-left a:visited {
-  color: darkblue;
-  text-decoration: none;
-}
-.details-left a:hover {
-  color: rgb(146, 0, 19);
 }
 
 .media-poster {

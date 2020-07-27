@@ -1,0 +1,135 @@
+html {
+  --main-bg-color: #2c3531;
+  --secondary-bg-color: #116466;
+  --first-accent-color: #d9b08c;
+  --second-accent-color: #ffcb9a;
+  --primary-contrast-color: #d1e8e2;
+  --main-bg-accent-color: #1e2924;
+
+  /* --main-bg-color: #3feee6;
+  --secondary-bg-color: #55bcc9;
+  --first-accent-color: #97caef;
+  --second-accent-color: #cafafe;
+  --primary-contrast-color: #fc4445;
+  --secondary-constrast-color: #edf5e1; */
+
+  --text-color: white;
+  --text-contrast-color: black;
+  /* --link-color: var(--third-accent-color);
+  --link-hover-color: chartreuse; */
+
+  background-color: var(--main-bg-color);
+  color: var(--text-color);
+}
+
+.headerContainer,
+.bodyContainer {
+  background-color: var(--main-bg-color);
+}
+
+.films-head,
+.tvs-head,
+.directors-head,
+.games-head {
+  background-color: var(--main-bg-color);
+}
+
+.menu-link {
+  color: var(--first-accent-color);
+}
+.menu-link-active {
+  color: var(--second-accent-color);
+  text-decoration: underline var(--text-color);
+}
+.menu-link:hover {
+  color: var(--primary-contrast-color);
+}
+.menu-parent {
+  background-color: var(--main-bg-color);
+}
+.menu-children {
+  border-radius: 12px;
+  border: 2px solid var(--text-color);
+  background-color: var(--secondary-bg-color);
+}
+.menu-child .menu-link {
+  color: var(--first-accent-color);
+}
+.menu-child .menu-link:hover {
+  color: var(--text-contrast-color);
+}
+
+.searchform input {
+  background-color: var(--primary-contrast-color);
+}
+.searchform input::placeholder {
+  color: var(--text-contrast-color);
+}
+.searchform input:focus,
+.searchform button:focus {
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075),
+    0 0 0 3px rgba(0, 126, 255, 0.1);
+  outline: none;
+}
+.searchform .input-label {
+  background-color: var(--secondary-bg-color);
+}
+.searchform button:hover {
+  background-color: var(--first-accent-color);
+}
+
+.searchform input.error {
+  border-color: red;
+}
+
+.fheader {
+  background-color: var(--secondary-bg-color);
+}
+.fheader.no-click {
+  background-color: var(--main-bg-color);
+}
+.fheader.active {
+  background-color: var(--text-contrast-color);
+}
+.fheader:hover {
+  background-color: var(--primary-contrast-color);
+  color: var(--text-contrast-color);
+}
+.fheader.no-click:hover {
+  background-color: inherit;
+  color: inherit;
+}
+
+.list-items {
+  background-color: var(--main-bg-color);
+}
+.list-items a,
+.list-items a:visited,
+.details-left a,
+.details-left a:visited {
+  color: var(--primary-contrast-color);
+  text-decoration: none;
+}
+.list-items .on-click {
+  color: var(--second-accent-color);
+}
+.list-items a:hover,
+.list-items .on-click:hover,
+.details-left a:hover {
+  color: var(--text-color);
+  /* color: rgb(146, 0, 19); */
+}
+.details-left a:hover {
+  color: var(--first-accent-color);
+}
+.list-items.unvirtualized:nth-of-type(odd),
+.list-items.odd-index {
+  background-color: var(--main-bg-accent-color);
+}
+
+.media .media-links span {
+  background-color: var(--primary-contrast-color);
+}
+.media .media-links span:hover {
+  background-color: var(--first-accent-color);
+}

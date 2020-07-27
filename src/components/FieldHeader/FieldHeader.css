@@ -1,27 +1,13 @@
-/* fheader-outer colors to see area used */
 .fheader-outer {
   display: flex;
   justify-content: center;
-  /* background-color: beige; */
 }
-/* .fheader-outer:nth-of-type(even) {
-  background-color: gainsboro;
-} */
 .fheader {
   padding: 0 1.5em 0 1.5em;
   font-weight: bold;
   border-radius: 0.7em;
   border: 0.1em solid #ccc;
 }
-.fheader.active {
-  background-color: deepskyblue;
-}
-.fheader:hover {
-  background-color: lightskyblue;
-}
 .fheader.no-click {
   border: 0;
-}
-.fheader.no-click:hover {
-  background-color: inherit;
 }
