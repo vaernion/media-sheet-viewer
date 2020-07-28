@@ -1,6 +1,5 @@
 import * as React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-// import "react-virtualized/styles.css";
 import "./app.css";
 import { ErrorBoundary } from "./components/ErrorBoundary";
 import { Menu } from "./components/Menu";
@@ -15,34 +14,6 @@ const TvList = React.lazy(() => import("./components/TvList"));
 const GamesList = React.lazy(() => import("./components/GamesList"));
 const DirectorList = React.lazy(() => import("./components/DirectorList"));
 const MediaDetails = React.lazy(() => import("./components/MediaDetails"));
-
-export type MenuItem = {
-  path: string;
-  name: string;
-  exact?: boolean;
-  parent?: string;
-};
-
-export const menuItems: MenuItem[] = [
-  { path: "/", name: "Home", exact: true },
-  { path: "/films", name: "Films" },
-  { path: "/tv", name: "TV" },
-  { path: "/games", name: "Games" },
-  { path: "/directors", name: "Directors", parent: "Films" },
-  { path: "/stats", name: "Stats" },
-  { path: "/stats/graphs", name: "Graphs", parent: "Stats" },
-  { path: "/stats/something", name: "Something", parent: "Stats" },
-  { path: "/abcdef/:12345", name: "404", parent: "Home" },
-  { path: "/films", name: "Films", parent: "Home" },
-  { path: "/tv", name: "TV", parent: "Home" },
-  { path: "/games", name: "Games", parent: "Home" },
-  { path: "/films", name: "Films", parent: "TV" },
-  { path: "/tv", name: "TV", parent: "TV" },
-  { path: "/games", name: "Games", parent: "TV" },
-  { path: "/films", name: "Films", parent: "Games" },
-  { path: "/tv", name: "TV", parent: "Games" },
-  { path: "/games", name: "Games", parent: "Games" },
-];
 
 const routes = [
   { path: "/", exact: true, component: <Home /> },

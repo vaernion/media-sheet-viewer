@@ -26,10 +26,9 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "npm run prestart && react-scripts build",
+    "build": "npm run csv-all && react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "prestart": "npm run csv-all",
     "pretest": "npm run csv-all",
     "csv-all": "npm run csv-films && npm run csv-tv && npm run csv-games",
     "csv-films": "python \"./utility-csv-json/csv_to_json.py\" -s \";\" -i \"./src/data/films.csv\" -o \"./src/data/films.json\" --skip 1",

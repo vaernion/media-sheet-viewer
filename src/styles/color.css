@@ -15,8 +15,6 @@ html {
 
   --text-color: white;
   --text-contrast-color: black;
-  /* --link-color: var(--third-accent-color);
-  --link-hover-color: chartreuse; */
 
   background-color: var(--main-bg-color);
   color: var(--text-color);
@@ -48,12 +46,14 @@ html {
   background-color: var(--main-bg-color);
 }
 .menu-children {
-  border-radius: 12px;
   border: 2px solid var(--text-color);
   background-color: var(--secondary-bg-color);
 }
 .menu-child .menu-link {
   color: var(--first-accent-color);
+}
+.menu-child .menu-link-active {
+  text-decoration-color: var(--text-color);
 }
 .menu-child .menu-link:hover {
   color: var(--text-contrast-color);
