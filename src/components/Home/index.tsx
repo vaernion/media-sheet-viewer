@@ -1,4 +1,5 @@
 import * as React from "react";
+import { NavLink } from "react-router-dom";
 import filmDoubleExposure from "../../images/film-double-exposure_1920.jpg";
 import { menuItems } from "../Menu/menuItems";
 import "./Home.css";
@@ -7,23 +8,26 @@ export default function Home() {
   const pathsRaw = menuItems.filter((e) => e.name !== "Home");
   const paths = [];
 
+  // alternate menu generation with visual display of child paths
   for (let path of pathsRaw) {
     const children: React.ReactChild[] = [];
 
+    // generate this path's children
     if (path.children) {
       for (let child of path.children) {
         children.push(
           <span key={path.name + "child" + child.name} className="links-child">
-            <a href={child.path}>{child.name}</a>
+            <NavLink to={child.path}>{child.name}</NavLink>
           </span>
         );
       }
     }
+
     paths.push(
       <span key={path.name + "parent"}>
         <span className="links-container">
           <span className="links-parent">
-            <a href={path.path}>{path.name}</a>
+            <NavLink to={path.path}>{path.name}</NavLink>
           </span>
           <span className="links-children">{children}</span>
         </span>

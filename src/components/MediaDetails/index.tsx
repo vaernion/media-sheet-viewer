@@ -171,21 +171,25 @@ export default function MediaDetails() {
           <div className="media-links">
             {wpData ? (
               <span>
-                <a href={wpData.content_urls.desktop.page}>
+                <a
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  href={wpData.content_urls.desktop.page}
+                >
                   <img src={wpLogo} alt="Wikipedia" />
                 </a>
               </span>
             ) : null}
             {imdbUrl ? (
               <span>
-                <a href={imdbUrl}>
+                <a target="_blank" rel="noopener noreferrer" href={imdbUrl}>
                   <img src={imdbLogo} alt="IMDb" />
                 </a>
               </span>
             ) : null}
             {steamUrl ? (
               <span>
-                <a href={steamUrl}>
+                <a target="_blank" rel="noopener noreferrer" href={steamUrl}>
                   <img src={steamLogo} alt="Steam" />
                 </a>
               </span>
