@@ -14,17 +14,31 @@ const TvList = React.lazy(() => import("./components/TvList"));
 const GamesList = React.lazy(() => import("./components/GamesList"));
 const DirectorList = React.lazy(() => import("./components/DirectorList"));
 const MediaDetails = React.lazy(() => import("./components/MediaDetails"));
+const Stats = React.lazy(() => import("./components/Stats"));
+const StatsFilms = React.lazy(() => import("./components/Stats/StatsFilms"));
+const StatsTv = React.lazy(() => import("./components/Stats/StatsTv"));
+const StatsGames = React.lazy(() => import("./components/Stats/StatsGames"));
 
-const routes = [
-  { path: "/", exact: true, component: <Home /> },
-  { path: "/films", exact: true, component: <FilmList /> },
+type AppRoutes = {
+  path: string;
+  component: JSX.Element | React.LazyExoticComponent<() => JSX.Element>;
+  exact?: boolean;
+}[];
+
+const appRoutes: AppRoutes = [
+  { path: "/", component: <Home />, exact: true },
+  { path: "/films", component: <FilmList />, exact: true },
   { path: "/films/:id", component: <MediaDetails /> },
-  { path: "/tv", exact: true, component: <TvList /> },
+  { path: "/tv", component: <TvList />, exact: true },
   { path: "/tv/:id", component: <MediaDetails /> },
-  { path: "/games", exact: true, component: <GamesList /> },
+  { path: "/games", component: <GamesList />, exact: true },
   { path: "/games/:id", component: <MediaDetails /> },
-  { path: "/directors", exact: true, component: <DirectorList /> },
+  { path: "/directors", component: <DirectorList /> },
   { path: "/creators/:id", component: <MediaDetails /> },
+  { path: "/stats", component: <Stats />, exact: true },
+  { path: "/stats/films", component: <StatsFilms /> },
+  { path: "/stats/tv", component: <StatsTv /> },
+  { path: "/stats/games", component: <StatsGames /> },
   { path: "*", component: <NotFound /> },
 ];
 
@@ -40,9 +54,9 @@ export default function App() {
             <React.Suspense fallback={<Spinner />}>
               <Store>
                 <Switch>
-                  {routes.map((route) => (
+                  {appRoutes.map((route) => (
                     <Route
-                      key={route.path}
+                      key={"route" + route.path}
                       path={route.path}
                       exact={route.exact}
                     >

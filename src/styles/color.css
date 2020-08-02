@@ -28,7 +28,8 @@ html {
 .films-head,
 .tvs-head,
 .directors-head,
-.games-head {
+.games-head,
+.stats-head {
   background-color: var(--main-bg-color);
 }
 
@@ -106,7 +107,9 @@ html {
 .list-items a,
 .list-items a:visited,
 .details-left a,
-.details-left a:visited {
+.details-left a:visited,
+.home-links a,
+.home-links a:visited {
   color: var(--primary-contrast-color);
   text-decoration: none;
 }
@@ -115,7 +118,8 @@ html {
 }
 .list-items a:hover,
 .list-items .on-click:hover,
-.details-left a:hover {
+.details-left a:hover,
+.home-links a:hover {
   color: var(--text-color);
   /* color: rgb(146, 0, 19); */
 }
@@ -132,4 +136,9 @@ html {
 }
 .media .media-links span:hover {
   background-color: var(--first-accent-color);
+}
+
+.stats-infobox {
+  background-color: var(--primary-contrast-color);
+  color: var(--text-contrast-color);
 }

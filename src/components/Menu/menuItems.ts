@@ -22,18 +22,15 @@ export const menuItems: MenuItem[] = [
   {
     path: "/games",
     name: "Games",
-    children: [
-      { path: "/films", name: "Films" },
-      { path: "/tv", name: "TV" },
-      { path: "/games", name: "Games" },
-    ],
   },
   {
     path: "/stats",
     name: "Stats",
+    exact: true,
     children: [
-      { path: "/stats/graphs", name: "Graphs" },
-      { path: "/stats/something", name: "Something" },
+      { path: "/stats/films", name: "Films" },
+      { path: "/stats/tv", name: "TV" },
+      { path: "/stats/games", name: "Games" },
     ],
   },
 ];

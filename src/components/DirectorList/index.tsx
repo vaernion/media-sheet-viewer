@@ -24,8 +24,6 @@ export default function DirectorList() {
 
   document.title = `${mediaSheet.directors.length} Directors - MediaSheetViewer`;
 
-  if (!directorsFiltered) return null;
-
   return (
     <>
       <div className="directors">

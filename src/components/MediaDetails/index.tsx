@@ -19,11 +19,6 @@ export default function MediaDetails() {
   const { id } = useParams();
 
   // creators route uses names instead of ids, so only allow names from the db
-  // const media =
-  //   mediaType === "creators"
-  //     ? mediaSheet.creators.find((e) => e.name === id)
-  //     : mediaSheet[mediaType].find((e) => e.id === Number(id));
-
   const media = (() => {
     if (mediaType === "creators") {
       return mediaSheet.creators.find((e) => e.name === id);

@@ -7,37 +7,33 @@ import gamesJson from "../../data/games.json";
 import tvJson from "../../data/tv.json";
 import { compareLastName } from "../../utils/utilities";
 
-// films
+/* *************
+mediaSheet
+************* */
+
+// films - filtered for uniques
 const films = Film.generateFilmsFromJson(filmsJson).filter(
   (x, i, a) => a.findIndex((e) => e.name === x.name && e.year === x.year) === i
 );
 const filmsSorted = Film.generateSortedFilms(films);
-// console.info(
-//   `films.length: ${films.length} filmsSorted: ${Object.keys(filmsSorted)}`
-// );
 
 // film directors
 const directorsMatrix = films.map((e) => e.creator);
 const directors = Array.from(new Set(directorsMatrix.flat())).sort(
   compareLastName
 );
-// console.info(`directors.length: ${directors.length}`);
 
 // tv
 const tv = Television.generateTvFromJson(tvJson);
 const tvSorted = Television.generateSortedTv(tv);
-// console.info(`tv.length: ${tv.length} tvSorted: ${Object.keys(tvSorted)}`);
 
-// games
+// games - filtered for uniques
 const games = Game.generateGamesFromJson(gamesJson).filter(
   (x, i, a) => a.findIndex((e) => e.name === x.name && e.year === x.year) === i
 );
 const gamesSorted = Game.generateSortedGames(games);
-// console.info(
-//   `games.length: ${games.length} gamesSorted: ${Object.keys(gamesSorted)}`
-// );
 
-// console.time("matrix fiesta");
+// creators - messy way to collect all unique names (film and tv share many)
 const tvCreatorsMatrix = tv.map((e) => e.creator);
 const tvCreators = Array.from(new Set(tvCreatorsMatrix.flat()));
 const filmAndTvCreators = Array.from(
@@ -50,20 +46,115 @@ const gameDevelopers = Array.from(new Set(gameDevelopersMatrix.flat())).sort();
 const creators = Array.from(
   new Set([...filmAndTvCreators, ...gameDevelopers])
 ).map((name) => new Creator(name));
-// console.timeEnd("matrix fiesta");
 
-// console.info(
-//   "directors",
-//   directors.length,
-//   "tvCreators",
-//   tvCreators.length,
-//   "filmAndTv",
-//   filmAndTvCreators.length,
-//   "gameDevs",
-//   gameDevelopers.length,
-//   "all",
-//   creators.length
-// );
+/* *************
+stats
+************* */
+
+// films
+const filmGenreList = Array.from(
+  new Set(films.map((film) => film.genre).flat())
+).sort();
+const filmGenres = filmGenreList.map((genre) => ({
+  name: genre,
+  sum: films.filter((film) => film.genre.includes(genre)).length,
+}));
+
+const filmYearList = Array.from(
+  new Set(films.map((film) => film.year).flat())
+).sort();
+const filmYears = filmYearList.map((year) => {
+  const genres = filmGenreList.map((genre) => ({
+    name: genre,
+    sum: films.filter(
+      (film) => film.year === year && film.genre.includes(genre)
+    ).length,
+  }));
+  return {
+    year,
+    sum: films.filter((film) => film.year === year).length,
+    genres,
+  };
+});
+
+// tv
+const tvGenreList = Array.from(new Set(tv.map((t) => t.genre).flat())).sort();
+const tvGenres = tvGenreList.map((genre) => ({
+  name: genre,
+  sum: tv.filter((t) => t.genre.includes(genre)).length,
+}));
+
+const tvYearList = Array.from(
+  new Set([
+    ...tv
+      .map((t) => t.seasons)
+      .flat()
+      .map((s) => s.yearStart),
+    ...tv
+      .map((t) => t.seasons)
+      .flat()
+      .map((s) => s.yearEnd),
+  ])
+).sort();
+const tvYears = tvYearList.map((year) => {
+  const genres = tvGenreList.map((genre) => ({
+    name: genre,
+    sum: tv.filter(
+      (t) =>
+        t.seasons[0].yearStart <= year &&
+        t.seasons[t.seasons.length - 1].yearEnd >= year &&
+        t.genre.includes(genre)
+    ).length,
+  }));
+  return {
+    year,
+    sum: tv.filter(
+      (t) =>
+        t.seasons[0].yearStart <= year &&
+        t.seasons[t.seasons.length - 1].yearEnd >= year
+    ).length,
+    genres,
+  };
+});
+
+// games
+const gameGenreList = Array.from(
+  new Set(games.map((game) => game.genre).flat())
+).sort();
+const gameGenres = gameGenreList.map((genre) => ({
+  name: genre,
+  sum: games.filter((game) => game.genre.includes(genre)).length,
+}));
+
+const gameYearList = Array.from(
+  new Set(games.map((game) => game.year).flat())
+).sort();
+const gameYears = gameYearList.map((year) => {
+  const genres = gameGenreList.map((genre) => ({
+    name: genre,
+    sum: games.filter(
+      (game) => game.year === year && game.genre.includes(genre)
+    ).length,
+  }));
+  return {
+    year,
+    sum: games.filter((game) => game.year === year).length,
+    genres,
+  };
+});
+
+/* *************
+export
+************* */
+
+export const stats = {
+  filmGenres,
+  filmYears,
+  tvGenres,
+  tvYears,
+  gameGenres,
+  gameYears,
+};
 
 export const mediaSheet = {
   films,
@@ -74,8 +165,7 @@ export const mediaSheet = {
   games,
   gamesSorted,
   creators,
+  filmGenres: filmGenreList,
 };
 
 export type MediaSheet = typeof mediaSheet;
-
-// console.info(`mediaSheet: ${Object.keys(mediaSheet)}`);

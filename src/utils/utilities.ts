@@ -25,7 +25,7 @@ export const formatYear = (media: Film | Television | Game | Creator) => {
       media.seasons[media.seasons.length - 1].yearEnd
     })`;
   } else if ("year" in media) {
-    return String(media.year);
+    return `(${media.year})`;
   } else {
     return null;
   }

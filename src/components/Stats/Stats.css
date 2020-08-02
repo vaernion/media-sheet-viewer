@@ -1,0 +1,52 @@
+.stats {
+  display: flex;
+  align-items: center;
+  flex-flow: column;
+  width: 80vw;
+}
+.stats-summary {
+  display: flex;
+  flex-flow: column;
+}
+.summary-box {
+  display: flex;
+  flex-flow: row;
+}
+.summary-box .summary-header {
+  margin-right: 0.5em;
+}
+.stats-head {
+  position: fixed;
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  width: 100%;
+  padding: 1em 0 1em 0;
+  z-index: 5;
+}
+.stats-title {
+  margin: 0;
+}
+.stats-body {
+  display: flex;
+  justify-content: center;
+  flex-flow: row;
+  flex-wrap: wrap;
+  padding-top: 3em;
+}
+.stats-infobox {
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  margin: 1em;
+  border-radius: 1em;
+  padding: 0.5em;
+}
+.stats-infobox .canvas-container {
+  position: relative;
+  width: 35vw;
+}
+.stats-infobox .canvas-container-large {
+  position: relative;
+  width: 60vw;
+}
