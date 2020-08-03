@@ -4,15 +4,6 @@ import { stats } from "../Store/mediaSheet";
 
 console.log(stats);
 
-const defaultConfig = {
-  options: {
-    title: {
-      display: true,
-      fontSize: 14,
-    },
-  },
-};
-
 /* ***********
 FILM
 *********** */
@@ -32,52 +23,70 @@ export const filmGenresConfig: Chart.ChartConfiguration = {
   },
   options: {
     title: {
-      ...defaultConfig.options.title,
       text: "Genres",
     },
   },
 };
 
 export const filmYearsConfig: Chart.ChartConfiguration = {
-  type: "bar",
+  type: "line",
   data: {
     labels: stats.filmYears.map((e) => e.year),
     datasets: [
       {
         label: "# of films",
         data: stats.filmYears.map((e) => e.sum),
-        backgroundColor: palette("tol-rainbow", stats.filmYears.length).map(
+        pointBackgroundColor: palette("tol-sq", stats.filmYears.length).map(
           (hex: string) => "#" + hex
         ),
+        backgroundColor: "grey",
       },
     ],
   },
   options: {
     title: {
-      ...defaultConfig.options.title,
       text: "Years",
     },
   },
 };
 
-export const filmGenresYearsConfig: Chart.ChartConfiguration = {
+export const filmGenresPerYearsConfig: Chart.ChartConfiguration = {
   type: "bar",
   data: {
     labels: stats.filmYears.map((e) => e.year),
-    datasets: [
-      {
-        label: "# of films",
-        data: stats.filmYears.map((e) => e.sum),
-        backgroundColor: palette("tol-rainbow", stats.filmYears.length).map(
-          (hex: string) => "#" + hex
-        ),
-      },
-    ],
+    datasets: stats.filmGenres.map((filmGenre, genreIndex) => ({
+      label: filmGenre.name,
+      data: stats.filmYears.map(
+        (filmYear) =>
+          filmYear.genres[
+            filmYear.genres.findIndex((e) => e.name === filmGenre.name)
+          ].sum
+      ),
+      backgroundColor: palette("mpn65", stats.filmGenres.length).map(
+        (hex: string) => "#" + hex
+      )[genreIndex],
+    })),
   },
   options: {
     title: {
-      ...defaultConfig.options.title,
-      text: "Genres per years",
+      text: "Genres per year",
+    },
+    tooltips: {
+      filter: (tooltipItem) => Number(tooltipItem.value) > 0,
+      intersect: false,
+      mode: "index",
+    },
+    scales: {
+      xAxes: [
+        {
+          stacked: true,
+        },
+      ],
+      yAxes: [
+        {
+          stacked: true,
+        },
+      ],
     },
   },
 };
@@ -101,30 +110,69 @@ export const tvGenresConfig: Chart.ChartConfiguration = {
   },
   options: {
     title: {
-      ...defaultConfig.options.title,
       text: "Genres",
     },
   },
 };
 
 export const tvYearsConfig: Chart.ChartConfiguration = {
-  type: "bar",
+  type: "line",
   data: {
     labels: stats.tvYears.map((e) => e.year),
     datasets: [
       {
         label: "# of series",
         data: stats.tvYears.map((e) => e.sum),
-        backgroundColor: palette("tol-rainbow", stats.tvYears.length).map(
+        pointBackgroundColor: palette("tol-sq", stats.tvYears.length).map(
           (hex: string) => "#" + hex
         ),
+        backgroundColor: "grey",
       },
     ],
   },
   options: {
     title: {
-      ...defaultConfig.options.title,
       text: "Years",
+    },
+  },
+};
+
+export const tvGenresPerYearsConfig: Chart.ChartConfiguration = {
+  type: "bar",
+  data: {
+    labels: stats.tvYears.map((e) => e.year),
+    datasets: stats.tvGenres.map((tvGenre, genreIndex) => ({
+      label: tvGenre.name,
+      data: stats.tvYears.map(
+        (tvYear) =>
+          tvYear.genres[tvYear.genres.findIndex((e) => e.name === tvGenre.name)]
+            .sum
+      ),
+      backgroundColor: palette("mpn65", stats.tvGenres.length).map(
+        (hex: string) => "#" + hex
+      )[genreIndex],
+    })),
+  },
+  options: {
+    title: {
+      text: "Genres per year",
+    },
+    tooltips: {
+      filter: (tooltipItem) => Number(tooltipItem.value) > 0,
+      intersect: false,
+      mode: "index",
+    },
+    scales: {
+      xAxes: [
+        {
+          stacked: true,
+        },
+      ],
+      yAxes: [
+        {
+          stacked: true,
+        },
+      ],
     },
   },
 };
@@ -133,7 +181,7 @@ export const tvYearsConfig: Chart.ChartConfiguration = {
 GAME
 *********** */
 export const gameGenresConfig: Chart.ChartConfiguration = {
-  type: "bar",
+  type: "doughnut",
   data: {
     labels: stats.gameGenres.map((e) => e.name),
     datasets: [
@@ -148,52 +196,70 @@ export const gameGenresConfig: Chart.ChartConfiguration = {
   },
   options: {
     title: {
-      ...defaultConfig.options.title,
       text: "Genres",
     },
   },
 };
 
 export const gameYearsConfig: Chart.ChartConfiguration = {
-  type: "bar",
+  type: "line",
   data: {
     labels: stats.gameYears.map((e) => e.year),
     datasets: [
       {
         label: "# of games",
         data: stats.gameYears.map((e) => e.sum),
-        backgroundColor: palette("tol-rainbow", stats.gameYears.length).map(
+        pointBackgroundColor: palette("tol-sq", stats.gameYears.length).map(
           (hex: string) => "#" + hex
         ),
+        backgroundColor: "grey",
       },
     ],
   },
   options: {
     title: {
-      ...defaultConfig.options.title,
       text: "Years",
     },
   },
 };
 
-export const gameGenresYearsConfig: Chart.ChartConfiguration = {
+export const gameGenresPerYearsConfig: Chart.ChartConfiguration = {
   type: "bar",
   data: {
     labels: stats.gameYears.map((e) => e.year),
-    datasets: [
-      {
-        label: "# of games",
-        data: stats.gameYears.map((e) => e.sum),
-        backgroundColor: palette("tol-rainbow", stats.gameYears.length).map(
-          (hex: string) => "#" + hex
-        ),
-      },
-    ],
+    datasets: stats.gameGenres.map((gameGenre, genreIndex) => ({
+      label: gameGenre.name,
+      data: stats.gameYears.map(
+        (gameYear) =>
+          gameYear.genres[
+            gameYear.genres.findIndex((e) => e.name === gameGenre.name)
+          ].sum
+      ),
+      backgroundColor: palette("mpn65", stats.gameGenres.length).map(
+        (hex: string) => "#" + hex
+      )[genreIndex],
+    })),
   },
   options: {
     title: {
-      ...defaultConfig.options.title,
-      text: "Genres per years",
+      text: "Genres per year",
+    },
+    tooltips: {
+      filter: (tooltipItem) => Number(tooltipItem.value) > 0,
+      intersect: false,
+      mode: "index",
+    },
+    scales: {
+      xAxes: [
+        {
+          stacked: true,
+        },
+      ],
+      yAxes: [
+        {
+          stacked: true,
+        },
+      ],
     },
   },
 };

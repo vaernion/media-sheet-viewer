@@ -26,16 +26,16 @@ type AppRoutes = {
 }[];
 
 const appRoutes: AppRoutes = [
-  { path: "/", component: <Home />, exact: true },
-  { path: "/films", component: <FilmList />, exact: true },
+  { path: "/", component: <Home /> },
+  { path: "/films", component: <FilmList /> },
   { path: "/films/:id", component: <MediaDetails /> },
-  { path: "/tv", component: <TvList />, exact: true },
+  { path: "/tv", component: <TvList /> },
   { path: "/tv/:id", component: <MediaDetails /> },
-  { path: "/games", component: <GamesList />, exact: true },
+  { path: "/games", component: <GamesList /> },
   { path: "/games/:id", component: <MediaDetails /> },
   { path: "/directors", component: <DirectorList /> },
   { path: "/creators/:id", component: <MediaDetails /> },
-  { path: "/stats", component: <Stats />, exact: true },
+  { path: "/stats", component: <Stats /> },
   { path: "/stats/films", component: <StatsFilms /> },
   { path: "/stats/tv", component: <StatsTv /> },
   { path: "/stats/games", component: <StatsGames /> },
@@ -58,7 +58,7 @@ export default function App() {
                     <Route
                       key={"route" + route.path}
                       path={route.path}
-                      exact={route.exact}
+                      exact={route.exact ?? true}
                     >
                       {route.component}
                     </Route>

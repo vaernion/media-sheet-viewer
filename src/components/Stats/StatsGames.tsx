@@ -2,7 +2,7 @@ import * as React from "react";
 import "../../styles/color.css";
 import {
   gameGenresConfig,
-  gameGenresYearsConfig,
+  gameGenresPerYearsConfig,
   gameYearsConfig,
 } from "./config";
 import { Infobox } from "./Infobox";
@@ -18,9 +18,9 @@ export default function StatsGames() {
           <h2 className="stats-title">Stats - Games</h2>
         </div>
         <div className="stats-body">
+          <Infobox config={gameGenresPerYearsConfig} large />
           <Infobox config={gameGenresConfig} large />
           <Infobox config={gameYearsConfig} />
-          <Infobox config={gameGenresYearsConfig} large />
         </div>
       </div>
     </>
