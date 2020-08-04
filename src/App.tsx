@@ -46,7 +46,7 @@ export default function App() {
   return (
     <>
       <ErrorBoundary>
-        <Router basename={"media-sheet-viewer"}>
+        <Router basename={process.env.PUBLIC_URL}>
           <div className="headerContainer">
             <Menu />
           </div>

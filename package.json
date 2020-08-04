@@ -6,7 +6,6 @@
     "name": "Vaernion",
     "url": "https://github.com/vaernion"
   },
-  "homepage": "https://vaernion.github.io/media-sheet-viewer",
   "dependencies": {
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
