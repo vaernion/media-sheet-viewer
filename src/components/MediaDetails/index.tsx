@@ -50,7 +50,7 @@ export default function MediaDetails() {
     return (
       <div>
         {mediaType.slice(0, -1)} not found with{" "}
-        {mediaType === "creators" ? "name" : "id"} {id};
+        {mediaType === "creators" ? "name" : "id"} {id}
       </div>
     );
   }
