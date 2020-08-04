@@ -3,6 +3,8 @@ name: Build & Deploy to GH Pages
 on:
   push:
     branches: [master]
+    paths-ignore:
+      - "README.md"
 
 jobs:
   build:
@@ -16,6 +18,7 @@ jobs:
       - name: Install and test
         run: |
           yarn install
+          yarn run csv-all
           yarn test
 
       - name: Build 🔧

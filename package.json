@@ -28,10 +28,9 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "npm run csv-all && react-scripts build",
+    "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "pretest": "npm run csv-all",
     "csv-all": "npm run csv-films && npm run csv-tv && npm run csv-games",
     "csv-films": "python \"./utility-csv-json/csv_to_json.py\" -s \";\" -i \"./src/data/films.csv\" -o \"./src/data/films.json\" --skip 1",
     "csv-tv": "python \"./utility-csv-json/csv_to_json.py\" -s \";\" -i \"./src/data/tv.csv\" -o \"./src/data/tv.json\" --skip 1",
