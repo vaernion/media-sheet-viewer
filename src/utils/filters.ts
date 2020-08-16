@@ -24,7 +24,8 @@ export const filterFilms = (films: Film[], filterRaw: string): Film[] => {
         film.creator.findIndex((director) =>
           normalize(director).includes(filter)
         ) !== -1 ||
-        normalize(film.franchise).includes(filter)
+        normalize(film.franchise).includes(filter) ||
+        normalize(film.translatedTitle).includes(filter)
     );
   }
 };

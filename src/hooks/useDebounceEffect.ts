@@ -1,18 +1,19 @@
 import { useCallback, useEffect } from "react";
 
 /**
- * Fire callback when dependencies stay unchanged for duration of delay.
+ * Fire callback if dependencies change
+ * and then stay unchanged for duration of delay.
  * @link https://stackoverflow.com/a/61127960
  * @export
- * @param {function} callback
+ * @param {function():void} callback
  * @param {number} delay Milliseconds
- * @param {any[]} dependencies
+ * @param {*[]} dependencies
  */
 export function useDebounceEffect(
   callback: () => void,
   delay: number,
   dependencies: any[]
-) {
+): void {
   const memoized = useCallback(callback, dependencies);
 
   useEffect(() => {

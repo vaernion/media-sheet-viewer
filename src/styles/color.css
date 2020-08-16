@@ -121,7 +121,6 @@ html {
 .details-left a:hover,
 .home-links a:hover {
   color: var(--text-color);
-  /* color: rgb(146, 0, 19); */
 }
 .details-left a:hover {
   color: var(--first-accent-color);

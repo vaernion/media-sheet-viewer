@@ -1,14 +1,15 @@
 import * as React from "react";
 import { Link } from "react-router-dom";
 import { Game } from "../../classes/Game";
-import "./GamesList.css";
 
-type Props = {
+type RawProps = {
   data: Game;
   setSearchField: (field: string) => void;
+};
+interface Props extends RawProps {
   index: number;
   style: React.CSSProperties;
-};
+}
 
 export const GameListItem = (props: Props) => {
   return (
@@ -25,11 +26,6 @@ export const GameListItem = (props: Props) => {
 };
 
 const GameListItemMemo = React.memo(GameListItemRaw);
-
-type RawProps = {
-  data: Game;
-  setSearchField: (field: string) => void;
-};
 
 function GameListItemRaw(props: RawProps) {
   const game = props.data;

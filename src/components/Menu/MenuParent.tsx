@@ -20,6 +20,13 @@ export function MenuParent({
     setActive(false);
   };
 
+  const handleTouchStart = () => {
+    setActive(true);
+  };
+  const handleTouchEnd = () => {
+    setActive(false);
+  };
+
   return (
     <>
       <span
@@ -27,6 +34,8 @@ export function MenuParent({
         className={`menu-item menu-item-${item.name}`}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
+        onTouchStart={handleTouchStart}
+        onTouchEnd={handleTouchEnd}
       >
         <div className="menu-parent">
           <MenuLink

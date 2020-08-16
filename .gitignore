@@ -25,3 +25,5 @@ yarn-error.log*
 
 # to ensure csv util is used
 /src/data/*.json
+# Local Netlify folder
+.netlify

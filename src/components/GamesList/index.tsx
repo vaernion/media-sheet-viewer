@@ -14,7 +14,6 @@ import { SearchForm } from "../SearchForm";
 import { DispatchContext, StateContext } from "../Store";
 import { mediaSheet } from "../Store/mediaSheet";
 import { GameListItem } from "./GameListItem";
-import "./GamesList.css";
 
 const cellCache = new CellMeasurerCache({
   fixedWidth: true,
@@ -74,13 +73,14 @@ export default function GamesList() {
           <SearchForm
             value={searchField}
             setValue={setSearchField}
-            placeholder="examples: deus ex | g:stealth | arkane | y:1998"
+            placeholder="deus ex | g:stealth | arkane | y:1998 | c:yes"
           />
           <div className="headers">
             <FieldHeader
               field="sortTitle"
               label="Title"
               width="20%"
+              primary
               sort={{
                 sortBy: state.sortGames,
                 isSortReverse: state.sortReverseGames,

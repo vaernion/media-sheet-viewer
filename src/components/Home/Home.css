@@ -11,22 +11,22 @@
 .links-container {
   display: flex;
   flex-flow: column;
-  margin: 1em;
-  border-radius: 1em;
-  border: 1px solid;
-  padding: 0.5em;
+  margin: 1rem;
+  border-radius: 1rem;
+  border: 0.1rem solid;
+  padding: 0.5rem;
 }
 .links-parent {
   align-self: center;
   font-weight: bold;
-  font-size: 1.5em;
+  font-size: 1.5rem;
 }
 .links-children {
   font-weight: lighter;
-  font-size: 1.3em;
+  font-size: 1.3rem;
 }
 .links-child {
-  margin: 1em;
+  margin: 1rem;
 }
 .home-image {
   width: 80%;
@@ -35,4 +35,28 @@
   object-fit: contain;
   max-width: 100%;
   min-width: 100%;
+}
+
+@media screen and (max-width: 1024px) {
+  h1 {
+    font-size: calc(100vw / 12);
+  }
+  .home-links {
+    flex-flow: column;
+  }
+  .links-container {
+    margin: 0.3rem;
+  }
+  .links-parent {
+    font-size: 1.2rem;
+  }
+  .links-children {
+    font-size: 1.1rem;
+  }
+  .links-child {
+    margin: 0.7rem;
+  }
+  .home-image {
+    width: 100%;
+  }
 }

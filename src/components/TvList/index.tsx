@@ -5,7 +5,6 @@ import { FieldHeader } from "../FieldHeader";
 import { SearchForm } from "../SearchForm";
 import { DispatchContext, StateContext } from "../Store";
 import { mediaSheet } from "../Store/mediaSheet";
-import "./TvList.css";
 import { TvListItem } from "./TvListItem";
 
 export default function TvList() {
@@ -39,13 +38,14 @@ export default function TvList() {
           <SearchForm
             value={searchField}
             setValue={setSearchField}
-            placeholder="examples: wire | david simon | g:sci-fi | (y|ys|ye):2005"
+            placeholder="wire | david simon | g:sci-fi | (y|ys|ye):2005"
           />
           <div className="headers">
             <FieldHeader
               field="sortTitle"
               label="Title"
               width="10%"
+              primary
               sort={{
                 sortBy: state.sortTv,
                 isSortReverse: state.sortReverseTv,

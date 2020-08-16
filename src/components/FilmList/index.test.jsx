@@ -15,7 +15,7 @@ const element = (
 test("renders with search field", () => {
   render(element);
 
-  expect(screen.getByPlaceholderText("examples", { exact: false }));
+  expect(screen.getByPlaceholderText("|", { exact: false }));
 });
 
 test("sorts by year", () => {

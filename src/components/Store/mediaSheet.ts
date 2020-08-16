@@ -165,7 +165,6 @@ export const mediaSheet = {
   games,
   gamesSorted,
   creators,
-  filmGenres: filmGenreList,
 };
 
 export type MediaSheet = typeof mediaSheet;

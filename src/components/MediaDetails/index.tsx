@@ -54,22 +54,19 @@ export default function MediaDetails() {
       </div>
     );
   }
-  if (wpSummary.error) {
-    return <div>Error: {wpSummary.error?.message}</div>;
-  }
-  if (wpSummary.isLoading || !wpSummary.response) {
+  // if (wpSummary.error) {
+  //   return <div>Error: {wpSummary.error?.message}</div>;
+  // }
+  if (wpSummary.isLoading) {
     return <Spinner />;
   }
 
-  const wpData =
-    wpSummary.response && wpSummary.response.type === "standard"
-      ? wpSummary.response
-      : null;
-  const poster =
-    !!wpData && wpData.originalimage ? wpData.originalimage.source : null;
+  // treat disambiguation pages as null
+  const wpData = wpSummary.data?.type === "standard" ? wpSummary.data : null;
+  const poster = wpData?.originalimage ? wpData.originalimage.source : null;
   // ***** wikipedia api end
 
-  // all types so far can be found on imdb
+  // all media used here can be found on imdb
   const imdbUrl = `https://www.imdb.com/find?q=${mediaTitle}`;
 
   // should use api and search for app from the huge json of all apps
@@ -78,8 +75,9 @@ export default function MediaDetails() {
       ? `https://store.steampowered.com/search/?term=${mediaTitle}`
       : null;
 
-  // creations
-  const created = getCreations(media.name, mediaSheet);
+  // creations by creator
+  const created =
+    media.type === "creator" ? getCreations(media.name, mediaSheet) : "";
 
   return (
     <>
@@ -87,18 +85,18 @@ export default function MediaDetails() {
         <div className="details-left">
           <div className="media-header">
             <h3 className="media-title">{mediaTitle}</h3>
-            {"translatedTitle" in media ? (
-              <div className="media-translation">{media.translatedTitle}</div>
+            {"translatedTitle" in media && media.translatedTitle ? (
+              <span className="media-translation">{media.translatedTitle}</span>
             ) : null}
             {titleYear ? <span className="media-year">{titleYear}</span> : null}
           </div>
 
-          {isMedia(mediaType) && "creator" in media ? (
+          {"creator" in media ? (
             <div className="media-creators">
               <span className="creator-prefix">
-                {mediaType === "films" ? "Director:" : ""}
-                {mediaType === "tv" ? "Creator:" : ""}
-                {mediaType === "games" ? "Developer:" : ""}
+                {media.type === "film" ? "Director:" : ""}
+                {media.type === "tv" ? "Creator:" : ""}
+                {media.type === "game" ? "Developer:" : ""}
               </span>
               {media.creator.map((name, i) => (
                 <span key={name}>
@@ -111,7 +109,7 @@ export default function MediaDetails() {
             </div>
           ) : null}
 
-          {isMedia(mediaType) && "genre" in media ? (
+          {"genre" in media ? (
             <div className="media-genre">
               {media.genre.map((name, i) => (
                 <span key={name}>
@@ -150,7 +148,7 @@ export default function MediaDetails() {
             <div className="media-franchise">{media.franchise}</div>
           ) : null}
 
-          {mediaType === "tv" && "seasons" in media ? (
+          {media.type === "tv" && "seasons" in media ? (
             <>
               <div className="tv-length">{`${media.seasons.length} ${
                 media.seasons.length > 1 ? "seasons" : "season"

@@ -1,13 +1,15 @@
 import { useEffect, useState } from "react";
 
 /**
+ *
  * Returns latest value when it stops changing, or the previous stable value.
  * @export
- * @param {any} value
+ * @template T
+ * @param {T} value
  * @param {number} delay Milliseconds
- * @returns Debounced value
+ * @returns {T} Debounced value
  */
-export function useDebounceValue(value: unknown, delay: number) {
+export function useDebounceValue<T>(value: T, delay: number): T {
   const [state, setState] = useState(value);
 
   useEffect(() => {

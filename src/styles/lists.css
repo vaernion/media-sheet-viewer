@@ -34,14 +34,84 @@
   flex: 1;
   padding-top: 7em;
 }
-.tvs .list-items,
-.films .list-items,
-.games .list-items {
+:not(.directors-body) > .list-items {
   display: flex;
   justify-content: center;
 }
-.films .list-items span,
-.tvs .list-items span,
-.games .list-items span {
+.list-items span {
   text-align: left;
+}
+.film-translation {
+  font-style: italic;
+}
+
+/* film columns */
+.list-items .film-title {
+  width: 35%;
+}
+.list-items .film-director {
+  width: 25%;
+}
+.list-items .film-genre {
+  width: 35%;
+}
+.list-items .film-franchise {
+  width: 15%;
+}
+
+/* tv columns */
+.list-items .tv-title {
+  width: 30%;
+}
+.list-items .tv-creator {
+  width: 35%;
+}
+.list-items .tv-genre {
+  width: 35%;
+}
+
+/* game columns */
+.list-items .game-title {
+  width: 30%;
+}
+.list-items .game-developer {
+  width: 25%;
+}
+.list-items .game-genre {
+  width: 30%;
+}
+.list-items .game-completed {
+  width: 10%;
+}
+.list-items .game-system {
+  width: 5%;
+}
+
+/* directors list */
+.directors-body {
+  display: flex;
+  padding-top: 5em;
+}
+.directors ul {
+  columns: 5;
+}
+.directors li {
+  margin-left: 1em;
+}
+
+/* single column layout */
+@media screen and (max-width: 1024px) {
+  /* except for directors, hide all non-title columns */
+  :not(.directors-body) > .list-items > :not(:first-child) {
+    display: none;
+  }
+  .list-items > .film-title,
+  .list-items > .tv-title,
+  .list-items > .game-title {
+    width: 100%;
+    text-align: center;
+  }
+  .directors ul {
+    columns: 2;
+  }
 }

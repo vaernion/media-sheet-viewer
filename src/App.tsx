@@ -28,12 +28,12 @@ type AppRoutes = {
 const appRoutes: AppRoutes = [
   { path: "/", component: <Home /> },
   { path: "/films", component: <FilmList /> },
+  { path: "/films/directors", component: <DirectorList /> },
   { path: "/films/:id", component: <MediaDetails /> },
   { path: "/tv", component: <TvList /> },
   { path: "/tv/:id", component: <MediaDetails /> },
   { path: "/games", component: <GamesList /> },
   { path: "/games/:id", component: <MediaDetails /> },
-  { path: "/directors", component: <DirectorList /> },
   { path: "/creators/:id", component: <MediaDetails /> },
   { path: "/stats", component: <Stats /> },
   { path: "/stats/films", component: <StatsFilms /> },

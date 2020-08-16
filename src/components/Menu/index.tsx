@@ -12,9 +12,22 @@ export type MenuItem = {
 };
 
 export function Menu() {
+  const [active, setActive] = React.useState(false);
+
+  const handleTouchStart = () => {
+    setActive(true);
+  };
+  const handleTouchEnd = () => {
+    setActive(false);
+  };
+
   return (
     <>
-      <div className="menu">
+      <div
+        className={"menu" + (active ? " active" : "")}
+        onTouchStart={handleTouchStart}
+        onTouchEnd={handleTouchEnd}
+      >
         {menuItems.map((item) => {
           return (
             <MenuParent

@@ -1,7 +1,6 @@
 import * as React from "react";
 import { Link } from "react-router-dom";
 import { Television } from "../../classes/Television";
-import "./TvList.css";
 
 export const TvListItem = React.memo(TvListItemRaw);
 

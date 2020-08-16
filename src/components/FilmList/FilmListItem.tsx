@@ -1,14 +1,15 @@
 import * as React from "react";
 import { Link } from "react-router-dom";
 import { Film } from "../../classes/Film";
-import "./filmsList.css";
 
-type Props = {
+type RawProps = {
   data: Film;
   setSearchField: (field: string) => void;
+};
+interface Props extends RawProps {
   index: number;
   style: React.CSSProperties;
-};
+}
 
 export const FilmListItem = (props: Props) => {
   return (
@@ -26,11 +27,6 @@ export const FilmListItem = (props: Props) => {
 
 const FilmListItemMemo = React.memo(FilmListItemRaw);
 
-type RawProps = {
-  data: Film;
-  setSearchField: (field: string) => void;
-};
-
 function FilmListItemRaw(props: RawProps) {
   const film = props.data;
   const onclick = props.setSearchField;
@@ -38,7 +34,11 @@ function FilmListItemRaw(props: RawProps) {
   return (
     <>
       <span className="film-title">
-        <Link to={`/films/${film.id}`}>{film.name}</Link> (
+        <Link to={`/films/${film.id}`}>{film.name}</Link>
+        {film.translatedTitle ? (
+          <span className="film-translation"> - {film.translatedTitle} </span>
+        ) : null}
+        (
         <span
           className="film-year on-click"
           onClick={() => onclick("y:" + film.year)}

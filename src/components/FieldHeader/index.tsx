@@ -2,10 +2,11 @@ import * as React from "react";
 import "./FieldHeader.css";
 
 type Props = {
-  sort: { sortBy: string; isSortReverse: boolean };
   field: string;
   label: string;
   width: string;
+  primary?: boolean;
+  sort: { sortBy: string; isSortReverse: boolean };
   onclick?: (field: Props["field"]) => void;
 };
 
@@ -20,7 +21,10 @@ export function FieldHeader(props: Props) {
 
   return (
     <>
-      <span className={"fheader-outer"} style={{ width: props.width }}>
+      <span
+        className={"fheader-outer" + (props.primary ? " primary" : "")}
+        style={{ width: props.width }}
+      >
         <span
           tabIndex={0}
           className={

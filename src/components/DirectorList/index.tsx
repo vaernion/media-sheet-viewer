@@ -4,7 +4,6 @@ import "../../styles/lists.css";
 import { normalize } from "../../utils/utilities";
 import { SearchForm } from "../SearchForm";
 import { mediaSheet } from "../Store/mediaSheet";
-import "./DirectorList.css";
 
 export default function DirectorList() {
   const [searchField, setSearchField] = React.useState("");

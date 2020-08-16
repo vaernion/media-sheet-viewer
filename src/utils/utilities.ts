@@ -32,7 +32,7 @@ export const formatYear = (media: Film | Television | Game | Creator) => {
 };
 
 export const isMedia = (mediaType: string) => {
-  return mediaType !== "creator";
+  return mediaType && mediaType !== "creator" && mediaType !== "creators";
 };
 
 export const getCreations = (name: string, mediaSheet: MediaSheet) => {

@@ -13,7 +13,7 @@
   flex-flow: row;
 }
 .summary-box .summary-header {
-  margin-right: 0.5em;
+  margin-right: 0.5rem;
 }
 .stats-head {
   position: fixed;
@@ -21,7 +21,7 @@
   flex-flow: column;
   align-items: center;
   width: 100%;
-  padding: 1em 0 1em 0;
+  padding: 1rem 0 1rem 0;
   z-index: 5;
 }
 .stats-title {
@@ -32,15 +32,15 @@
   justify-content: center;
   flex-flow: row;
   flex-wrap: wrap;
-  padding-top: 3em;
+  padding-top: 3rem;
 }
 .stats-infobox {
   display: flex;
   flex-flow: column;
   justify-content: center;
-  margin: 1em;
-  border-radius: 1em;
-  padding: 0.5em;
+  margin: 1rem;
+  border-radius: 1rem;
+  padding: 0.5rem;
 }
 .stats-infobox .canvas-container {
   position: relative;
@@ -49,4 +49,16 @@
 .stats-infobox .canvas-container-large {
   position: relative;
   width: 70vw;
+}
+
+@media screen and (max-width: 1024px) {
+  .stats-body {
+    margin: 1rem;
+  }
+  .stats-infobox .canvas-container {
+    width: 40rem;
+  }
+  .stats-infobox .canvas-container-large {
+    width: 60rem;
+  }
 }

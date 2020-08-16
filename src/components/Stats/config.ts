@@ -2,8 +2,6 @@ import Chart from "chart.js";
 import palette from "google-palette";
 import { stats } from "../Store/mediaSheet";
 
-console.log(stats);
-
 /* ***********
 FILM
 *********** */

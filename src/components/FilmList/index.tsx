@@ -14,7 +14,6 @@ import { SearchForm } from "../SearchForm";
 import { DispatchContext, StateContext } from "../Store";
 import { mediaSheet } from "../Store/mediaSheet";
 import { FilmListItem } from "./FilmListItem";
-import "./filmsList.css";
 
 const cellCache = new CellMeasurerCache({
   fixedWidth: true,
@@ -74,13 +73,14 @@ export default function FilmList() {
           <SearchForm
             value={searchField}
             setValue={setSearchField}
-            placeholder="examples: star wars | g:drama | hitchcock | y:2010"
+            placeholder="star wars | g:drama | hitchcock | y:2010"
           />
           <div className="headers">
             <FieldHeader
               field="sortTitle"
               label="Title"
-              width="15%"
+              width="20%"
+              primary
               sort={{
                 sortBy: state.sortFilms,
                 isSortReverse: state.sortReverseFilms,
@@ -90,7 +90,7 @@ export default function FilmList() {
             <FieldHeader
               field="year"
               label="Year"
-              width="10%"
+              width="15%"
               sort={{
                 sortBy: state.sortFilms,
                 isSortReverse: state.sortReverseFilms,
@@ -100,7 +100,7 @@ export default function FilmList() {
             <FieldHeader
               field="director"
               label="Director"
-              width="30%"
+              width="25%"
               sort={{
                 sortBy: state.sortFilms,
                 isSortReverse: state.sortReverseFilms,
@@ -110,7 +110,7 @@ export default function FilmList() {
             <FieldHeader
               field="genre"
               label="Genre"
-              width="25%"
+              width="35%"
               sort={{
                 sortBy: state.sortFilms,
                 isSortReverse: state.sortReverseFilms,
@@ -119,7 +119,7 @@ export default function FilmList() {
             <FieldHeader
               field="franchise"
               label="Franchise"
-              width="20%"
+              width="15%"
               sort={{
                 sortBy: state.sortFilms,
                 isSortReverse: state.sortReverseFilms,
