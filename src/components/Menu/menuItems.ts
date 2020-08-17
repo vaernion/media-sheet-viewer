@@ -18,7 +18,11 @@ export const menuItems: MenuItem[] = [
     name: "Films",
     children: [{ path: "/films/directors", name: "Directors" }],
   },
-  { path: "/tv", name: "TV" },
+  {
+    path: "/tv",
+    name: "TV",
+    children: [{ path: "/tv/timeline", name: "Timeline" }],
+  },
   {
     path: "/games",
     name: "Games",

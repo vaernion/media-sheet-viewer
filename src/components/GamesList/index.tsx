@@ -151,7 +151,7 @@ export default function GamesList() {
                       deferredMeasurementCache={cellCache}
                       scrollTop={scrollTop}
                       onScroll={onChildScroll}
-                      overscanRowCount={50}
+                      overscanRowCount={30}
                       rowCount={gamesFiltered.length}
                       rowHeight={cellCache.rowHeight}
                       rowRenderer={rowRenderer}

@@ -29,7 +29,9 @@ html {
 .tvs-head,
 .directors-head,
 .games-head,
-.stats-head {
+.stats-head,
+.timeline,
+.timeline-head {
   background-color: var(--main-bg-color);
 }
 

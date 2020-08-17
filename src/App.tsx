@@ -18,6 +18,7 @@ const Stats = React.lazy(() => import("./components/Stats"));
 const StatsFilms = React.lazy(() => import("./components/Stats/StatsFilms"));
 const StatsTv = React.lazy(() => import("./components/Stats/StatsTv"));
 const StatsGames = React.lazy(() => import("./components/Stats/StatsGames"));
+const Timeline = React.lazy(() => import("./components/Timeline"));
 
 type AppRoutes = {
   path: string;
@@ -31,6 +32,7 @@ const appRoutes: AppRoutes = [
   { path: "/films/directors", component: <DirectorList /> },
   { path: "/films/:id", component: <MediaDetails /> },
   { path: "/tv", component: <TvList /> },
+  { path: "/tv/timeline", component: <Timeline /> },
   { path: "/tv/:id", component: <MediaDetails /> },
   { path: "/games", component: <GamesList /> },
   { path: "/games/:id", component: <MediaDetails /> },

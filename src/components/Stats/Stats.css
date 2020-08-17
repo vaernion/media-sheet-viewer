@@ -30,8 +30,7 @@
 .stats-body {
   display: flex;
   justify-content: center;
-  flex-flow: row;
-  flex-wrap: wrap;
+  flex-flow: row wrap;
   padding-top: 3rem;
 }
 .stats-infobox {
@@ -53,10 +52,16 @@
 
 @media screen and (max-width: 1024px) {
   .stats-body {
-    margin: 1rem;
+    flex-flow: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+  }
+  .stats-infobox {
+    padding: 0.2rem;
   }
   .stats-infobox .canvas-container {
-    width: 40rem;
+    width: 30rem;
   }
   .stats-infobox .canvas-container-large {
     width: 60rem;

@@ -6,11 +6,11 @@
 .searchform button {
   padding: 0.5rem;
   font-size: 1rem;
-  border-radius: 4px;
+  border-radius: 0.2rem;
   border: 0.15rem solid #ccc;
 }
 .searchform input {
-  flex: 1;
+  width: 100%;
 }
 .searchform input:focus,
 .searchform button:focus {
@@ -31,5 +31,10 @@
 @media screen and (max-width: 1024px) {
   .searchform {
     width: 80vw;
+  }
+  .searchform input,
+  .searchform button {
+    padding: 0.2rem;
+    font-size: 0.9rem;
   }
 }

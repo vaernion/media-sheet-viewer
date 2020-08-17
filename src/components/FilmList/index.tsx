@@ -5,7 +5,7 @@ import {
   CellMeasurerCache,
   List,
   ListRowRenderer,
-  WindowScroller,
+  WindowScroller
 } from "react-virtualized";
 import "../../styles/lists.css";
 import { filterFilms } from "../../utils/filters";
@@ -141,7 +141,7 @@ export default function FilmList() {
                       deferredMeasurementCache={cellCache}
                       scrollTop={scrollTop}
                       onScroll={onChildScroll}
-                      overscanRowCount={50}
+                      overscanRowCount={30}
                       rowCount={filmsFiltered.length}
                       rowHeight={cellCache.rowHeight}
                       rowRenderer={rowRenderer}
