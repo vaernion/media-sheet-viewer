@@ -1,2 +1,0 @@
-(this["webpackJsonpmedia-sheet-viewer"]=this["webpackJsonpmedia-sheet-viewer"]||[]).push([[6],{45:function(e,t,n){"use strict";n.r(t),n.d(t,"default",(function(){return i}));var r=n(0),a=n(1);function i(){var e=Object(a.f)();return document.title="404 error: ".concat(e.pathname," - MediaSheetViewer"),r.createElement(r.Fragment,null,r.createElement("div",null,r.createElement("h1",{style:{textAlign:"center"}},"404"),e.pathname," not found"))}}}]);
-//# sourceMappingURL=6.abfebd01.chunk.js.map

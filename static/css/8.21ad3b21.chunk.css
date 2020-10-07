@@ -1,2 +1,0 @@
-.tv{display:flex;flex-flow:row;margin-top:2em;width:50vw}.tv .left,.tv .right{margin:1em;display:flex;flex-flow:column}.tv .tv-title{display:flex;flex-flow:row;align-items:center;justify-content:center}.tv .tv-year{margin-left:.5em}.tv .tv-summary{margin-top:2em}.tv a,.tv a:visited{color:#295bda;text-decoration:none}.tv a:hover{color:#920013}.tv-poster{display:flex;flex-direction:column;justify-content:center;width:400px}.tv-poster-image{object-fit:contain;max-width:100%;min-width:100%}
-/*# sourceMappingURL=8.21ad3b21.chunk.css.map */
