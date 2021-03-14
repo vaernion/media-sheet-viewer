@@ -16,7 +16,7 @@ import "./MediaDetails.css";
 
 export default function MediaDetails() {
   const mediaType = useLocation().pathname.split("/")[1];
-  const { id } = useParams();
+  const { id } = useParams<{ id: string }>();
 
   // creators route uses names instead of ids, so only allow names from the db
   const media = (() => {
