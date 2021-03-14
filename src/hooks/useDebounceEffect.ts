@@ -14,7 +14,7 @@ export function useDebounceEffect(
   delay: number,
   dependencies: any[]
 ): void {
-  const memoized = useCallback(callback, dependencies);
+  const memoized = useCallback(callback, [...dependencies, callback]);
 
   useEffect(() => {
     const debounce = setTimeout(() => memoized(), delay);
